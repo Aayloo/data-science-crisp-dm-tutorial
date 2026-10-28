@@ -920,6 +920,41 @@ code {
 
 .callout-no-icon {
   grid-template-columns: 1fr;
+  padding: 22px 24px;
+}
+
+.callout-no-icon ol {
+  display: grid;
+  gap: 3px;
+  padding-left: 0;
+  margin-top: 12px;
+  list-style: none;
+  counter-reset: callout-step;
+}
+
+.callout-no-icon li {
+  position: relative;
+  min-height: 34px;
+  padding: 6px 0 6px 38px;
+  border-top: 1px solid var(--border);
+  counter-increment: callout-step;
+}
+
+.callout-no-icon li::before {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  color: var(--teal-dark);
+  background: var(--teal-pale);
+  border-radius: 50%;
+  content: counter(callout-step);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 800;
 }
 
 .callout-warning {

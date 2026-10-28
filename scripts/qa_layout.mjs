@@ -194,6 +194,9 @@ try {
           });
           const diagramWidths = [...document.querySelectorAll(".diagram-figure img")]
             .map((image) => Math.round(image.getBoundingClientRect().width));
+          const modelCallout = document.querySelector("#modeling .callout-no-icon");
+          const modelCalloutRect = modelCallout?.getBoundingClientRect();
+          const modelCalloutContentRect = modelCallout?.firstElementChild?.getBoundingClientRect();
           const menu = document.querySelector("#menu-button");
           return {
             title: document.title,
@@ -206,6 +209,10 @@ try {
             duplicateIds,
             imageLayouts,
             diagramWidths,
+            modelCalloutWidth: Math.round(modelCalloutRect?.width || 0),
+            modelCalloutContentInset: Math.round(
+              (modelCalloutContentRect?.left || 0) - (modelCalloutRect?.left || 0),
+            ),
             sectionCount: document.querySelectorAll("main section[id]").length,
             h1Count: document.querySelectorAll("h1").length,
             notebookCells: document.querySelectorAll(".notebook-document .cell").length,
@@ -254,6 +261,13 @@ try {
         (metrics.diagramWidths.length !== 5 || metrics.diagramWidths.some((width) => width < 740))
       ) {
         throw new Error(`${label}: explanatory diagrams are below the readable width`);
+      }
+      const minimumCalloutWidth = viewport.name === "mobile" ? 280 : 500;
+      if (
+        page.kind === "tutorial" &&
+        (metrics.modelCalloutWidth < minimumCalloutWidth || metrics.modelCalloutContentInset > 30)
+      ) {
+        throw new Error(`${label}: model callout layout is broken`);
       }
       if (page.kind === "notebook" && metrics.notebookCells < 5) {
         throw new Error(`${label}: notebook content did not render`);
