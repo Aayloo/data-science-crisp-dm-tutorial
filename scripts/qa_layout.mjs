@@ -184,6 +184,14 @@ try {
             .map((anchor) => anchor.getAttribute("href"));
           const ids = [...document.querySelectorAll("[id]")].map((node) => node.id);
           const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
+          const imageLayouts = [...document.images].map((image) => {
+            const rect = image.getBoundingClientRect();
+            return {
+              alt: image.alt,
+              width: Math.round(rect.width),
+              height: Math.round(rect.height),
+            };
+          });
           const menu = document.querySelector("#menu-button");
           return {
             title: document.title,
@@ -194,6 +202,7 @@ try {
             brokenImages,
             missingAnchors,
             duplicateIds,
+            imageLayouts,
             sectionCount: document.querySelectorAll("main section[id]").length,
             h1Count: document.querySelectorAll("h1").length,
             notebookCells: document.querySelectorAll(".notebook-document .cell").length,
@@ -230,6 +239,15 @@ try {
       }
       if (page.kind === "notebook" && metrics.notebookCells < 5) {
         throw new Error(`${label}: notebook content did not render`);
+      }
+      if (page.kind === "notebook") {
+        const minimumChartWidth = viewport.name === "mobile" ? 280 : viewport.name === "tablet" ? 600 : 700;
+        const narrowImages = metrics.imageLayouts.filter((image) => image.width < minimumChartWidth);
+        if (!metrics.imageLayouts.length || narrowImages.length) {
+          throw new Error(
+            `${label}: notebook visualizations are too narrow: ${JSON.stringify(narrowImages)}`,
+          );
+        }
       }
 
       if (page.kind === "tutorial" && viewport.name === "mobile") {

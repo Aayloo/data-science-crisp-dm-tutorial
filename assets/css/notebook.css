@@ -13,7 +13,7 @@
   --sans: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --mono: "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --content: 1120px;
+  --content: 1320px;
 }
 
 * {
@@ -112,7 +112,7 @@ pre {
 .notebook-shell {
   width: min(100%, var(--content));
   margin: 0 auto;
-  padding: 42px 40px 80px;
+  padding: 42px 48px 88px;
 }
 
 .notebook-banner {
@@ -120,7 +120,7 @@ pre {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 28px;
   align-items: end;
-  margin-bottom: 28px;
+  margin-bottom: 34px;
   padding: clamp(26px, 5vw, 48px);
   color: white;
   background: var(--ink);
@@ -185,7 +185,7 @@ pre {
 }
 
 .notebook-document {
-  padding: clamp(22px, 4vw, 48px);
+  padding: clamp(24px, 4.4vw, 58px);
   background: var(--surface);
   border: 1px solid var(--border);
   box-shadow: 0 18px 50px rgba(23, 50, 77, 0.07);
@@ -224,36 +224,48 @@ pre {
 }
 
 .cell {
-  margin: 20px 0;
-}
-
-.text_cell.rendered {
   margin: 26px 0;
 }
 
+.text_cell.rendered {
+  margin: 34px 0;
+}
+
 .code_cell {
+  margin: 32px 0;
   overflow: hidden;
-  background: #f7f9f8;
+  background: var(--surface);
   border: 1px solid var(--border);
 }
 
 .code_cell .input {
   display: grid;
-  grid-template-columns: 66px minmax(0, 1fr);
+  grid-template-columns: 72px minmax(0, 1fr);
+  background: #f7f9f8;
   border-bottom: 1px solid var(--border);
 }
 
 .code_cell .output_wrapper {
+  display: block;
+  background: var(--surface);
+}
+
+.code_cell .output {
+  display: block;
+}
+
+.output_area {
   display: grid;
-  grid-template-columns: 66px minmax(0, 1fr);
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: start;
 }
 
 .prompt {
-  padding: 15px 10px;
+  padding: 16px 12px;
   color: #788b9a;
   background: #edf1f0;
   font-family: var(--mono);
-  font-size: 0.64rem;
+  font-size: 0.65rem;
   line-height: 1.4;
 }
 
@@ -267,7 +279,7 @@ pre {
 
 div.highlight {
   margin: 0;
-  padding: 15px 18px;
+  padding: 17px 20px;
   overflow-x: auto;
   background: #f7f9f8;
 }
@@ -275,20 +287,29 @@ div.highlight {
 div.highlight pre {
   margin: 0;
   font-family: var(--mono);
-  font-size: 0.78rem;
-  line-height: 1.65;
+  font-size: 0.8rem;
+  line-height: 1.72;
 }
 
 .output_subarea {
+  width: 100%;
   min-width: 0;
-  padding: 14px 16px;
+  padding: 16px 20px;
+  overflow-x: auto;
 }
 
 .output_subarea img {
   display: block;
   max-width: 100%;
   height: auto;
-  margin: 8px auto 18px;
+  margin: 10px auto 20px;
+  background: white;
+  border: 1px solid #edf0f1;
+}
+
+.output_png {
+  padding: clamp(16px, 2.4vw, 26px);
+  background: #fbfcf9;
 }
 
 .output_subarea pre {
@@ -301,9 +322,11 @@ div.highlight pre {
 
 .output_subarea table {
   width: 100%;
+  min-width: 680px;
   margin: 8px 0 18px;
   overflow: hidden;
   border-collapse: collapse;
+  border: 0;
   font-size: 0.8rem;
 }
 
@@ -331,6 +354,24 @@ div.highlight pre {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-top: 28px;
+}
+
+.notebook-document .text_cell.rendered h2 {
+  padding-top: 26px;
+  border-top: 1px solid var(--border);
+}
+
+.notebook-document .text_cell.rendered:first-of-type h2 {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.notebook-document .text_cell.render_before + .code_cell {
+  margin-top: 18px;
+}
+
+.notebook-document .code_cell + .text_cell.rendered {
+  margin-top: 44px;
 }
 
 .notebook-pager a {
@@ -379,7 +420,7 @@ div.highlight pre {
   text-align: center;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .notebook-topbar {
     grid-template-columns: 1fr auto;
     padding: 0 16px;
@@ -406,9 +447,20 @@ div.highlight pre {
     padding: 18px 14px;
   }
 
-  .code_cell .input,
-  .code_cell .output_wrapper {
-    grid-template-columns: 48px minmax(0, 1fr);
+  .code_cell .input {
+    grid-template-columns: 1fr;
+  }
+
+  .code_cell .input > .prompt {
+    display: none;
+  }
+
+  .output_area {
+    grid-template-columns: 1fr;
+  }
+
+  .output_area > .prompt {
+    display: none;
   }
 
   .prompt {
@@ -418,6 +470,18 @@ div.highlight pre {
 
   div.highlight {
     padding: 13px 12px;
+  }
+
+  div.highlight pre {
+    font-size: 0.74rem;
+  }
+
+  .output_subarea {
+    padding: 14px;
+  }
+
+  .output_subarea table {
+    min-width: 620px;
   }
 
   .notebook-pager {

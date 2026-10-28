@@ -61,6 +61,7 @@ CASES = [
         "previous": ("house-price", "Case B · House Prices"),
         "next": ("customer-churn", "Case A · Customer Churn"),
         "alts": [
+            "Line chart of synthetic monthly demand over time.",
             "Line chart comparing actual monthly demand with two forecast methods.",
         ],
     },
@@ -69,11 +70,19 @@ CASES = [
 
 def add_image_alt_text(fragment: str, descriptions: list[str]) -> str:
     iterator = iter(descriptions)
-    pattern = re.compile(r"<img\b(?![^>]*\balt=)")
+    pattern = re.compile(r"<img\b([^>]*)>", re.IGNORECASE)
 
     def replacement(match: re.Match[str]) -> str:
         description = next(iterator, "Notebook output visualisation.")
-        return f'<img alt="{html.escape(description, quote=True)}"'
+        attributes = re.sub(
+            r"\balt=(?:\"[^\"]*\"|'[^']*')",
+            "",
+            match.group(1),
+            flags=re.IGNORECASE,
+        ).strip()
+        escaped = html.escape(description, quote=True)
+        spacer = " " if attributes else ""
+        return f'<img alt="{escaped}"{spacer}{attributes}>'
 
     return pattern.sub(replacement, fragment)
 
