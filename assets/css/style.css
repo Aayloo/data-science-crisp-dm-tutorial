@@ -1,7 +1,7 @@
 :root {
   --ink: #17324d;
   --ink-soft: #38556d;
-  --muted: #64748b;
+  --muted: #5f6f83;
   --paper: #f6f5ef;
   --surface: #fffef9;
   --surface-alt: #edf4f2;
@@ -9,7 +9,7 @@
   --teal-dark: #0b5f59;
   --teal-pale: #d9eeea;
   --blue-pale: #e8f0f6;
-  --amber: #b7791f;
+  --amber: #8b5a10;
   --amber-pale: #fbf1dc;
   --red: #a62c24;
   --red-pale: #fbe9e6;
@@ -226,7 +226,7 @@ pre {
 }
 
 .brand-kicker {
-  color: var(--muted);
+  color: #5c6b7d;
 }
 
 .brand-title {
@@ -246,7 +246,7 @@ pre {
 
 .nav-label {
   padding: 0 10px 8px;
-  color: #81909d;
+  color: #5c6b7d;
 }
 
 .nav-label-spaced {
@@ -269,7 +269,7 @@ pre {
 }
 
 .nav-link span {
-  color: #8795a1;
+  color: #5c6b7d;
   font-family: var(--mono);
   font-size: 0.7rem;
 }
