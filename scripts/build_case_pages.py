@@ -107,7 +107,7 @@ def page_shell(case: dict, fragment: str) -> str:
   <meta name="theme-color" content="#17324d">
   <title>{html.escape(case['title'])} · Case Lab {case['number']}</title>
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/css/notebook.css">
+  <link rel="stylesheet" href="../../assets/css/notebook.css?v=20261028-2">
   <style>{syntax_css}</style>
 </head>
 <body>

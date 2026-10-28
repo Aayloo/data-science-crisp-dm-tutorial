@@ -29,7 +29,7 @@ class PageParser(HTMLParser):
             if value.startswith("#"):
                 self.fragments.append(value[1:])
             elif not parsed.scheme and not parsed.netloc:
-                self.local_resources.append(value.split("#", 1)[0])
+                self.local_resources.append(parsed.path)
         if tag == "img" and "alt" not in values:
             self.images_without_alt.append(values.get("src") or "<unknown>")
 
