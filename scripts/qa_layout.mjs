@@ -1,0 +1,253 @@
+import { spawn } from "node:child_process";
+import fs from "node:fs";
+import http from "node:http";
+import os from "node:os";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const host = "127.0.0.1";
+const port = 8765;
+const url = `http://${host}:${port}/`;
+const outputDir = path.join(root, "tmp", "qa");
+fs.mkdirSync(outputDir, { recursive: true });
+
+const chromeCandidates = [
+  process.env.CHROME_PATH,
+  "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+  "/usr/bin/google-chrome",
+  "/usr/bin/chromium",
+].filter(Boolean);
+const chromePath = chromeCandidates.find((candidate) => fs.existsSync(candidate));
+if (!chromePath) {
+  throw new Error("Chrome or Edge was not found. Set CHROME_PATH and retry.");
+}
+
+const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+
+function httpGet(targetUrl) {
+  return new Promise((resolve, reject) => {
+    const request = http.get(targetUrl, (response) => {
+      let body = "";
+      response.setEncoding("utf8");
+      response.on("data", (chunk) => {
+        body += chunk;
+      });
+      response.on("end", () => {
+        resolve({ statusCode: response.statusCode, body });
+      });
+    });
+    request.setTimeout(2_000, () => request.destroy(new Error("HTTP request timed out")));
+    request.on("error", reject);
+  });
+}
+
+async function waitForUrl(targetUrl, attempts = 80) {
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      const response = await httpGet(targetUrl);
+      if (response.statusCode >= 200 && response.statusCode < 300) return response;
+    } catch {
+      // Retry while the local process starts.
+    }
+    await sleep(100);
+  }
+  throw new Error(`Timed out waiting for ${targetUrl}`);
+}
+
+class CdpClient {
+  constructor(socket) {
+    this.socket = socket;
+    this.nextId = 1;
+    this.pending = new Map();
+    this.events = new Map();
+    socket.addEventListener("message", (event) => {
+      const message = JSON.parse(event.data);
+      if (message.id && this.pending.has(message.id)) {
+        const { resolve, reject } = this.pending.get(message.id);
+        this.pending.delete(message.id);
+        if (message.error) reject(new Error(message.error.message));
+        else resolve(message.result);
+        return;
+      }
+      const handlers = this.events.get(message.method) || [];
+      handlers.forEach((handler) => handler(message.params));
+    });
+  }
+
+  send(method, params = {}) {
+    const id = this.nextId++;
+    return new Promise((resolve, reject) => {
+      this.pending.set(id, { resolve, reject });
+      this.socket.send(JSON.stringify({ id, method, params }));
+      setTimeout(() => {
+        if (!this.pending.has(id)) return;
+        this.pending.delete(id);
+        reject(new Error(`CDP timeout: ${method}`));
+      }, 10_000);
+    });
+  }
+
+  on(method, handler) {
+    const handlers = this.events.get(method) || [];
+    handlers.push(handler);
+    this.events.set(method, handlers);
+  }
+}
+
+const server = spawn(
+  "python",
+  ["-m", "http.server", String(port), "--bind", host],
+  { cwd: root, stdio: "ignore", windowsHide: true }
+);
+
+const profileDir = fs.mkdtempSync(path.join(os.tmpdir(), "ds-tutorial-chrome-"));
+const chrome = spawn(
+  chromePath,
+  [
+    "--headless=new",
+    "--disable-gpu",
+    "--disable-extensions",
+    "--disable-background-networking",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--remote-debugging-port=9223",
+    `--user-data-dir=${profileDir}`,
+    url,
+  ],
+  { stdio: "ignore", windowsHide: true }
+);
+
+let socket;
+try {
+  await waitForUrl(url);
+  await waitForUrl("http://127.0.0.1:9223/json/version");
+  const targetsResponse = await httpGet("http://127.0.0.1:9223/json/list");
+  const targets = JSON.parse(targetsResponse.body);
+  const target = targets.find((item) => item.type === "page");
+  if (!target) throw new Error("No Chrome page target found.");
+
+  socket = new WebSocket(target.webSocketDebuggerUrl);
+  await new Promise((resolve, reject) => {
+    socket.addEventListener("open", resolve, { once: true });
+    socket.addEventListener("error", reject, { once: true });
+  });
+
+  const cdp = new CdpClient(socket);
+  const browserErrors = [];
+  cdp.on("Runtime.exceptionThrown", (event) => browserErrors.push(event.exceptionDetails.text));
+  cdp.on("Log.entryAdded", (event) => {
+    if (event.entry.level === "error") browserErrors.push(event.entry.text);
+  });
+  await cdp.send("Page.enable");
+  await cdp.send("Runtime.enable");
+  await cdp.send("Log.enable");
+
+  const results = [];
+  for (const viewport of [
+    { name: "desktop", width: 1440, height: 1000, mobile: false },
+    { name: "tablet", width: 768, height: 900, mobile: true },
+    { name: "mobile", width: 390, height: 844, mobile: true },
+  ]) {
+    await cdp.send("Emulation.setDeviceMetricsOverride", {
+      width: viewport.width,
+      height: viewport.height,
+      deviceScaleFactor: 1,
+      mobile: viewport.mobile,
+    });
+    await cdp.send("Page.navigate", { url });
+    await sleep(700);
+
+    const evaluation = await cdp.send("Runtime.evaluate", {
+      returnByValue: true,
+      awaitPromise: true,
+      expression: `(() => {
+        const missingMetrics = [...document.querySelectorAll("[data-result]")]
+          .filter((node) => !node.textContent.trim() || node.textContent.trim() === "—")
+          .map((node) => node.dataset.result);
+        const brokenImages = [...document.images]
+          .filter((image) => !image.complete || image.naturalWidth === 0)
+          .map((image) => image.getAttribute("src"));
+        const missingAnchors = [...document.querySelectorAll('a[href^="#"]')]
+          .filter((anchor) => anchor.hash && !document.querySelector(anchor.hash))
+          .map((anchor) => anchor.getAttribute("href"));
+        return {
+          title: document.title,
+          scrollWidth: document.documentElement.scrollWidth,
+          clientWidth: document.documentElement.clientWidth,
+          missingMetrics,
+          brokenImages,
+          missingAnchors,
+          sectionCount: document.querySelectorAll("main section[id]").length,
+          h1Count: document.querySelectorAll("h1").length,
+          menuVisible: getComputedStyle(document.querySelector("#menu-button")).display !== "none",
+        };
+      })()`,
+    });
+    const metrics = evaluation.result.value;
+
+    if (metrics.scrollWidth > metrics.clientWidth + 1) {
+      throw new Error(`${viewport.name}: horizontal overflow (${metrics.scrollWidth}px > ${metrics.clientWidth}px)`);
+    }
+    if (metrics.missingMetrics.length) {
+      throw new Error(`${viewport.name}: unresolved metrics: ${metrics.missingMetrics.join(", ")}`);
+    }
+    if (metrics.brokenImages.length) {
+      throw new Error(`${viewport.name}: broken images: ${metrics.brokenImages.join(", ")}`);
+    }
+    if (metrics.missingAnchors.length) {
+      throw new Error(`${viewport.name}: missing anchors: ${metrics.missingAnchors.join(", ")}`);
+    }
+    if (metrics.sectionCount !== 11 || metrics.h1Count !== 1) {
+      throw new Error(
+        `${viewport.name}: unexpected document structure ` +
+          `(sections=${metrics.sectionCount}, h1=${metrics.h1Count})`,
+      );
+    }
+
+    if (viewport.name === "mobile") {
+      const menuCheck = await cdp.send("Runtime.evaluate", {
+        returnByValue: true,
+        awaitPromise: true,
+        expression: `(async () => {
+          const button = document.querySelector("#menu-button");
+          button.click();
+          await new Promise((resolve) => setTimeout(resolve, 280));
+          const opened = document.body.classList.contains("nav-open");
+          const sidebarLeft = document.querySelector("#course-nav").getBoundingClientRect().left;
+          button.click();
+          await new Promise((resolve) => setTimeout(resolve, 280));
+          return {
+            opened,
+            closed: !document.body.classList.contains("nav-open"),
+            sidebarReachable: sidebarLeft >= -1 && sidebarLeft < window.innerWidth,
+          };
+        })()`,
+      });
+      const menuMetrics = menuCheck.result.value;
+      if (!menuMetrics.opened || !menuMetrics.closed || !menuMetrics.sidebarReachable) {
+        throw new Error(
+          `Mobile navigation did not open and close correctly: ${JSON.stringify(menuMetrics)}`,
+        );
+      }
+    }
+
+    const screenshot = await cdp.send("Page.captureScreenshot", {
+      format: "png",
+      captureBeyondViewport: false,
+    });
+    const screenshotPath = path.join(outputDir, `${viewport.name}.png`);
+    fs.writeFileSync(screenshotPath, Buffer.from(screenshot.data, "base64"));
+    results.push({ viewport, metrics, screenshotPath });
+  }
+
+  if (browserErrors.length) {
+    throw new Error(`Browser errors: ${browserErrors.join(" | ")}`);
+  }
+  console.log(JSON.stringify(results, null, 2));
+} finally {
+  socket?.close();
+  chrome.kill();
+  server.kill();
+}

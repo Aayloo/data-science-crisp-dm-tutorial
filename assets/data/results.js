@@ -1,0 +1,67 @@
+window.TUTORIAL_RESULTS = {
+  "data": {
+    "churn_rows": 1200,
+    "churn_rate": 0.4217,
+    "housing_rows": 900,
+    "demand_months": 60
+  },
+  "churn": {
+    "threshold": 0.4,
+    "logistic": {
+      "accuracy": 0.7133,
+      "precision": 0.6282,
+      "recall": 0.7778,
+      "f1": 0.695,
+      "roc_auc": 0.7707
+    },
+    "tree": {
+      "accuracy": 0.6233,
+      "precision": 0.5414,
+      "recall": 0.6746,
+      "f1": 0.6007,
+      "roc_auc": 0.6761
+    },
+    "confusion": {
+      "true_negative": 116,
+      "false_positive": 58,
+      "false_negative": 28,
+      "true_positive": 98
+    }
+  },
+  "housing": {
+    "linear": {
+      "mae": 0.3089,
+      "rmse": 0.3924,
+      "r2": 0.969
+    },
+    "forest": {
+      "mae": 0.4705,
+      "rmse": 0.6223,
+      "r2": 0.9221
+    }
+  },
+  "demand": {
+    "train_months": 48,
+    "test_months": 12,
+    "seasonal_naive": {
+      "mae": 19.65,
+      "mape": 10.622
+    },
+    "seasonal_linear": {
+      "mae": 5.326,
+      "mape": 2.861
+    }
+  },
+  "generated_files": {
+    "datasets": {
+      "churn": "data\\customer_churn.csv",
+      "housing": "data\\housing_prices.csv",
+      "demand": "data\\monthly_demand.csv"
+    },
+    "figures": [
+      "assets/img/churn-confusion.png",
+      "assets/img/housing-predictions.png",
+      "assets/img/demand-forecast.png"
+    ]
+  }
+};
