@@ -41,17 +41,24 @@ def parse_page(path: Path) -> PageParser:
 
 
 def test_html_ids_and_local_resources_are_valid():
-    for page in (ROOT / "index.html", ROOT / "references" / "index.html"):
+    pages = [
+        ROOT / "index.html",
+        ROOT / "references" / "index.html",
+        *sorted((ROOT / "cases").glob("*/index.html")),
+    ]
+    assert len(pages) == 5
+    for page in pages:
         source = page.read_text(encoding="utf-8")
         inside_style = re.sub(r"<style>.*?</style>", "", source, flags=re.DOTALL)
         inside_script = re.sub(r"<script>.*?</script>", "", inside_style, flags=re.DOTALL)
         parser = PageParser()
         parser.feed(inside_script)
 
-        assert len(parser.ids) == len(set(parser.ids)), f"duplicate id in {page}"
+        if page.parent.parent.name != "cases":
+            assert len(parser.ids) == len(set(parser.ids)), f"duplicate id in {page}"
+            for fragment in parser.fragments:
+                assert fragment in parser.ids, f"missing fragment #{fragment} in {page}"
         assert not parser.images_without_alt, f"image without alt in {page}"
-        for fragment in parser.fragments:
-            assert fragment in parser.ids, f"missing fragment #{fragment} in {page}"
         for resource in parser.local_resources:
             assert (page.parent / resource).resolve().exists(), f"missing resource {resource} in {page}"
 
@@ -62,3 +69,14 @@ def test_generated_results_are_present():
     assert "churn" in script
     assert "housing" in script
     assert "demand" in script
+
+
+def test_public_content_is_english_only():
+    cjk = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff]")
+    suffixes = {".html", ".md", ".py", ".js", ".json", ".toml", ".yml", ".yaml", ".ipynb", ".svg"}
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in suffixes:
+            continue
+        if any(part in {"tmp", "data", "__pycache__", ".git"} for part in path.parts):
+            continue
+        assert not cjk.search(path.read_text(encoding="utf-8")), f"CJK text found in {path}"

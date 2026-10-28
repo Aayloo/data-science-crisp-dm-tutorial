@@ -60,6 +60,9 @@ window.TUTORIAL_RESULTS = {
     },
     "figures": [
       "assets/img/churn-confusion.png",
+      "assets/img/missing-values.png",
+      "assets/img/churn-thresholds.png",
+      "assets/img/model-comparison.png",
       "assets/img/housing-predictions.png",
       "assets/img/demand-forecast.png"
     ]

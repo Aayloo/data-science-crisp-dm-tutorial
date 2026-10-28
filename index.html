@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta
     name="description"
-    content="A hands-on data science tutorial using the six phases of CRISP-DM and three reproducible cases."
+    content="A hands-on data science tutorial using the six phases of CRISP-DM and three reproducible case labs."
   >
   <meta name="theme-color" content="#17324d">
   <title>Data Science Workflow · CRISP-DM Tutorial</title>
@@ -70,10 +70,10 @@
         <a class="nav-link" href="#modeling"><span>04</span> Modeling</a>
         <a class="nav-link" href="#evaluation"><span>05</span> Evaluation</a>
         <a class="nav-link" href="#deployment"><span>06</span> Deployment</a>
-        <p class="nav-label nav-label-spaced">Cases</p>
-        <a class="nav-link" href="#case-churn"><span>A</span> Customer churn</a>
-        <a class="nav-link" href="#case-housing"><span>B</span> House price</a>
-        <a class="nav-link" href="#case-demand"><span>C</span> Demand forecast</a>
+        <p class="nav-label nav-label-spaced">Case labs</p>
+        <a class="nav-link" href="cases/customer-churn/"><span>A</span> Customer churn</a>
+        <a class="nav-link" href="cases/house-price/"><span>B</span> House prices</a>
+        <a class="nav-link" href="cases/demand-forecast/"><span>C</span> Demand forecast</a>
         <a class="nav-link" href="#checklist"><span>✓</span> Project checklist</a>
       </nav>
 
@@ -87,19 +87,20 @@
       <section class="hero chapter" id="overview" aria-labelledby="overview-title">
         <div class="hero-copy">
           <p class="eyebrow"><span>00</span> DATA SCIENCE / CRISP-DM</p>
-          <h1 id="overview-title">从问题到决策，<br>而不是从模型开始。</h1>
+          <h1 id="overview-title">Start with the question.<br>Not the model.</h1>
           <p class="hero-lede">
-            一份可运行的 Data Science 入门 Tutorial。沿着 CRISP-DM 的六个阶段，
-            用三个小案例理解数据科学真正如何完成：定义问题、理解数据、准备数据、
-            建模、评估，并把结果交付给需要做决定的人。
+            A hands-on tutorial for understanding how data science actually gets done:
+            frame the decision, inspect the data, prepare it without leakage, establish
+            a baseline, evaluate honestly, and communicate what the result does—and
+            does not—support.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#business">开始课程</a>
-            <a class="button button-secondary" href="#case-churn">直接看案例</a>
+            <a class="button button-primary" href="#business">Start the tutorial</a>
+            <a class="button button-secondary" href="#case-labs">Open case labs</a>
           </div>
           <div class="course-facts" aria-label="Course facts">
             <div><strong>6</strong><span>CRISP-DM phases</span></div>
-            <div><strong>3</strong><span>reproducible cases</span></div>
+            <div><strong>3</strong><span>executed notebooks</span></div>
             <div><strong>Python</strong><span>pandas + scikit-learn</span></div>
           </div>
         </div>
@@ -107,7 +108,7 @@
         <div class="workflow-panel">
           <div class="workflow-heading">
             <span>THE PROCESS IS THE EDGE</span>
-            <p>点击阶段查看对应章节</p>
+            <p>Select a phase to jump in</p>
           </div>
           <svg class="cycle-svg" viewBox="0 0 600 600" role="img" aria-labelledby="cycle-title cycle-desc">
             <title id="cycle-title">CRISP-DM workflow</title>
@@ -166,28 +167,29 @@
       <section class="orientation chapter" aria-labelledby="orientation-title">
         <div class="section-intro">
           <p class="eyebrow"><span>START HERE</span> HOW TO USE THIS TUTORIAL</p>
-          <h2 id="orientation-title">学习数据科学，重点不是记住更多算法。</h2>
+          <h2 id="orientation-title">Data science is a decision process, not a model catalogue.</h2>
           <p>
-            每个阶段都有一组问题、一段代码和一个交付物。你可以只读，也可以运行全部案例。
-            建议第一次按顺序完成；第二次回到自己工作时，把检查表当成项目审查工具。
+            Each phase pairs a short concept with a practical question, a code example,
+            and a deliverable. Read the tutorial first, then open a case-lab notebook
+            to inspect the complete implementation and its executed outputs.
           </p>
         </div>
 
         <div class="outcome-grid">
           <article class="outcome-card">
             <span class="card-number">01</span>
-            <h3>先定义决策</h3>
-            <p>说清模型结果会被谁使用、触发什么动作，以及错误预测的成本。</p>
+            <h3>Define the decision</h3>
+            <p>Identify who uses the result, what action it changes, and what an error costs.</p>
           </article>
           <article class="outcome-card">
             <span class="card-number">02</span>
-            <h3>然后再建模</h3>
-            <p>从简单基线开始，用统一指标比较，而不是追逐复杂模型。</p>
+            <h3>Earn the model</h3>
+            <p>Start with a simple baseline and let complexity justify itself out of sample.</p>
           </article>
           <article class="outcome-card">
             <span class="card-number">03</span>
-            <h3>最后做交付</h3>
-            <p>让别人能够重跑、理解、质疑你的结果，并据此做出下一步决定。</p>
+            <h3>Deliver the evidence</h3>
+            <p>Make the workflow reproducible, explain the limits, and separate evidence from opinion.</p>
           </article>
         </div>
 
@@ -196,10 +198,11 @@
             <path d="M12 3v10m0 4v.01M4.5 20h15a1.5 1.5 0 0 0 1.3-2.25l-7.5-13a1.5 1.5 0 0 0-2.6 0l-7.5 13A1.5 1.5 0 0 0 4.5 20Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
           </svg>
           <div>
-            <strong>课程范围</strong>
+            <strong>Scope</strong>
             <p>
-              这是通用 Data Science Tutorial。三个案例使用固定随机种子的合成数据，
-              用于学习流程和评估方法，不构成真实市场、信贷、价格或经营结论。
+              This is a general data-science tutorial. All three cases use fixed-seed
+              synthetic data and are teaching examples, not claims about real customers,
+              property prices, demand, or investment performance.
             </p>
           </div>
         </aside>
@@ -208,28 +211,28 @@
       <section class="chapter lesson" id="business" aria-labelledby="business-title">
         <div class="chapter-heading">
           <p class="eyebrow"><span>01</span> BUSINESS UNDERSTANDING</p>
-          <h2 id="business-title">先把“做一个模型”改写成“支持一个决定”。</h2>
+          <h2 id="business-title">Turn “build a model” into “support a decision.”</h2>
           <p class="chapter-lede">
-            数据科学的第一个错误通常不是模型选错，而是问题定义得太模糊。
-            你需要知道：结果由谁使用、什么时候使用、会触发什么行动。
+            The most expensive mistake usually happens before modelling: the problem is
+            too vague, the user is unclear, or the metric does not represent the cost of error.
           </p>
         </div>
 
         <div class="learning-box">
           <p class="mini-label">Learning objectives</p>
           <ul>
-            <li>把业务想法转换成可检验的数据问题。</li>
-            <li>明确目标变量、使用场景、评估指标和错误成本。</li>
-            <li>写出一份不包含算法名的研究问题说明。</li>
+            <li>Convert a business idea into a testable data problem.</li>
+            <li>Define the target, decision time, evaluation metric, and constraints.</li>
+            <li>Write a research brief without starting from an algorithm name.</li>
           </ul>
         </div>
 
         <div class="two-column">
           <div>
-            <h3>一张最小问题画布</h3>
+            <h3>A minimum decision canvas</h3>
             <p>
-              Business Understanding 不是写公司介绍。它是一份“决策合同”：
-              说明模型输出如何变成行动，以及什么结果才算有帮助。
+              Business understanding is a contract between analysis and action. It states
+              how the model output becomes a decision and what evidence would justify using it.
             </p>
           </div>
           <div class="definition-card">
@@ -248,37 +251,37 @@
 
         <div class="table-wrap">
           <table>
-            <caption>三个案例的决策定义</caption>
+            <caption>Table 1 | Decision framing across the three case labs</caption>
             <thead>
               <tr>
-                <th scope="col">案例</th>
-                <th scope="col">决策</th>
-                <th scope="col">目标</th>
-                <th scope="col">主要指标</th>
-                <th scope="col">错误成本</th>
+                <th scope="col">Case</th>
+                <th scope="col">Decision</th>
+                <th scope="col">Target</th>
+                <th scope="col">Primary metric</th>
+                <th scope="col">Error cost</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">客户流失</th>
-                <td>选择哪些客户进入挽留名单</td>
-                <td>未来是否流失</td>
-                <td>Recall、Precision、挽留成本</td>
-                <td>漏掉高风险客户；打扰低风险客户</td>
+                <th scope="row">Customer churn</th>
+                <td>Who enters a limited retention campaign?</td>
+                <td>Whether a customer churns</td>
+                <td>Recall, precision, campaign cost</td>
+                <td>Missed churners; unnecessary discounts</td>
               </tr>
               <tr>
-                <th scope="row">房价预测</th>
-                <td>预算估计或初步筛选</td>
-                <td>成交价格区间</td>
-                <td>MAE、RMSE</td>
-                <td>高估导致亏损；低估错过机会</td>
+                <th scope="row">House prices</th>
+                <td>Which properties pass a budget screen?</td>
+                <td>Transaction price</td>
+                <td>MAE, RMSE</td>
+                <td>Overpayment; missed opportunity</td>
               </tr>
               <tr>
-                <th scope="row">需求预测</th>
-                <td>库存与资源计划</td>
-                <td>未来月度需求</td>
-                <td>MAE、MAPE</td>
-                <td>库存积压或缺货</td>
+                <th scope="row">Demand forecast</th>
+                <td>How should capacity and inventory be set?</td>
+                <td>Monthly demand</td>
+                <td>MAE, MAPE</td>
+                <td>Excess inventory; stock-outs</td>
               </tr>
             </tbody>
           </table>
@@ -298,55 +301,56 @@
         </div>
 
         <details class="checkpoint">
-          <summary>Checkpoint · 这个目标是否足够可执行？</summary>
+          <summary>Checkpoint · Is this objective actionable?</summary>
           <p>
-            “预测客户行为，提高客户满意度”不够具体。更好的版本是：
-            “在每月挽留活动开始前，估计客户未来 30 天流失概率，按挽留预算排序，
-            并把 Recall 作为首要指标。”后者明确了时点、行动和约束。
+            “Predict customer behaviour and improve satisfaction” is not. A stronger
+            statement names the monthly decision, the future 30-day churn target, the
+            limited contact budget, and recall as the first evaluation metric.
           </p>
         </details>
 
         <div class="deliverable">
           <span>Deliverable 01</span>
-          <p><code>research_brief.md</code>：决策人、目标、时点、基准、指标、约束和失效条件。</p>
+          <p><code>research_brief.md</code>: decision owner, target, timing, baseline, metrics, constraints, and failure conditions.</p>
         </div>
       </section>
 
       <section class="chapter lesson" id="data" aria-labelledby="data-title">
         <div class="chapter-heading">
           <p class="eyebrow"><span>02</span> DATA UNDERSTANDING</p>
-          <h2 id="data-title">先理解数据如何产生，再讨论它能回答什么。</h2>
+          <h2 id="data-title">Understand how the data was generated before asking what it can prove.</h2>
           <p class="chapter-lede">
-            数据理解不是立刻清洗。先建立数据字典，检查覆盖范围、时间口径、
-            缺失和异常，并确认目标变量是否真的对应业务事件。
+            Data understanding is not immediate cleaning. First document the fields,
+            coverage, timing, missingness, and target; then decide whether the data can
+            answer the question at all.
           </p>
         </div>
 
         <div class="learning-box">
           <p class="mini-label">Learning objectives</p>
           <ul>
-            <li>为每一列说明业务含义、类型、生成时间和可能误差。</li>
-            <li>识别样本范围、目标泄漏、重复记录和分布极端值。</li>
-            <li>用描述性统计判断数据是否值得继续。</li>
+            <li>Document the business meaning, type, and timing of every field.</li>
+            <li>Identify target leakage, duplicate records, and unrepresentative samples.</li>
+            <li>Use descriptive checks to decide whether further work is justified.</li>
           </ul>
         </div>
 
         <div class="audit-grid">
           <article>
-            <h3>行与覆盖</h3>
-            <p>样本是谁？覆盖哪个时间段？缺失了哪些群体或时期？</p>
+            <h3>Coverage</h3>
+            <p>Who is represented, over which period, and which groups are absent?</p>
           </article>
           <article>
-            <h3>字段与口径</h3>
-            <p>单位是什么？是月末快照还是期间合计？是否包含未来信息？</p>
+            <h3>Definitions</h3>
+            <p>What are the units? Is a value a snapshot, period sum, or derived field?</p>
           </article>
           <article>
-            <h3>目标与时间</h3>
-            <p>目标变量何时可用？模型的输入信息在决策时是否已经存在？</p>
+            <h3>Decision time</h3>
+            <p>Which fields are genuinely available when the prediction must be made?</p>
           </article>
           <article>
-            <h3>质量与分布</h3>
-            <p>缺失、重复、异常、类别比例和长期趋势是否合理？</p>
+            <h3>Quality</h3>
+            <p>What do missingness, duplicates, outliers, and the target distribution imply?</p>
           </article>
         </div>
 
@@ -370,49 +374,64 @@ df.describe(include="all").T</code></pre>
           <div><span>Target</span><strong>Binary</strong></div>
         </div>
 
+        <figure class="figure-panel">
+          <img
+            src="assets/img/missing-values.png"
+            alt="Horizontal bar chart showing missing values in monthly charge and autopay fields."
+            width="2152"
+            height="1149"
+          >
+          <figcaption>
+            Figure A0 | Missingness is a data-preparation decision. Source: synthetic
+            churn dataset generated by this repository.
+          </figcaption>
+        </figure>
+
         <aside class="callout callout-warning">
           <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
             <path d="M12 8v4m0 4v.01M10.3 3.9 2.5 18a1.6 1.6 0 0 0 1.4 2.4h16.2a1.6 1.6 0 0 0 1.4-2.4L13.7 3.9a2 2 0 0 0-3.4 0Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
           </svg>
           <div>
-            <strong>最常见的泄漏</strong>
+            <strong>Common leakage patterns</strong>
             <p>
-              使用“取消日期之后”的字段、用全样本均值填补缺失值、
-              在时间序列上随机划分训练集和测试集。代码看起来正确，结论已经失真。
+              Using fields created after the outcome, learning imputation values on the
+              full dataset, or randomly splitting a time series can make code look correct
+              while invalidating the evaluation.
             </p>
           </div>
         </aside>
 
         <details class="checkpoint">
-          <summary>Checkpoint · 为什么先看目标分布？</summary>
+          <summary>Checkpoint · Why inspect the target distribution first?</summary>
           <p>
-            类别严重不平衡时，Accuracy 可能很高但少数类几乎没有被识别。
-            目标分布会直接影响基线、评估指标和阈值选择。
+            Severe class imbalance can make accuracy look strong while the minority class
+            is barely detected. The target distribution determines the baseline, metric,
+            and threshold choices.
           </p>
         </details>
 
         <div class="deliverable">
           <span>Deliverable 02</span>
-          <p><code>data_profile.md</code>：数据来源、字段字典、覆盖范围、缺失与异常记录。</p>
+          <p><code>data_profile.md</code>: sources, data dictionary, coverage, missingness, and known limitations.</p>
         </div>
       </section>
 
       <section class="chapter lesson" id="preparation" aria-labelledby="preparation-title">
         <div class="chapter-heading">
           <p class="eyebrow"><span>03</span> DATA PREPARATION</p>
-          <h2 id="preparation-title">数据准备的目标不是“洗到干净”，而是让评估可信。</h2>
+          <h2 id="preparation-title">Prepare data so that the evaluation remains believable.</h2>
           <p class="chapter-lede">
-            编码、填补和缩放都需要被看成模型流程的一部分。
-            它们应该在训练数据上学习，再应用到验证或测试数据。
+            Encoding, imputation, and scaling are part of the model pipeline. Learn them
+            from training data only, then apply the learned rules to validation and test data.
           </p>
         </div>
 
         <div class="learning-box">
           <p class="mini-label">Learning objectives</p>
           <ul>
-            <li>在预处理之前先切分数据。</li>
-            <li>使用 Pipeline 防止预处理泄漏。</li>
-            <li>根据任务类型选择正确的验证方式。</li>
+            <li>Split the data before fitting preprocessing steps.</li>
+            <li>Keep transformations inside a reproducible Pipeline.</li>
+            <li>Choose validation logic that matches the data-generating process.</li>
           </ul>
         </div>
 
@@ -433,18 +452,18 @@ df.describe(include="all").T</code></pre>
 
         <div class="two-column two-column-wide">
           <div>
-            <h3>三种任务，三种切分逻辑</h3>
+            <h3>Three tasks, three splitting rules</h3>
             <ul class="check-list">
-              <li><strong>分类 / 回归：</strong>随机切分，并检查目标分布。</li>
-              <li><strong>分层分类：</strong>保持训练和测试中的类别比例。</li>
-              <li><strong>时间序列：</strong>按时间先后切分，未来的数据不能进入过去。</li>
+              <li><strong>Classification / regression:</strong> split rows and inspect target balance.</li>
+              <li><strong>Imbalanced classification:</strong> stratify the target across splits.</li>
+              <li><strong>Time series:</strong> preserve chronology; future observations cannot train the past.</li>
             </ul>
           </div>
           <div class="small-note">
             <p class="mini-label">Rule of thumb</p>
             <p>
-              缺失值填补、标准化和编码都应写在 Pipeline 内。
-              先在全部数据上拟合，再切分，是一个隐蔽但常见的泄漏。
+              Missing-value imputation, scaling, and encoding belong inside the Pipeline.
+              Fitting them on all data before splitting is a subtle but material leakage.
             </p>
           </div>
         </div>
@@ -470,66 +489,67 @@ preprocess = ColumnTransformer([
 
         <div class="callout callout-success">
           <div>
-            <strong>本节原则</strong>
-            <p>切分先于清洗；所有从数据中“学习”的参数，只能在训练集上学习。</p>
+            <strong>Preparation principle</strong>
+            <p>Split first. Learn all data-derived parameters from the training set only.</p>
           </div>
         </div>
 
         <details class="checkpoint">
-          <summary>Checkpoint · 时间序列为什么不能随机切分？</summary>
+          <summary>Checkpoint · Why not randomly split a time series?</summary>
           <p>
-            随机切分会让模型在训练时看到“未来”又被要求预测“过去”，
-            这会产生现实中无法获得的高分。正确做法是保持时间顺序，
-            用过去训练、未来测试。
+            Random splitting lets the model learn from future observations and then
+            predict the past. A chronological split is necessary for a realistic
+            out-of-sample test.
           </p>
         </details>
 
         <div class="deliverable">
           <span>Deliverable 03</span>
-          <p><code>prepared_data.py</code>：可重复的切分、预处理和特征生成流程。</p>
+          <p><code>prepared_data.py</code>: repeatable splitting, preprocessing, and feature-generation logic.</p>
         </div>
       </section>
 
       <section class="chapter lesson" id="modeling" aria-labelledby="modeling-title">
         <div class="chapter-heading">
           <p class="eyebrow"><span>04</span> MODELING</p>
-          <h2 id="modeling-title">基线不是形式，它是判断复杂模型是否值得的尺子。</h2>
+          <h2 id="modeling-title">A baseline is not a formality. It is the test of whether complexity earns its place.</h2>
           <p class="chapter-lede">
-            先用最简单、最容易解释的方法建立下限。只有当复杂方法在统一协议下
-            稳定改善关键指标，复杂度才有理由。
+            Establish the simplest defensible answer first. A more complex model is useful
+            only when it improves the decision metric under the same split, preprocessing,
+            and evaluation protocol.
           </p>
         </div>
 
         <div class="learning-box">
           <p class="mini-label">Learning objectives</p>
           <ul>
-            <li>为分类、回归和时序任务建立合理基线。</li>
-            <li>在相同切分和相同指标下比较模型。</li>
-            <li>把参数、随机种子和预测结果保存下来。</li>
+            <li>Build an interpretable baseline for classification, regression, and forecasting.</li>
+            <li>Compare models on the same data split and decision metric.</li>
+            <li>Preserve parameters, random seeds, and prediction outputs.</li>
           </ul>
         </div>
 
         <div class="model-grid">
           <article>
             <span class="tag">Classification</span>
-            <h3>Logistic Regression</h3>
-            <p>先看线性边界能否解释结果，再决定是否引入树模型。</p>
+            <h3>Logistic regression</h3>
+            <p>Check whether a transparent linear score is sufficient before adding a tree.</p>
           </article>
           <article>
             <span class="tag">Regression</span>
-            <h3>Linear Regression</h3>
-            <p>透明、稳定，适合作为连续目标的第一把尺子。</p>
+            <h3>Linear regression</h3>
+            <p>A stable and interpretable first benchmark for a continuous target.</p>
           </article>
           <article>
             <span class="tag">Time series</span>
-            <h3>Seasonal Naive</h3>
-            <p>用去年同月预测今年同月。它常常比复杂方法更难打败。</p>
+            <h3>Seasonal naive</h3>
+            <p>Use the same month last year. This is a surprisingly difficult baseline to beat.</p>
           </article>
         </div>
 
         <div class="table-wrap">
           <table>
-            <caption>客户流失案例：同一测试集上的模型比较</caption>
+            <caption>Table 2 | Customer churn models evaluated on the same holdout set</caption>
             <thead>
               <tr>
                 <th scope="col">Model</th>
@@ -558,9 +578,24 @@ preprocess = ColumnTransformer([
           </table>
         </div>
 
+        <figure class="figure-panel compact-figure">
+          <img
+            src="assets/img/model-comparison.png"
+            alt="Grouped bar chart comparing accuracy, precision, recall, and F1 for logistic regression and a decision tree."
+            width="2272"
+            height="1268"
+          >
+          <figcaption>
+            Figure A3 | The simpler logistic baseline performs better across the main
+            holdout metrics. Source: tutorial calculations on synthetic data.
+          </figcaption>
+        </figure>
+
         <p class="reading-note">
-          这里的分类阈值设为 <strong data-result="churn.threshold" data-format="decimal">0.40</strong>。
-          阈值越高，模型越保守；阈值越低，会覆盖更多潜在流失客户，也会制造更多误报。
+          The churn threshold is set to
+          <strong data-result="churn.threshold" data-format="decimal">0.40</strong>.
+          A higher threshold makes the model more conservative; a lower threshold catches
+          more potential churners but creates more false alerts.
         </p>
 
         <div class="code-block">
@@ -576,116 +611,131 @@ prediction = (probability &gt;= 0.40).astype(int)</code></pre>
         </div>
 
         <details class="checkpoint">
-          <summary>Checkpoint · 复杂模型一定更好吗？</summary>
+          <summary>Checkpoint · Does a more complex model always improve performance?</summary>
           <p>
-            不一定。本教程的房价案例中，随机森林的 MAE 和 RMSE 都高于线性回归；
-            在三个案例的课程代码中，这一“失败”会保留下来，用于解释基线、噪声和模型容量。
+            No. In the house-price lab, the random forest has higher MAE and RMSE than
+            the linear baseline. The result is retained because model complexity must
+            demonstrate value out of sample.
           </p>
         </details>
 
         <div class="deliverable">
           <span>Deliverable 04</span>
-          <p><code>model_comparison.csv</code>：模型、切分、参数、随机种子和关键指标。</p>
+          <p><code>model_comparison.csv</code>: model, split, parameters, random seed, and decision metrics.</p>
         </div>
       </section>
 
       <section class="chapter lesson" id="evaluation" aria-labelledby="evaluation-title">
         <div class="chapter-heading">
           <p class="eyebrow"><span>05</span> EVALUATION</p>
-          <h2 id="evaluation-title">先问“错了会怎样”，再问“模型分数多少”。</h2>
+          <h2 id="evaluation-title">First ask what an error costs. Then ask what the model scored.</h2>
           <p class="chapter-lede">
-            评估不是给模型排名，而是判断它能否支持当前决策。
-            同一条预测，在不同成本和约束下可能需要不同阈值。
+            Evaluation is not a model leaderboard. It is a judgment about whether the
+            evidence supports the decision under the expected constraints and costs.
           </p>
         </div>
 
         <div class="learning-box">
           <p class="mini-label">Learning objectives</p>
           <ul>
-            <li>根据任务类型选择指标，不用一个指标评价所有问题。</li>
-            <li>识别过拟合、分布变化和阈值风险。</li>
-            <li>把模型指标翻译成业务收益或损失。</li>
+            <li>Choose metrics that match the task and the cost of errors.</li>
+            <li>Recognise overfitting, distribution shift, and threshold risk.</li>
+            <li>Translate model diagnostics into a decision recommendation.</li>
           </ul>
         </div>
 
         <div class="metric-grid">
           <article>
             <span class="metric-symbol">MAE</span>
-            <h3>平均绝对误差</h3>
-            <p>预测偏差的绝对平均值，单位和目标变量一致，容易向非技术读者解释。</p>
+            <h3>Mean absolute error</h3>
+            <p>The average absolute miss in the same units as the target. Easy to explain.</p>
           </article>
           <article>
             <span class="metric-symbol">RMSE</span>
-            <h3>均方根误差</h3>
-            <p>对大误差惩罚更强。适合特别不能接受极端错误的场景。</p>
+            <h3>Root mean squared error</h3>
+            <p>Penalises large misses more strongly. Useful when extreme errors matter.</p>
           </article>
           <article>
             <span class="metric-symbol">P / R</span>
-            <h3>Precision / Recall</h3>
-            <p>前者关注命中率，后者关注是否漏掉重要正例。阈值会改变两者。</p>
+            <h3>Precision / recall</h3>
+            <p>Precision measures the hit rate; recall measures how many relevant cases were found.</p>
           </article>
         </div>
 
+        <figure class="figure-panel compact-figure">
+          <img
+            src="assets/img/churn-thresholds.png"
+            alt="Line chart showing precision rising and recall falling as the classification threshold increases."
+            width="2271"
+            height="1327"
+          >
+          <figcaption>
+            Figure A2 | Threshold selection is a business decision. Source: tutorial
+            calculations on the synthetic churn holdout set.
+          </figcaption>
+        </figure>
+
         <div class="decision-table">
           <div class="decision-row">
-            <div><span>If the cost of a missed churner is very high</span></div>
-            <div><strong>Prioritise Recall</strong></div>
+            <div><span>If missing a churner is very expensive</span></div>
+            <div><strong>Prioritise recall</strong></div>
           </div>
           <div class="decision-row">
             <div><span>If every false alert is expensive</span></div>
-            <div><strong>Prioritise Precision</strong></div>
+            <div><strong>Prioritise precision</strong></div>
           </div>
           <div class="decision-row">
             <div><span>If large price errors are unacceptable</span></div>
             <div><strong>Track RMSE as well as MAE</strong></div>
           </div>
           <div class="decision-row">
-            <div><span>If the process changes across time</span></div>
+            <div><span>If the data-generating process changes over time</span></div>
             <div><strong>Test on later periods</strong></div>
           </div>
         </div>
 
-        <aside class="callout callout-note">
+        <aside class="callout callout-note callout-no-icon">
           <div>
-            <strong>评估的三个问题</strong>
+            <strong>Three evaluation questions</strong>
             <ol>
-              <li>结果是否在未见过的数据上保持？</li>
-              <li>不同群体、时期或阈值下是否稳定？</li>
-              <li>错误是否集中在会改变实际决策的样本上？</li>
+              <li>Does the result hold on data the model has never seen?</li>
+              <li>Is it stable across groups, periods, and reasonable thresholds?</li>
+              <li>Are the errors concentrated where they would change a real decision?</li>
             </ol>
           </div>
         </aside>
 
         <details class="checkpoint">
-          <summary>Checkpoint · Accuracy 95% 一定是好模型吗？</summary>
+          <summary>Checkpoint · Is 95% accuracy necessarily a good model?</summary>
           <p>
-            不一定。如果只有 5% 的样本属于正类，一个永远预测“负类”的模型也能达到 95%。
-            需要同时查看类别分布、混淆矩阵和与决策相关的指标。
+            No. If only 5% of cases are positive, a model that always predicts the
+            negative class can reach 95% accuracy without finding a single positive case.
+            Inspect the class distribution, confusion matrix, and decision-specific metric.
           </p>
         </details>
 
         <div class="deliverable">
           <span>Deliverable 05</span>
-          <p><code>evaluation.md</code>：主指标、对照基线、错误样本、限制和最终建议。</p>
+          <p><code>evaluation.md</code>: primary metric, baseline, error analysis, limitations, and recommendation.</p>
         </div>
       </section>
 
       <section class="chapter lesson" id="deployment" aria-labelledby="deployment-title">
         <div class="chapter-heading">
           <p class="eyebrow"><span>06</span> DEPLOYMENT &amp; COMMUNICATION</p>
-          <h2 id="deployment-title">Deployment 不只是上线模型，也包括让结果可被使用。</h2>
+          <h2 id="deployment-title">Deployment is also the work of making a result usable.</h2>
           <p class="chapter-lede">
-            在教程环境中，交付一个可以重跑的项目、一个清晰的结果说明，
-            同样属于 deployment。对很多分析项目，这比搭一个复杂 API 更有价值。
+            In an analytical project, a reproducible repository, a clear explanation, and
+            an explicit monitoring plan can matter more than wrapping the model in a complex API.
           </p>
         </div>
 
         <div class="learning-box">
           <p class="mini-label">Learning objectives</p>
           <ul>
-            <li>写清运行方式、依赖、数据边界和结果来源。</li>
-            <li>区分教学案例、离线分析、生产系统三种交付。</li>
-            <li>识别数据漂移、模型退化和需要重新评估的信号。</li>
+            <li>Document dependencies, data boundaries, and reproduction steps.</li>
+            <li>Distinguish a teaching example, a one-off analysis, and a production system.</li>
+            <li>Define signals that should trigger re-evaluation or model retirement.</li>
           </ul>
         </div>
 
@@ -693,22 +743,22 @@ prediction = (probability &gt;= 0.40).astype(int)</code></pre>
           <article>
             <span>01</span>
             <h3>Reproduce</h3>
-            <p>从原始输入到最终图表，有明确命令和固定环境。</p>
+            <p>Move from inputs to outputs with a documented command and tested environment.</p>
           </article>
           <article>
             <span>02</span>
             <h3>Explain</h3>
-            <p>用一页摘要说明问题、方法、结果、限制和建议。</p>
+            <p>Summarise the problem, evidence, uncertainty, recommendation, and limits.</p>
           </article>
           <article>
             <span>03</span>
             <h3>Monitor</h3>
-            <p>监控输入分布、关键指标和业务结果，而非只看模型文件。</p>
+            <p>Track data distributions, prediction quality, and business outcomes over time.</p>
           </article>
         </div>
 
         <div class="delivery-stack">
-          <div><span>For a reader</span><strong>GitHub Pages tutorial</strong></div>
+          <div><span>For a reader</span><strong>Executed notebook</strong></div>
           <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           <div><span>For a reviewer</span><strong>README + tests</strong></div>
           <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -719,6 +769,7 @@ prediction = (probability &gt;= 0.40).astype(int)</code></pre>
           <div class="code-label">Terminal · verify and rebuild</div>
           <pre><code>python -m pytest -q
 python scripts/build_examples.py
+python scripts/build_case_pages.py
 python -m http.server 8000
 
 # Open: http://localhost:8000</code></pre>
@@ -726,224 +777,98 @@ python -m http.server 8000
 
         <div class="callout callout-success">
           <div>
-            <strong>一句话经理摘要</strong>
+            <strong>One-paragraph manager summary</strong>
             <p>
-              “我们比较了基线与一个更复杂模型；在该测试集和决策规则下，
-              基线表现更好，因此当前不应增加模型复杂度。主要风险是……”
+              “We compared a baseline with a more complex model under the same protocol.
+              On this holdout set and decision rule, the baseline performed better, so the
+              current evidence does not justify added complexity. The main limitation is…”
             </p>
           </div>
         </div>
 
         <details class="checkpoint">
-          <summary>Checkpoint · 什么情况需要重新评估模型？</summary>
+          <summary>Checkpoint · When should a model be re-evaluated?</summary>
           <p>
-            产品、客户结构、业务流程或数据来源发生变化时；关键特征的分布明显偏离训练期时；
-            错误成本改变时；预测结果连续偏离实际结果时。
+            Re-evaluate when the product, customer mix, data source, or error cost changes;
+            when important feature distributions drift; or when realised outcomes remain
+            materially different from expectations.
           </p>
         </details>
 
         <div class="deliverable">
           <span>Deliverable 06</span>
-          <p><code>memo.md</code>：问题、基线、结果、限制、建议与复现入口。</p>
+          <p><code>memo.md</code>: question, evidence, limitations, recommendation, and reproduction entry point.</p>
         </div>
       </section>
 
-      <section class="chapter case-study" id="case-churn" aria-labelledby="churn-title">
-        <div class="case-header">
-          <div>
-            <p class="eyebrow"><span>CASE A</span> CLASSIFICATION</p>
-            <h2 id="churn-title">客户流失预测</h2>
-            <p>
-              业务目标不是“最大化准确率”，而是在有限挽留预算下，
-              尽量减少漏掉高风险客户。
-            </p>
-          </div>
-          <div class="case-badge">
-            <span>Task</span>
-            <strong>Binary classification</strong>
-          </div>
+      <section class="chapter case-labs" id="case-labs" aria-labelledby="case-labs-title">
+        <div class="section-intro">
+          <p class="eyebrow"><span>CASE LABS</span> EXECUTED NOTEBOOKS</p>
+          <h2 id="case-labs-title">Open the full code, outputs, and visual evidence.</h2>
+          <p>
+            Each lab opens a rendered notebook inside this tutorial. You can inspect
+            every code cell and chart, download the notebook, or continue to the raw source.
+          </p>
         </div>
 
-        <div class="case-flow">
-          <span>Problem</span><i></i><span>Data</span><i></i><span>Baseline</span><i></i><span>Threshold</span><i></i><span>Decision</span>
-        </div>
+        <div class="case-lab-grid">
+          <a class="case-lab-card" href="cases/customer-churn/">
+            <div class="case-visual">
+              <img src="assets/img/churn-confusion.png" alt="Confusion matrix for the customer churn model." width="1962" height="1595">
+              <span class="case-label">LAB A · CLASSIFICATION</span>
+            </div>
+            <div class="case-card-body">
+              <h3>Customer churn</h3>
+              <p>Compare logistic regression and a decision tree, then choose a threshold using campaign costs.</p>
+              <div class="case-metrics">
+                <span><b data-result="churn.logistic.recall" data-format="percent">—</b> recall</span>
+                <span><b data-result="churn.logistic.precision" data-format="percent">—</b> precision</span>
+              </div>
+              <span class="case-link">Open executed notebook <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
 
-        <figure class="figure-panel">
-          <img
-            src="assets/img/churn-confusion.png"
-            alt="Confusion matrix for logistic regression on the synthetic churn test set."
-            width="1179"
-            height="958"
-          >
-          <figcaption>
-            图 A1 · 混淆矩阵拆分出两类错误：漏掉会流失的客户，以及把不会流失的客户加入名单。
-            图表由 <code>scripts/build_examples.py</code> 重新生成。
-          </figcaption>
-        </figure>
+          <a class="case-lab-card" href="cases/house-price/">
+            <div class="case-visual">
+              <img src="assets/img/housing-predictions.png" alt="Actual and predicted house prices for the regression case." width="2242" height="1624">
+              <span class="case-label">LAB B · REGRESSION</span>
+            </div>
+            <div class="case-card-body">
+              <h3>House prices</h3>
+              <p>Test whether a random forest beats a transparent linear baseline on an untouched holdout set.</p>
+              <div class="case-metrics">
+                <span><b data-result="housing.linear.mae" data-format="decimal">—</b> linear MAE</span>
+                <span><b data-result="housing.forest.mae" data-format="decimal">—</b> forest MAE</span>
+              </div>
+              <span class="case-link">Open executed notebook <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
 
-        <div class="metric-strip metric-strip-accent" aria-label="Churn model results">
-          <div><span>Accuracy</span><strong data-result="churn.logistic.accuracy" data-format="percent">—</strong></div>
-          <div><span>Recall</span><strong data-result="churn.logistic.recall" data-format="percent">—</strong></div>
-          <div><span>Precision</span><strong data-result="churn.logistic.precision" data-format="percent">—</strong></div>
-          <div><span>ROC AUC</span><strong data-result="churn.logistic.roc_auc" data-format="decimal">—</strong></div>
-        </div>
-
-        <div class="case-insight">
-          <div>
-            <h3>要解释什么</h3>
-            <ul class="check-list">
-              <li>为什么阈值不是 0.5。</li>
-              <li>挽留预算如何决定可接受的 Precision / Recall。</li>
-              <li>决策树更复杂，但并没有自动带来更好结果。</li>
-              <li>合成数据中的关系不能直接用于真实客户。</li>
-            </ul>
-          </div>
-          <div class="case-code-link">
-            <p class="mini-label">Open the case</p>
-            <a href="https://github.com/Aayloo/data-science-crisp-dm-tutorial/blob/main/notebooks/01-customer-churn.ipynb">
-              Jupyter notebook
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="M8 16 16 8m-6 0h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </a>
-            <a href="https://github.com/Aayloo/data-science-crisp-dm-tutorial/blob/main/src/tutorial/examples.py">
-              Python implementation
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="M8 16 16 8m-6 0h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="chapter case-study" id="case-housing" aria-labelledby="housing-title">
-        <div class="case-header">
-          <div>
-            <p class="eyebrow"><span>CASE B</span> REGRESSION</p>
-            <h2 id="housing-title">房价预测</h2>
-            <p>
-              目标不是追求最高的样本内 R²，而是比较一个透明基线与一个非线性模型
-              在留出集上的真实误差。
-            </p>
-          </div>
-          <div class="case-badge">
-            <span>Task</span>
-            <strong>Regression</strong>
-          </div>
-        </div>
-
-        <figure class="figure-panel">
-          <img
-            src="assets/img/housing-predictions.png"
-            alt="Scatter plot comparing actual and random-forest predicted house prices."
-            width="1345"
-            height="976"
-          >
-          <figcaption>
-            图 B1 · 越靠近红色对角线，预测越准确。误差并非随机分布，
-            极端价格区间的偏差更值得检查。
-          </figcaption>
-        </figure>
-
-        <div class="comparison-grid">
-          <article class="comparison-card">
-            <p class="mini-label">Linear baseline</p>
-            <h3>MAE <span data-result="housing.linear.mae" data-format="decimal">—</span></h3>
-            <dl>
-              <div><dt>RMSE</dt><dd data-result="housing.linear.rmse" data-format="decimal">—</dd></div>
-              <div><dt>R²</dt><dd data-result="housing.linear.r2" data-format="decimal">—</dd></div>
-            </dl>
-          </article>
-          <article class="comparison-card">
-            <p class="mini-label">Random forest</p>
-            <h3>MAE <span data-result="housing.forest.mae" data-format="decimal">—</span></h3>
-            <dl>
-              <div><dt>RMSE</dt><dd data-result="housing.forest.rmse" data-format="decimal">—</dd></div>
-              <div><dt>R²</dt><dd data-result="housing.forest.r2" data-format="decimal">—</dd></div>
-            </dl>
-          </article>
-        </div>
-
-        <div class="case-insight">
-          <div>
-            <h3>诚实的结果</h3>
-            <p>
-              在这个小型合成案例里，线性模型反而有更低的 MAE 和 RMSE。
-              这说明复杂模型需要足够的非线性关系、数据量和调参支持；
-              “用了随机森林”本身不是贡献。
-            </p>
-          </div>
-          <div class="case-code-link">
-            <p class="mini-label">Open the case</p>
-            <a href="https://github.com/Aayloo/data-science-crisp-dm-tutorial/blob/main/notebooks/02-house-price.ipynb">Jupyter notebook</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="chapter case-study" id="case-demand" aria-labelledby="demand-title">
-        <div class="case-header">
-          <div>
-            <p class="eyebrow"><span>CASE C</span> TIME SERIES</p>
-            <h2 id="demand-title">月度需求预测</h2>
-            <p>
-              时间序列的关键不是换一个更复杂的模型，而是保留时间顺序，
-              并用季节性 Naive 检查新方法是否真的增加价值。
-            </p>
-          </div>
-          <div class="case-badge">
-            <span>Task</span>
-            <strong>Forecasting</strong>
-          </div>
-        </div>
-
-        <figure class="figure-panel">
-          <img
-            src="assets/img/demand-forecast.png"
-            alt="Line chart comparing actual monthly demand with seasonal naive and seasonal linear forecasts."
-            width="1488"
-            height="940"
-          >
-          <figcaption>
-            图 C1 · 前 48 个月训练，最后 12 个月测试。两种方法都只使用预测时点之前的信息。
-          </figcaption>
-        </figure>
-
-        <div class="comparison-grid">
-          <article class="comparison-card">
-            <p class="mini-label">Seasonal naive</p>
-            <h3>MAE <span data-result="demand.seasonal_naive.mae" data-format="decimal">—</span></h3>
-            <dl>
-              <div><dt>MAPE</dt><dd><span data-result="demand.seasonal_naive.mape" data-format="decimal">—</span>%</dd></div>
-            </dl>
-          </article>
-          <article class="comparison-card">
-            <p class="mini-label">Seasonal linear</p>
-            <h3>MAE <span data-result="demand.seasonal_linear.mae" data-format="decimal">—</span></h3>
-            <dl>
-              <div><dt>MAPE</dt><dd><span data-result="demand.seasonal_linear.mape" data-format="decimal">—</span>%</dd></div>
-            </dl>
-          </article>
-        </div>
-
-        <div class="case-insight">
-          <div>
-            <h3>要解释什么</h3>
-            <ul class="check-list">
-              <li>趋势和季节性如何体现在预测结果里。</li>
-              <li>为什么 MAPE 在真实需求接近零时会变得不稳定。</li>
-              <li>一次 12 个月留出测试仍不足以证明长期稳定。</li>
-            </ul>
-          </div>
-          <div class="case-code-link">
-            <p class="mini-label">Open the case</p>
-            <a href="https://github.com/Aayloo/data-science-crisp-dm-tutorial/blob/main/notebooks/03-demand-forecast.ipynb">Jupyter notebook</a>
-          </div>
+          <a class="case-lab-card" href="cases/demand-forecast/">
+            <div class="case-visual">
+              <img src="assets/img/demand-forecast.png" alt="Actual monthly demand and two forecasts for the time-series case." width="2480" height="1565">
+              <span class="case-label">LAB C · FORECASTING</span>
+            </div>
+            <div class="case-card-body">
+              <h3>Demand forecast</h3>
+              <p>Keep time in order and test a seasonal-linear forecast against the seasonal naive baseline.</p>
+              <div class="case-metrics">
+                <span><b data-result="demand.seasonal_naive.mape" data-format="decimal">—</b>% naive MAPE</span>
+                <span><b data-result="demand.seasonal_linear.mape" data-format="decimal">—</b>% linear MAPE</span>
+              </div>
+              <span class="case-link">Open executed notebook <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
         </div>
       </section>
 
       <section class="chapter lesson" id="checklist" aria-labelledby="checklist-title">
         <div class="chapter-heading">
           <p class="eyebrow"><span>REVIEW</span> PROJECT CHECKLIST</p>
-          <h2 id="checklist-title">下一次做项目时，按这张表反向检查。</h2>
+          <h2 id="checklist-title">Use the workflow backwards when reviewing a project.</h2>
           <p class="chapter-lede">
-            CRISP-DM 的循环意味着检查不是最后一步。任何阶段发现问题，
-            都应该回到上游更新问题、数据或评估协议。
+            CRISP-DM is iterative. A problem found in evaluation should return the team to
+            the research question, data preparation, or modelling protocol.
           </p>
         </div>
 
@@ -951,55 +876,55 @@ python -m http.server 8000
           <article>
             <h3>Business</h3>
             <ul class="check-list">
-              <li>决策人和行动是否明确？</li>
-              <li>指标是否对应用户成本？</li>
-              <li>基准是否已经定义？</li>
+              <li>Is the decision owner explicit?</li>
+              <li>Does the metric reflect the cost of errors?</li>
+              <li>Is the baseline defined before modelling?</li>
             </ul>
           </article>
           <article>
             <h3>Data</h3>
             <ul class="check-list">
-              <li>目标在决策时是否可用？</li>
-              <li>样本范围和时间口径是否清楚？</li>
-              <li>缺失、重复和异常是否记录？</li>
+              <li>Is the target available only after the decision time?</li>
+              <li>Are coverage and timing documented?</li>
+              <li>Are missing, duplicate, and extreme values inspected?</li>
             </ul>
           </article>
           <article>
             <h3>Model</h3>
             <ul class="check-list">
-              <li>是否先完成基线？</li>
-              <li>预处理是否只在训练集拟合？</li>
-              <li>参数和随机种子是否保存？</li>
+              <li>Was a baseline completed first?</li>
+              <li>Was preprocessing learned on training data only?</li>
+              <li>Are parameters and random seeds recorded?</li>
             </ul>
           </article>
           <article>
             <h3>Evaluation</h3>
             <ul class="check-list">
-              <li>测试集是否只用于最终评估？</li>
-              <li>是否检查子组和时段稳定性？</li>
-              <li>模型指标是否转为决策含义？</li>
+              <li>Was the test set protected from tuning?</li>
+              <li>Were subgroups and periods checked?</li>
+              <li>Are metric changes translated into decision effects?</li>
             </ul>
           </article>
           <article>
             <h3>Delivery</h3>
             <ul class="check-list">
-              <li>新环境能否一键重跑？</li>
-              <li>图表是否有来源和限制？</li>
-              <li>是否有明确的下一步建议？</li>
+              <li>Can another person rebuild the result?</li>
+              <li>Do figures state their source and limitation?</li>
+              <li>Does the memo contain a clear recommendation?</li>
             </ul>
           </article>
         </div>
 
         <div class="closing-card">
           <p class="eyebrow"><span>THE TAKEAWAY</span></p>
-          <h3>流程决定结果是否可信，模型只是流程中的一部分。</h3>
+          <h3>Process determines whether a result is credible. The model is only one part of the process.</h3>
           <p>
-            CRISP-DM 提供的不是一个需要背诵的六个步骤，而是一种防止自己过早进入建模、
-            忘记业务目标或误用测试数据的检查机制。
+            CRISP-DM is not six labels to memorise. It is a control system for preventing
+            premature modelling, misaligned objectives, duplicated work, and false confidence.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#overview">回到课程地图</a>
-            <a class="button button-secondary" href="https://github.com/Aayloo/data-science-crisp-dm-tutorial">查看源代码</a>
+            <a class="button button-primary" href="#overview">Back to course map</a>
+            <a class="button button-secondary" href="https://github.com/Aayloo/data-science-crisp-dm-tutorial">View source</a>
           </div>
         </div>
       </section>
@@ -1007,7 +932,7 @@ python -m http.server 8000
       <footer class="site-footer">
         <div>
           <strong>Data Science Workflow</strong>
-          <p>A hands-on CRISP-DM tutorial with three reproducible cases.</p>
+          <p>A hands-on CRISP-DM tutorial with three reproducible case labs.</p>
         </div>
         <div class="footer-links">
           <a href="https://github.com/Aayloo/data-science-crisp-dm-tutorial">GitHub</a>

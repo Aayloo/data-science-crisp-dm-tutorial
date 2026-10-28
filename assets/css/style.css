@@ -879,6 +879,10 @@ code {
   border-left: 4px solid var(--ink-soft);
 }
 
+.callout-no-icon {
+  grid-template-columns: 1fr;
+}
+
 .callout-warning {
   color: var(--amber);
   background: var(--amber-pale);
@@ -1204,6 +1208,139 @@ code {
 .delivery-stack > svg {
   flex: 0 0 auto;
   color: var(--teal);
+}
+
+.case-labs {
+  background: var(--surface);
+}
+
+.case-lab-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.case-lab-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.case-lab-card:hover {
+  color: var(--ink);
+  border-color: var(--teal);
+  box-shadow: 0 16px 34px rgba(23, 50, 77, 0.09);
+  transform: translateY(-3px);
+}
+
+.case-lab-card:focus-visible {
+  border-color: var(--amber);
+}
+
+.case-visual {
+  position: relative;
+  aspect-ratio: 4 / 2.7;
+  overflow: hidden;
+  background: #eef2f1;
+  border-bottom: 1px solid var(--border);
+}
+
+.case-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 240ms ease;
+}
+
+.case-lab-card:hover .case-visual img {
+  transform: scale(1.018);
+}
+
+.case-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 8px;
+  color: white;
+  background: rgba(23, 50, 77, 0.9);
+  font-family: var(--mono);
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.case-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 22px;
+}
+
+.case-card-body h3 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+
+.case-card-body p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+}
+
+.case-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin: 20px 0;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.case-metrics span {
+  padding: 10px;
+  color: var(--muted);
+  background: var(--surface);
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+.case-metrics b {
+  display: block;
+  color: var(--teal-dark);
+  font-family: var(--serif);
+  font-size: 1.08rem;
+}
+
+.case-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  color: var(--teal-dark);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.case-link span {
+  transition: transform 180ms ease;
+}
+
+.case-lab-card:hover .case-link span {
+  transform: translateX(4px);
+}
+
+.compact-figure {
+  max-width: 880px;
 }
 
 .case-study {
@@ -1602,6 +1739,7 @@ code {
   .model-grid,
   .metric-grid,
   .deployment-grid,
+  .case-lab-grid,
   .comparison-grid,
   .checklist-grid,
   .two-column,
@@ -1676,6 +1814,10 @@ code {
 
   .hero-actions .button {
     width: 100%;
+  }
+
+  .case-lab-grid {
+    gap: 14px;
   }
 
   .metric-strip {

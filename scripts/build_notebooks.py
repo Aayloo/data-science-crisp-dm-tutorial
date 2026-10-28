@@ -44,12 +44,29 @@ if not (ROOT / "src").exists():
 sys.path.insert(0, str(ROOT / "src"))
 
 import pandas as pd
+import matplotlib.pyplot as plt
 from IPython.display import Image, display
 
 from tutorial.data import write_datasets
 
+plt.rcParams.update({
+    "figure.dpi": 150,
+    "font.family": "serif",
+    "font.serif": ["Times New Roman", "STIXGeneral", "DejaVu Serif"],
+    "mathtext.fontset": "stix",
+    "axes.grid": True,
+    "grid.color": "#c8c8c8",
+    "grid.linewidth": 0.5,
+    "grid.alpha": 0.7,
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "axes.labelsize": 10,
+    "axes.titlesize": 10.5,
+    "lines.linewidth": 1.4,
+})
+
 paths = write_datasets(ROOT / "data")
-ROOT""",
+print(f"Project root: {ROOT.name}")""",
     )
 
 
@@ -86,6 +103,16 @@ print(df["churned"].value_counts(normalize=True).rename("share"))""",
         ),
         (
             "markdown",
+            """**Figure A0 | Missing values by field.** Source: synthetic tutorial
+data; one row represents one customer. The plot makes the preparation choices
+visible before any model is fitted.""",
+        ),
+        (
+            "code",
+            """display(Image(filename=str(ROOT / "assets" / "img" / "missing-values.png")))""",
+        ),
+        (
+            "markdown",
             """## Fit the two candidate models
 
 The reusable implementation uses one train/test split, a preprocessing
@@ -109,8 +136,33 @@ pd.DataFrame({
             """pd.Series(churn.confusion, name="customers").to_frame()""",
         ),
         (
+            "markdown",
+            """**Figure A1 | Confusion matrix at the selected threshold.** Source:
+tutorial calculations on the synthetic churn holdout set.""",
+        ),
+        (
             "code",
             """display(Image(filename=str(ROOT / "assets" / "img" / "churn-confusion.png")))""",
+        ),
+        (
+            "markdown",
+            """**Figure A2 | Precision, recall, and F1 as the threshold changes.**
+Source: tutorial calculations on the holdout set. The chosen threshold is a
+decision rule, not a universal constant.""",
+        ),
+        (
+            "code",
+            """display(Image(filename=str(ROOT / "assets" / "img" / "churn-thresholds.png")))""",
+        ),
+        (
+            "markdown",
+            """**Figure A3 | Baseline and tree model compared on one holdout split.**
+Source: tutorial calculations. The comparison is valid because both models use
+the same split, preprocessing protocol, and threshold.""",
+        ),
+        (
+            "code",
+            """display(Image(filename=str(ROOT / "assets" / "img" / "model-comparison.png")))""",
         ),
         (
             "markdown",
@@ -165,6 +217,12 @@ pd.DataFrame({
     "linear regression": housing.linear_metrics,
     "random forest": housing.forest_metrics,
 }).T""",
+        ),
+        (
+            "markdown",
+            """**Figure B2 | Actual versus predicted prices.** Source: tutorial
+calculations on the 20% holdout set. Points close to the reference line indicate
+lower prediction error.""",
         ),
         (
             "code",
@@ -239,6 +297,11 @@ pd.DataFrame({
     "seasonal naive": demand.seasonal_naive_metrics,
     "seasonal linear": demand.seasonal_linear_metrics,
 }).T""",
+        ),
+        (
+            "markdown",
+            """**Figure C1 | Actual demand versus two forecasts.** Source: tutorial
+calculations. The final 12 months are held out in chronological order.""",
         ),
         (
             "code",

@@ -11,7 +11,14 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from tutorial.data import write_datasets
 from tutorial.examples import run_churn_example, run_demand_example, run_housing_example
-from tutorial.plots import save_churn_confusion, save_demand_forecast, save_housing_prediction
+from tutorial.plots import (
+    save_churn_confusion,
+    save_churn_threshold,
+    save_demand_forecast,
+    save_housing_prediction,
+    save_missingness,
+    save_model_comparison,
+)
 
 
 def main() -> None:
@@ -21,6 +28,9 @@ def main() -> None:
     demand = run_demand_example()
 
     save_churn_confusion(churn, ROOT / "assets" / "img" / "churn-confusion.png")
+    save_missingness(churn, ROOT / "assets" / "img" / "missing-values.png")
+    save_churn_threshold(churn, ROOT / "assets" / "img" / "churn-thresholds.png")
+    save_model_comparison(churn, ROOT / "assets" / "img" / "model-comparison.png")
     save_housing_prediction(housing, ROOT / "assets" / "img" / "housing-predictions.png")
     save_demand_forecast(demand, ROOT / "assets" / "img" / "demand-forecast.png")
 
@@ -51,6 +61,9 @@ def main() -> None:
             "datasets": {name: str(path.relative_to(ROOT)) for name, path in data_paths.items()},
             "figures": [
                 "assets/img/churn-confusion.png",
+                "assets/img/missing-values.png",
+                "assets/img/churn-thresholds.png",
+                "assets/img/model-comparison.png",
                 "assets/img/housing-predictions.png",
                 "assets/img/demand-forecast.png",
             ],

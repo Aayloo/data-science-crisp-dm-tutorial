@@ -1,7 +1,5 @@
 # Data Science Workflow: A Reproducible CRISP-DM Tutorial
 
-**从问题到决策，而不是从模型开始。**
-
 A compact, hands-on Data Science tutorial for readers who already know basic
 Python. It follows the six phases of **CRISP-DM** and applies the same workflow
 to three small, reproducible cases:
@@ -59,6 +57,8 @@ Requirements: Python 3.10+ and the packages declared in `pyproject.toml`.
 python -m pip install -e ".[dev]"
 python -m pytest -q
 python scripts/build_examples.py
+python scripts/build_notebooks.py
+python scripts/build_case_pages.py
 python -m http.server 8000
 ```
 
@@ -80,6 +80,10 @@ The build script regenerates:
 - metrics under `assets/data/results.json`;
 - browser-ready metrics under `assets/data/results.js`.
 
+The case-lab pages under `cases/` are generated from the executed notebooks.
+They contain the complete code, outputs, figures, and navigation back to the
+tutorial.
+
 Generated datasets are intentionally excluded from Git. The fixed random seeds
 make them reproducible.
 
@@ -88,6 +92,7 @@ make them reproducible.
 ```text
 .
 ├── index.html                  # complete tutorial website
+├── cases/                      # rendered in-site notebook pages
 ├── assets/
 │   ├── css/style.css           # visual system and responsive layout
 │   ├── js/site.js              # navigation, progress, copy, metrics
@@ -99,6 +104,7 @@ make them reproducible.
 │   └── plots.py                # publication-style figures
 ├── notebooks/                  # executed, learner-facing notebooks
 ├── scripts/build_examples.py   # regenerate all case artifacts
+├── scripts/build_case_pages.py # render notebooks into branded static pages
 ├── tests/                      # reproducibility and metric checks
 └── references/                 # sources and further reading
 ```

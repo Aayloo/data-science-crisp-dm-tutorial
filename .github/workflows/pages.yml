@@ -35,11 +35,26 @@ jobs:
       - name: Rebuild tutorial artifacts
         run: python scripts/build_examples.py
 
+      - name: Rebuild executed notebooks
+        run: |
+          python scripts/build_notebooks.py
+          for notebook in notebooks/*.ipynb; do
+            python -m nbconvert --to notebook --execute --inplace "$notebook"
+          done
+
+      - name: Render case-lab pages
+        run: python scripts/build_case_pages.py
+
+      - name: Verify final site
+        run: python -m pytest -q
+
       - name: Prepare static site
         run: |
           mkdir -p _site/references
           cp index.html _site/index.html
           cp -R assets _site/assets
+          cp -R cases _site/cases
+          cp -R notebooks _site/notebooks
           cp references/index.html _site/references/index.html
           touch _site/.nojekyll
 

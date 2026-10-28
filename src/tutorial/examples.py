@@ -33,6 +33,9 @@ from .data import generate_churn_data, generate_demand_data, generate_housing_da
 class ChurnRun:
     data: pd.DataFrame
     threshold: float
+    y_test: np.ndarray
+    logistic_probability: np.ndarray
+    tree_probability: np.ndarray
     logistic_metrics: dict[str, float | int]
     tree_metrics: dict[str, float | int]
     confusion: dict[str, int]
@@ -145,6 +148,9 @@ def run_churn_example(seed: int = 42, threshold: float = 0.40) -> ChurnRun:
     return ChurnRun(
         data=frame,
         threshold=threshold,
+        y_test=y_test.to_numpy(),
+        logistic_probability=logistic_probability,
+        tree_probability=tree_probability,
         logistic_metrics=_classification_metrics(y_test.to_numpy(), logistic_probability, threshold),
         tree_metrics=_classification_metrics(y_test.to_numpy(), tree_probability, threshold),
         confusion={

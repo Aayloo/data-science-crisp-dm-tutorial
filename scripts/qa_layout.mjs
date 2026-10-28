@@ -145,101 +145,128 @@ try {
   await cdp.send("Log.enable");
 
   const results = [];
-  for (const viewport of [
+  const pages = [
+    { name: "tutorial", pathname: "", kind: "tutorial" },
+    { name: "customer-churn", pathname: "cases/customer-churn/", kind: "notebook" },
+    { name: "house-price", pathname: "cases/house-price/", kind: "notebook" },
+    { name: "demand-forecast", pathname: "cases/demand-forecast/", kind: "notebook" },
+  ];
+  const viewports = [
     { name: "desktop", width: 1440, height: 1000, mobile: false },
     { name: "tablet", width: 768, height: 900, mobile: true },
     { name: "mobile", width: 390, height: 844, mobile: true },
-  ]) {
-    await cdp.send("Emulation.setDeviceMetricsOverride", {
-      width: viewport.width,
-      height: viewport.height,
-      deviceScaleFactor: 1,
-      mobile: viewport.mobile,
-    });
-    await cdp.send("Page.navigate", { url });
-    await sleep(700);
+  ];
 
-    const evaluation = await cdp.send("Runtime.evaluate", {
-      returnByValue: true,
-      awaitPromise: true,
-      expression: `(() => {
-        const missingMetrics = [...document.querySelectorAll("[data-result]")]
-          .filter((node) => !node.textContent.trim() || node.textContent.trim() === "—")
-          .map((node) => node.dataset.result);
-        const brokenImages = [...document.images]
-          .filter((image) => !image.complete || image.naturalWidth === 0)
-          .map((image) => image.getAttribute("src"));
-        const missingAnchors = [...document.querySelectorAll('a[href^="#"]')]
-          .filter((anchor) => anchor.hash && !document.querySelector(anchor.hash))
-          .map((anchor) => anchor.getAttribute("href"));
-        return {
-          title: document.title,
-          scrollWidth: document.documentElement.scrollWidth,
-          clientWidth: document.documentElement.clientWidth,
-          missingMetrics,
-          brokenImages,
-          missingAnchors,
-          sectionCount: document.querySelectorAll("main section[id]").length,
-          h1Count: document.querySelectorAll("h1").length,
-          menuVisible: getComputedStyle(document.querySelector("#menu-button")).display !== "none",
-        };
-      })()`,
-    });
-    const metrics = evaluation.result.value;
+  for (const page of pages) {
+    const pageUrl = new URL(page.pathname, url).toString();
+    for (const viewport of viewports) {
+      await cdp.send("Emulation.setDeviceMetricsOverride", {
+        width: viewport.width,
+        height: viewport.height,
+        deviceScaleFactor: 1,
+        mobile: viewport.mobile,
+      });
+      await cdp.send("Page.navigate", { url: pageUrl });
+      await sleep(750);
 
-    if (metrics.scrollWidth > metrics.clientWidth + 1) {
-      throw new Error(`${viewport.name}: horizontal overflow (${metrics.scrollWidth}px > ${metrics.clientWidth}px)`);
-    }
-    if (metrics.missingMetrics.length) {
-      throw new Error(`${viewport.name}: unresolved metrics: ${metrics.missingMetrics.join(", ")}`);
-    }
-    if (metrics.brokenImages.length) {
-      throw new Error(`${viewport.name}: broken images: ${metrics.brokenImages.join(", ")}`);
-    }
-    if (metrics.missingAnchors.length) {
-      throw new Error(`${viewport.name}: missing anchors: ${metrics.missingAnchors.join(", ")}`);
-    }
-    if (metrics.sectionCount !== 11 || metrics.h1Count !== 1) {
-      throw new Error(
-        `${viewport.name}: unexpected document structure ` +
-          `(sections=${metrics.sectionCount}, h1=${metrics.h1Count})`,
-      );
-    }
-
-    if (viewport.name === "mobile") {
-      const menuCheck = await cdp.send("Runtime.evaluate", {
+      const evaluation = await cdp.send("Runtime.evaluate", {
         returnByValue: true,
         awaitPromise: true,
-        expression: `(async () => {
-          const button = document.querySelector("#menu-button");
-          button.click();
-          await new Promise((resolve) => setTimeout(resolve, 280));
-          const opened = document.body.classList.contains("nav-open");
-          const sidebarLeft = document.querySelector("#course-nav").getBoundingClientRect().left;
-          button.click();
-          await new Promise((resolve) => setTimeout(resolve, 280));
+        expression: `(() => {
+          const missingMetrics = [...document.querySelectorAll("[data-result]")]
+            .filter((node) => !node.textContent.trim() || node.textContent.trim() === "—")
+            .map((node) => node.dataset.result);
+          const brokenImages = [...document.images]
+            .filter((image) => !image.complete || image.naturalWidth === 0)
+            .map((image) => image.getAttribute("src"));
+          const missingAnchors = [...document.querySelectorAll('a[href^="#"]')]
+            .filter((anchor) => anchor.hash && !document.querySelector(anchor.hash))
+            .map((anchor) => anchor.getAttribute("href"));
+          const ids = [...document.querySelectorAll("[id]")].map((node) => node.id);
+          const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
+          const menu = document.querySelector("#menu-button");
           return {
-            opened,
-            closed: !document.body.classList.contains("nav-open"),
-            sidebarReachable: sidebarLeft >= -1 && sidebarLeft < window.innerWidth,
+            title: document.title,
+            lang: document.documentElement.lang,
+            scrollWidth: document.documentElement.scrollWidth,
+            clientWidth: document.documentElement.clientWidth,
+            missingMetrics,
+            brokenImages,
+            missingAnchors,
+            duplicateIds,
+            sectionCount: document.querySelectorAll("main section[id]").length,
+            h1Count: document.querySelectorAll("h1").length,
+            notebookCells: document.querySelectorAll(".notebook-document .cell").length,
+            menuVisible: Boolean(menu) && getComputedStyle(menu).display !== "none",
           };
         })()`,
       });
-      const menuMetrics = menuCheck.result.value;
-      if (!menuMetrics.opened || !menuMetrics.closed || !menuMetrics.sidebarReachable) {
-        throw new Error(
-          `Mobile navigation did not open and close correctly: ${JSON.stringify(menuMetrics)}`,
-        );
-      }
-    }
+      const metrics = evaluation.result.value;
+      const label = `${page.name}/${viewport.name}`;
 
-    const screenshot = await cdp.send("Page.captureScreenshot", {
-      format: "png",
-      captureBeyondViewport: false,
-    });
-    const screenshotPath = path.join(outputDir, `${viewport.name}.png`);
-    fs.writeFileSync(screenshotPath, Buffer.from(screenshot.data, "base64"));
-    results.push({ viewport, metrics, screenshotPath });
+      if (metrics.lang !== "en") {
+        throw new Error(`${label}: expected English page language`);
+      }
+      if (metrics.scrollWidth > metrics.clientWidth + 1) {
+        throw new Error(`${label}: horizontal overflow (${metrics.scrollWidth}px > ${metrics.clientWidth}px)`);
+      }
+      if (metrics.missingMetrics.length) {
+        throw new Error(`${label}: unresolved metrics: ${metrics.missingMetrics.join(", ")}`);
+      }
+      if (metrics.brokenImages.length) {
+        throw new Error(`${label}: broken images: ${metrics.brokenImages.join(", ")}`);
+      }
+      if (metrics.missingAnchors.length) {
+        throw new Error(`${label}: missing anchors: ${metrics.missingAnchors.join(", ")}`);
+      }
+      if (metrics.duplicateIds.length) {
+        throw new Error(`${label}: duplicate ids: ${metrics.duplicateIds.join(", ")}`);
+      }
+      if (metrics.h1Count !== 1) {
+        throw new Error(`${label}: expected exactly one h1, found ${metrics.h1Count}`);
+      }
+      if (page.kind === "tutorial" && metrics.sectionCount !== 9) {
+        throw new Error(`${label}: expected 9 tutorial sections, found ${metrics.sectionCount}`);
+      }
+      if (page.kind === "notebook" && metrics.notebookCells < 5) {
+        throw new Error(`${label}: notebook content did not render`);
+      }
+
+      if (page.kind === "tutorial" && viewport.name === "mobile") {
+        const menuCheck = await cdp.send("Runtime.evaluate", {
+          returnByValue: true,
+          awaitPromise: true,
+          expression: `(async () => {
+            const button = document.querySelector("#menu-button");
+            button.click();
+            await new Promise((resolve) => setTimeout(resolve, 280));
+            const opened = document.body.classList.contains("nav-open");
+            const sidebarLeft = document.querySelector("#course-nav").getBoundingClientRect().left;
+            button.click();
+            await new Promise((resolve) => setTimeout(resolve, 280));
+            return {
+              opened,
+              closed: !document.body.classList.contains("nav-open"),
+              sidebarReachable: sidebarLeft >= -1 && sidebarLeft < window.innerWidth,
+            };
+          })()`,
+        });
+        const menuMetrics = menuCheck.result.value;
+        if (!menuMetrics.opened || !menuMetrics.closed || !menuMetrics.sidebarReachable) {
+          throw new Error(
+            `Mobile navigation did not open and close correctly: ${JSON.stringify(menuMetrics)}`,
+          );
+        }
+      }
+
+      const screenshot = await cdp.send("Page.captureScreenshot", {
+        format: "png",
+        captureBeyondViewport: false,
+      });
+      const screenshotPath = path.join(outputDir, `${page.name}-${viewport.name}.png`);
+      fs.writeFileSync(screenshotPath, Buffer.from(screenshot.data, "base64"));
+      results.push({ page: page.name, viewport, metrics, screenshotPath });
+    }
   }
 
   if (browserErrors.length) {
