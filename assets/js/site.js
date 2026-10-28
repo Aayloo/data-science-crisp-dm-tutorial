@@ -37,6 +37,48 @@
     element.textContent = formatValue(value, element.dataset.format);
   });
 
+  const artifactBoxes = Array.from(document.querySelectorAll("[data-artifact]"));
+  const artifactCount = document.querySelector("#artifact-progress-count");
+  const artifactStorageKey = "ds-workflow-artifacts-v1";
+
+  function readArtifactState() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(artifactStorageKey) || "{}");
+      return stored && typeof stored === "object" ? stored : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveArtifactState(state) {
+    try {
+      localStorage.setItem(artifactStorageKey, JSON.stringify(state));
+    } catch {
+      // Progress persistence is optional when storage is unavailable.
+    }
+  }
+
+  function updateArtifactProgress() {
+    const completed = artifactBoxes.filter((box) => box.checked).length;
+    if (artifactCount) {
+      artifactCount.textContent = `${completed} of ${artifactBoxes.length} complete`;
+    }
+  }
+
+  if (artifactBoxes.length) {
+    const saved = readArtifactState();
+    artifactBoxes.forEach((box) => {
+      box.checked = Boolean(saved[box.dataset.artifact]);
+      box.addEventListener("change", () => {
+        const state = readArtifactState();
+        state[box.dataset.artifact] = box.checked;
+        saveArtifactState(state);
+        updateArtifactProgress();
+      });
+    });
+    updateArtifactProgress();
+  }
+
   function updateProgress() {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;

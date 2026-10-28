@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+  <title id="title">Decision framing canvas</title>
+  <desc id="desc">Five linked elements: decision owner, decision and prediction target, success metric and cost of error, baseline and constraints, and action with review trigger.</desc>
+  <rect width="1200" height="470" fill="#fbfcf8"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="52" y="52" fill="#17324d" font-size="24" font-weight="700">Decision framing canvas</text>
+    <text x="52" y="76" fill="#5f6f83" font-size="13">Define the decision before selecting a model.</text>
+    <g fill="#fffef9" stroke="#b9c6cd">
+      <rect x="44" y="116" width="194" height="142" rx="12"/>
+      <rect x="282" y="116" width="194" height="142" rx="12"/>
+      <rect x="520" y="116" width="194" height="142" rx="12"/>
+      <rect x="758" y="116" width="194" height="142" rx="12"/>
+      <rect x="996" y="116" width="160" height="142" rx="12"/>
+    </g>
+    <g fill="#d9eeea">
+      <rect x="44" y="116" width="194" height="34" rx="12"/>
+      <rect x="282" y="116" width="194" height="34" rx="12"/>
+      <rect x="520" y="116" width="194" height="34" rx="12"/>
+      <rect x="758" y="116" width="194" height="34" rx="12"/>
+      <rect x="996" y="116" width="160" height="34" rx="12"/>
+    </g>
+    <g fill="#0f766e" font-size="11" font-weight="700" letter-spacing="1">
+      <text x="60" y="138">01 / OWNER</text>
+      <text x="298" y="138">02 / QUESTION</text>
+      <text x="536" y="138">03 / EVIDENCE</text>
+      <text x="774" y="138">04 / COMPARISON</text>
+      <text x="1012" y="138">05 / ACTION</text>
+    </g>
+    <g fill="#17324d" font-size="15" font-weight="700">
+      <text x="60" y="181">Who acts?</text>
+      <text x="298" y="181">What must be estimated?</text>
+      <text x="536" y="181">What counts as better?</text>
+      <text x="774" y="181">Better than what?</text>
+      <text x="1012" y="181">What changes?</text>
+    </g>
+    <g fill="#38556d" font-size="12">
+      <text x="60" y="209">Decision owner,</text>
+      <text x="60" y="228">timing, authority.</text>
+      <text x="298" y="209">Target, horizon,</text>
+      <text x="298" y="228">decision cutoff.</text>
+      <text x="536" y="209">Primary metric,</text>
+      <text x="536" y="228">constraint, error cost.</text>
+      <text x="774" y="209">Baseline, holdout,</text>
+      <text x="774" y="228">success threshold.</text>
+      <text x="1012" y="209">Action, owner,</text>
+      <text x="1012" y="228">review trigger.</text>
+    </g>
+    <g fill="none" stroke="#0f766e" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M240 187 H272"/>
+      <path d="M478 187 H510"/>
+      <path d="M716 187 H748"/>
+      <path d="M954 187 H986"/>
+    </g>
+    <rect x="44" y="304" width="1112" height="97" rx="10" fill="#edf4f2" stroke="#c7dfda"/>
+    <text x="66" y="335" fill="#0b5f59" font-size="11" font-weight="800" letter-spacing="1">THE CONTRACT</text>
+    <text x="66" y="362" fill="#17324d" font-size="17" font-weight="700">For [decision owner], estimate [target] at [decision time]</text>
+    <text x="66" y="383" fill="#17324d" font-size="17" font-weight="700">so that [action] can be prioritised.</text>
+    <text x="52" y="440" fill="#5f6f83" font-size="11">Original tutorial diagram, informed by CRISP-DM business understanding.</text>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0L8 4L0 8Z" fill="#0f766e"/>
+    </marker>
+  </defs>
+</svg>

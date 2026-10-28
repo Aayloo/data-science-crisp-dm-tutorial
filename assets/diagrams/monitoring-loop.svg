@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Monitoring and model retirement loop</title>
+  <desc id="desc">A deployed model moves from data and prediction to decision and outcome. Monitoring compares observed inputs and outcomes with expectations, then either keeps the model or triggers review, retraining, pausing, or retirement.</desc>
+  <rect width="1200" height="640" fill="#fbfcf8"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="50" y="50" fill="#17324d" font-size="24" font-weight="700">Deployment is a feedback loop</text>
+    <text x="50" y="74" fill="#5f6f83" font-size="13">A model is not finished when the notebook runs.</text>
+    <g fill="#fffef9" stroke="#b9c6cd">
+      <rect x="100" y="141" width="210" height="112" rx="12"/>
+      <rect x="495" y="116" width="210" height="112" rx="12"/>
+      <rect x="890" y="141" width="210" height="112" rx="12"/>
+      <rect x="840" y="360" width="260" height="112" rx="12"/>
+      <rect x="470" y="440" width="260" height="112" rx="12"/>
+      <rect x="100" y="360" width="260" height="112" rx="12"/>
+    </g>
+    <g fill="#17324d" font-size="15" font-weight="700">
+      <text x="126" y="181">New data</text>
+      <text x="521" y="156">Score or forecast</text>
+      <text x="916" y="181">Decision</text>
+      <text x="866" y="400">Outcome and drift</text>
+      <text x="496" y="480">Compare with baseline</text>
+      <text x="126" y="400">Keep · retrain · pause</text>
+    </g>
+    <g fill="#5f6f83" font-size="11">
+      <text x="126" y="207">Fields, timing and</text>
+      <text x="126" y="225">population may change.</text>
+      <text x="521" y="183">Apply the frozen</text>
+      <text x="521" y="201">pipeline and model.</text>
+      <text x="916" y="207">The output changes</text>
+      <text x="916" y="225">an action.</text>
+      <text x="866" y="427">Errors, segment results,</text>
+      <text x="866" y="445">data quality, capacity.</text>
+      <text x="496" y="508">Metric, threshold,</text>
+      <text x="496" y="526">cost and uncertainty.</text>
+      <text x="126" y="427">Document the decision</text>
+      <text x="126" y="445">and its trigger.</text>
+    </g>
+    <g fill="none" stroke="#0f766e" stroke-width="2.2" marker-end="url(#arrow)">
+      <path d="M310 196C410 196 410 172 485 172"/>
+      <path d="M705 172C806 172 806 196 880 196"/>
+      <path d="M995 253V350"/>
+      <path d="M840 416C770 416 760 438 740 438"/>
+      <path d="M470 496C400 496 376 476 370 462"/>
+      <path d="M100 416C55 416 55 196 90 196"/>
+    </g>
+    <rect x="850" y="530" width="270" height="60" rx="8" fill="#fbe9e6" stroke="#e4aaa2"/>
+    <text x="872" y="556" fill="#8f2e26" font-size="12" font-weight="800">RETIRE WHEN</text>
+    <text x="872" y="575" fill="#5f6f83" font-size="11">Edge is gone, data contract breaks, or benefits &lt; cost.</text>
+    <text x="52" y="616" fill="#5f6f83" font-size="11">Original tutorial diagram. Monitoring categories are informed by ML4T production-governance concepts; wording and design are original.</text>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0L8 4L0 8Z" fill="#0f766e"/>
+    </marker>
+  </defs>
+</svg>

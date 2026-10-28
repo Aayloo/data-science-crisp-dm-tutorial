@@ -620,6 +620,45 @@ main {
   margin-top: 38px;
 }
 
+.course-plan {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 18px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.course-plan article {
+  padding: 18px;
+  background: var(--surface);
+}
+
+.course-plan span,
+.course-plan strong {
+  display: block;
+}
+
+.course-plan span {
+  color: var(--teal);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.course-plan strong {
+  margin: 5px 0 4px;
+  font-family: var(--serif);
+  font-size: 1.12rem;
+}
+
+.course-plan p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .outcome-card {
   min-height: 210px;
   padding: 24px;
@@ -930,6 +969,40 @@ code {
   font-size: 0.88rem;
 }
 
+.exercise {
+  margin: 26px 0;
+  padding: 20px 22px;
+  background: var(--surface-alt);
+  border: 1px solid #c7dfda;
+  border-left: 4px solid var(--teal);
+}
+
+.exercise > p {
+  margin: 8px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.exercise details {
+  margin-top: 12px;
+  border-top: 1px solid #c7dfda;
+}
+
+.exercise summary {
+  padding-top: 11px;
+  color: var(--teal-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.exercise details p {
+  margin: 0;
+  padding: 9px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+}
+
 .deliverable {
   display: grid;
   grid-template-columns: 130px 1fr;
@@ -955,6 +1028,86 @@ code {
 
 .deliverable code {
   color: #fff1b6;
+}
+
+.deliverable-body > strong {
+  display: block;
+  color: white;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+}
+
+.deliverable-body > p {
+  margin: 5px 0 0;
+}
+
+.done-when {
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.done-when b {
+  color: #fff1b6;
+}
+
+.artifact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.artifact-actions a {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  padding: 6px 11px;
+  color: var(--ink);
+  background: white;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.artifact-actions a:hover {
+  background: var(--teal-pale);
+}
+
+.artifact-check {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 8px;
+  margin-top: 11px;
+  color: #dce7ef;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.artifact-check input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--teal);
+}
+
+.artifact-progress {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 20px;
+  margin: 18px 0 0;
+  padding: 13px 16px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+
+.artifact-progress strong {
+  color: var(--ink);
 }
 
 .audit-grid,
@@ -1340,7 +1493,15 @@ code {
 }
 
 .compact-figure {
-  max-width: 880px;
+  max-width: 1000px;
+}
+
+.diagram-figure {
+  max-width: none;
+}
+
+.diagram-figure img {
+  width: 100%;
 }
 
 .case-study {
@@ -1643,6 +1804,10 @@ code {
   .cycle-svg {
     max-width: 560px;
   }
+
+  .case-lab-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 920px) {
@@ -1736,6 +1901,7 @@ code {
   }
 
   .outcome-grid,
+  .course-plan,
   .model-grid,
   .metric-grid,
   .deployment-grid,
@@ -1803,6 +1969,26 @@ code {
   }
 }
 
+@media (max-width: 900px) {
+  .diagram-figure {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-color: var(--teal) var(--blue-pale);
+    scrollbar-width: thin;
+  }
+
+  .diagram-figure img {
+    width: 760px;
+    max-width: none;
+  }
+
+  .diagram-figure figcaption::after {
+    content: " Scroll horizontally to inspect the full diagram.";
+    color: var(--teal-dark);
+    font-weight: 700;
+  }
+}
+
 @media (max-width: 430px) {
   .topbar-meta {
     font-size: 0;
@@ -1833,6 +2019,7 @@ code {
     margin-left: -8px;
     padding: 8px;
   }
+
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aayloo.github.io/data-science-crisp-dm-tutorial/sitemap.xml

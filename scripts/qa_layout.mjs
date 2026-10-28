@@ -192,6 +192,8 @@ try {
               height: Math.round(rect.height),
             };
           });
+          const diagramWidths = [...document.querySelectorAll(".diagram-figure img")]
+            .map((image) => Math.round(image.getBoundingClientRect().width));
           const menu = document.querySelector("#menu-button");
           return {
             title: document.title,
@@ -203,9 +205,13 @@ try {
             missingAnchors,
             duplicateIds,
             imageLayouts,
+            diagramWidths,
             sectionCount: document.querySelectorAll("main section[id]").length,
             h1Count: document.querySelectorAll("h1").length,
             notebookCells: document.querySelectorAll(".notebook-document .cell").length,
+            artifactCount: document.querySelectorAll("[data-artifact]").length,
+            exerciseCount: document.querySelectorAll(".exercise").length,
+            diagramCount: document.querySelectorAll(".figure-panel img").length,
             menuVisible: Boolean(menu) && getComputedStyle(menu).display !== "none",
           };
         })()`,
@@ -236,6 +242,18 @@ try {
       }
       if (page.kind === "tutorial" && metrics.sectionCount !== 9) {
         throw new Error(`${label}: expected 9 tutorial sections, found ${metrics.sectionCount}`);
+      }
+      if (
+        page.kind === "tutorial" &&
+        (metrics.artifactCount !== 6 || metrics.exerciseCount !== 6 || metrics.diagramCount < 8)
+      ) {
+        throw new Error(`${label}: incomplete teaching structure`);
+      }
+      if (
+        page.kind === "tutorial" &&
+        (metrics.diagramWidths.length !== 5 || metrics.diagramWidths.some((width) => width < 740))
+      ) {
+        throw new Error(`${label}: explanatory diagrams are below the readable width`);
       }
       if (page.kind === "notebook" && metrics.notebookCells < 5) {
         throw new Error(`${label}: notebook content did not render`);
@@ -274,6 +292,23 @@ try {
           throw new Error(
             `Mobile navigation did not open and close correctly: ${JSON.stringify(menuMetrics)}`,
           );
+        }
+      }
+
+      if (page.kind === "tutorial" && viewport.name === "desktop") {
+        const artifactCheck = await cdp.send("Runtime.evaluate", {
+          returnByValue: true,
+          expression: `(() => {
+            const box = document.querySelector("[data-artifact]");
+            box.click();
+            const state = document.querySelector("#artifact-progress-count").textContent;
+            localStorage.removeItem("ds-workflow-artifacts-v1");
+            box.click();
+            return state;
+          })()`,
+        });
+        if (!/1 of 6 complete/.test(artifactCheck.result.value)) {
+          throw new Error("Artifact progress did not update.");
         }
       }
 

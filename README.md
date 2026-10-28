@@ -8,10 +8,10 @@ to three small, reproducible cases:
 - house-price regression;
 - monthly demand forecasting.
 
-The tutorial takes roughly **4–6 hours** and deliberately keeps the model set
-small. The goal is to demonstrate the process: asking a useful question,
-understanding data, preventing leakage, establishing a baseline, evaluating
-honestly, and communicating a result.
+The suggested workload is **3–5 hours**: 45–60 minutes of guided reading,
+90–120 minutes of notebook practice, and 60–90 minutes completing the six
+project artifacts. The model set stays deliberately small; the goal is to
+demonstrate the process from question to evidence.
 
 ## Open the tutorial
 
@@ -31,6 +31,28 @@ This is a teaching project. The synthetic datasets make the examples fast,
 portable, and reproducible; they are not evidence about real customers,
 property prices, or demand.
 
+## Learning design
+
+Every core lesson now includes:
+
+- a substantive explanation and an original concept diagram where useful;
+- a worked code example;
+- a checkpoint;
+- an exercise with a hidden expected answer;
+- one project artifact with a blank template and completed example.
+
+The six artifacts form an evidence chain:
+
+1. decision brief;
+2. data profile;
+3. prepared-data workflow;
+4. model comparison;
+5. evaluation report;
+6. decision memo.
+
+Browsers remember artifact completion locally. No account, server, or database is
+required.
+
 ## Contents
 
 The single-page course contains six teaching sections and three cases:
@@ -47,7 +69,7 @@ The single-page course contains six teaching sections and three cases:
 10. Project review checklist
 
 Every teaching section includes learning objectives, conceptual guidance,
-executable code, a checkpoint, and a concrete deliverable.
+executable code, a checkpoint, an exercise, and a concrete project artifact.
 
 ## Run locally
 
@@ -84,6 +106,9 @@ The case-lab pages under `cases/` are generated from the executed notebooks.
 They contain the complete code, outputs, figures, and navigation back to the
 tutorial.
 
+The blank artifact templates live in `templates/`; completed churn-case examples
+live in `examples/deliverables/`.
+
 Generated datasets are intentionally excluded from Git. The fixed random seeds
 make them reproducible.
 
@@ -93,6 +118,8 @@ make them reproducible.
 .
 ├── index.html                  # complete tutorial website
 ├── cases/                      # rendered in-site notebook pages
+├── examples/deliverables/      # completed artifact examples
+├── templates/                  # downloadable blank artifact templates
 ├── assets/
 │   ├── css/style.css           # visual system and responsive layout
 │   ├── js/site.js              # navigation, progress, copy, metrics

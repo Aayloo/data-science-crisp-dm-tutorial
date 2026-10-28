@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="610" viewBox="0 0 1300 610" role="img" aria-labelledby="title desc">
+  <title id="title">Metric selection guide</title>
+  <desc id="desc">Classification tasks use a confusion matrix and precision, recall, F1, or ROC AUC. Regression tasks use MAE and RMSE. Time-series tasks additionally require chronological validation.</desc>
+  <rect width="1300" height="610" fill="#fbfcf8"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="52" y="50" fill="#17324d" font-size="24" font-weight="700">Choose the metric from the decision</text>
+    <text x="52" y="74" fill="#5f6f83" font-size="13">There is no universal “best” metric.</text>
+    <rect x="474" y="104" width="352" height="72" rx="36" fill="#17324d"/>
+    <text x="650" y="133" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">What kind of outcome?</text>
+    <text x="650" y="155" fill="#c7d4de" font-size="11" text-anchor="middle">Start with the decision, then pick the metric</text>
+    <g fill="none" stroke="#8e9eaa" stroke-width="2">
+      <path d="M650 176V225H230V274"/>
+      <path d="M650 176V225H650V274"/>
+      <path d="M650 176V225H1070V274"/>
+    </g>
+    <g>
+      <rect x="82" y="274" width="296" height="66" rx="10" fill="#d9eeea" stroke="#9fd4ca"/>
+      <text x="230" y="301" fill="#0b5f59" font-size="14" font-weight="800" text-anchor="middle">Classification</text>
+      <text x="230" y="323" fill="#38556d" font-size="11" text-anchor="middle">Yes / no, churn, default, fraud</text>
+      <rect x="502" y="274" width="296" height="66" rx="10" fill="#fbf1dc" stroke="#e6c98e"/>
+      <text x="650" y="301" fill="#7a4c08" font-size="14" font-weight="800" text-anchor="middle">Regression</text>
+      <text x="650" y="323" fill="#38556d" font-size="11" text-anchor="middle">Price, demand, return, duration</text>
+      <rect x="922" y="274" width="296" height="66" rx="10" fill="#e8f0f6" stroke="#b8cfdf"/>
+      <text x="1070" y="301" fill="#234e70" font-size="14" font-weight="800" text-anchor="middle">Forecasting</text>
+      <text x="1070" y="323" fill="#38556d" font-size="11" text-anchor="middle">Time order matters</text>
+    </g>
+    <g fill="#fffef9" stroke="#d8dfe2">
+      <rect x="60" y="380" width="340" height="150" rx="10"/>
+      <rect x="480" y="380" width="340" height="150" rx="10"/>
+      <rect x="900" y="380" width="340" height="150" rx="10"/>
+    </g>
+    <g fill="#17324d" font-size="12" font-weight="700">
+      <text x="82" y="411">Confusion matrix first</text>
+      <text x="502" y="411">Error size matters</text>
+      <text x="922" y="411">Chronological holdout</text>
+    </g>
+    <g fill="#38556d" font-size="11">
+      <text x="82" y="440">Precision: when we alert, how often are we right?</text>
+      <text x="82" y="462">Recall: which share of positives did we find?</text>
+      <text x="82" y="484">F1: balance precision and recall.</text>
+      <text x="82" y="506">Threshold changes all three.</text>
+      <text x="502" y="440">MAE: average absolute error in target units.</text>
+      <text x="502" y="462">RMSE: penalises larger misses more strongly.</text>
+      <text x="502" y="484">Report both when error asymmetry matters.</text>
+      <text x="502" y="506">Compare with a simple baseline.</text>
+      <text x="922" y="440">Train on earlier periods; test on later periods.</text>
+      <text x="922" y="462">Use MAE or scale-aware errors.</text>
+      <text x="922" y="484">MAPE can explode near zero demand.</text>
+      <text x="922" y="506">Never randomly shuffle time.</text>
+    </g>
+    <text x="52" y="574" fill="#5f6f83" font-size="11">Original tutorial diagram; metric definitions follow standard scikit-learn evaluation practice.</text>
+  </g>
+</svg>

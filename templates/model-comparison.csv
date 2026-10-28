@@ -1,0 +1,3 @@
+model,role,random_seed,split,accuracy,precision,recall,f1,roc_auc,mae,rmse,notes
+baseline,BASELINE,42,holdout,,,,,,,,replace with concrete results
+candidate,CANDIDATE,42,holdout,,,,,,,,replace with concrete results

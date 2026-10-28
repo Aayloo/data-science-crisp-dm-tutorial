@@ -5,6 +5,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
 
+from bs4 import BeautifulSoup
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -69,6 +71,44 @@ def test_generated_results_are_present():
     assert "churn" in script
     assert "housing" in script
     assert "demand" in script
+
+
+def test_course_depth_and_artifacts():
+    soup = BeautifulSoup((ROOT / "index.html").read_text(encoding="utf-8"), "html.parser")
+    lesson_ids = ["business", "data", "preparation", "modeling", "evaluation", "deployment"]
+    for lesson_id in lesson_ids:
+        section = soup.find("section", id=lesson_id)
+        assert section is not None
+        assert len(section.get_text(" ", strip=True).split()) >= 550, lesson_id
+        assert section.select_one(".checkpoint")
+        assert section.select_one(".exercise")
+
+    artifact_ids = [box["data-artifact"] for box in soup.select("[data-artifact]")]
+    assert artifact_ids == [
+        "research-brief",
+        "data-profile",
+        "prepared-data",
+        "model-comparison",
+        "evaluation",
+        "memo",
+    ]
+    assert len(soup.select(".figure-panel img")) >= 8
+
+
+def test_templates_and_examples_are_complete():
+    expected = [
+        "research-brief.md",
+        "data-profile.md",
+        "prepared-data.py",
+        "model-comparison.csv",
+        "evaluation.md",
+        "memo.md",
+    ]
+    for filename in expected:
+        template = ROOT / "templates" / filename
+        example = ROOT / "examples" / "deliverables" / filename
+        assert template.stat().st_size > 100
+        assert example.stat().st_size > 100
 
 
 def test_public_content_is_english_only():

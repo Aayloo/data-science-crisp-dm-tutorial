@@ -15,6 +15,7 @@ code of the sources below.
 - scikit-learn `Pipeline` and `ColumnTransformer`: https://scikit-learn.org/stable/modules/compose.html
 - scikit-learn model evaluation: https://scikit-learn.org/stable/modules/model_evaluation.html
 - Matplotlib documentation: https://matplotlib.org/stable/
+- The Turing Way, *Guide for Reproducible Research*: https://the-turing-way.netlify.app/reproducible-research/reproducible-research
 
 ## Related open educational projects
 

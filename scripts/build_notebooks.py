@@ -113,27 +113,116 @@ visible before any model is fitted.""",
         ),
         (
             "markdown",
-            """## Fit the two candidate models
+            """## Build the model comparison directly
 
-The reusable implementation uses one train/test split, a preprocessing
-pipeline and a threshold of 0.40. This avoids fitting transformations on the
-test set.
+The cells below expose the full learning path: split, preprocessing, fit,
+predict and evaluate. Keeping preprocessing inside a Pipeline ensures that
+imputation and scaling are learned from the training data only.
 """,
         ),
         (
             "code",
-            """from tutorial.examples import run_churn_example
+            """from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.tree import DecisionTreeClassifier
 
-churn = run_churn_example()
+X = df.drop(columns="churned")
+y = df["churned"]
 
-pd.DataFrame({
-    "logistic regression": churn.logistic_metrics,
-    "decision tree": churn.tree_metrics,
-}).T""",
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.25,
+    random_state=42,
+    stratify=y,
+)
+
+numeric = ["tenure_months", "monthly_charge", "support_calls", "usage_hours"]
+categorical = ["contract", "autopay", "region"]
+
+preprocess = ColumnTransformer([
+    ("numeric", Pipeline([
+        ("impute", SimpleImputer(strategy="median")),
+        ("scale", StandardScaler()),
+    ]), numeric),
+    ("categorical", Pipeline([
+        ("impute", SimpleImputer(strategy="most_frequent")),
+        ("encode", OneHotEncoder(handle_unknown="ignore")),
+    ]), categorical),
+])""",
+        ),
+        (
+            "markdown",
+            """The split happens before any transformation. `preprocess` is then
+placed inside each model Pipeline, so its medians, category levels and scaling
+statistics are fitted on `X_train` only. The tree and logistic models therefore
+share the same information boundary.""",
         ),
         (
             "code",
-            """pd.Series(churn.confusion, name="customers").to_frame()""",
+            """logistic = Pipeline([
+    ("prepare", preprocess),
+    ("model", LogisticRegression(max_iter=1_000, random_state=42)),
+])
+
+tree = Pipeline([
+    ("prepare", preprocess),
+    ("model", DecisionTreeClassifier(
+        max_depth=4,
+        min_samples_leaf=18,
+        random_state=42,
+    )),
+])
+
+_ = logistic.fit(X_train, y_train)
+_ = tree.fit(X_train, y_train)""",
+        ),
+        (
+            "code",
+            """from sklearn.metrics import (
+    accuracy_score, confusion_matrix, f1_score,
+    precision_score, recall_score, roc_auc_score,
+)
+
+threshold = 0.40
+logistic_probability = logistic.predict_proba(X_test)[:, 1]
+tree_probability = tree.predict_proba(X_test)[:, 1]
+logistic_prediction = (logistic_probability >= threshold).astype(int)
+tree_prediction = (tree_probability >= threshold).astype(int)
+
+def evaluate_classifier(y_true, prediction, probability):
+    return {
+        "accuracy": accuracy_score(y_true, prediction),
+        "precision": precision_score(y_true, prediction, zero_division=0),
+        "recall": recall_score(y_true, prediction, zero_division=0),
+        "f1": f1_score(y_true, prediction, zero_division=0),
+        "roc_auc": roc_auc_score(y_true, probability),
+    }
+
+pd.DataFrame({
+    "logistic regression": evaluate_classifier(y_test, logistic_prediction, logistic_probability),
+    "decision tree": evaluate_classifier(y_test, tree_prediction, tree_probability),
+}).T""",
+        ),
+        (
+            "markdown",
+            """At the selected threshold, the model with higher recall finds more
+churners but may also create more false alerts. F1 balances precision and recall
+with equal weight; that weighting is a reporting choice, not a universal
+business objective.""",
+        ),
+        (
+            "code",
+            """confusion = confusion_matrix(y_test, logistic_prediction, labels=[0, 1])
+pd.DataFrame(
+    confusion,
+    index=["Actual stay", "Actual churn"],
+    columns=["Predicted stay", "Predicted churn"],
+)""",
         ),
         (
             "markdown",
@@ -209,14 +298,69 @@ df.head()""",
         ),
         (
             "code",
-            """from tutorial.examples import run_housing_example
+            """from sklearn.compose import ColumnTransformer
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+import numpy as np
 
-housing = run_housing_example()
+X = df.drop(columns="price_hkd_m")
+y = df["price_hkd_m"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.20, random_state=42
+)
+
+numeric = ["living_area_sqm", "rooms", "building_age", "distance_to_centre_km"]
+categorical = ["condition", "neighborhood"]
+preprocess = ColumnTransformer([
+    ("numeric", StandardScaler(), numeric),
+    ("categorical", OneHotEncoder(handle_unknown="ignore"), categorical),
+])""",
+        ),
+        (
+            "markdown",
+            """The linear model is the interpretable baseline. The forest receives
+the identical transformed features and split; only the estimator changes.""",
+        ),
+        (
+            "code",
+            """linear = Pipeline([("prepare", preprocess), ("model", LinearRegression())])
+forest = Pipeline([
+    ("prepare", preprocess),
+    ("model", RandomForestRegressor(
+        n_estimators=250,
+        min_samples_leaf=3,
+        random_state=42,
+        n_jobs=1,
+    )),
+])
+
+_ = linear.fit(X_train, y_train)
+_ = forest.fit(X_train, y_train)""",
+        ),
+        (
+            "code",
+            """def evaluate_regressor(model):
+    prediction = model.predict(X_test)
+    return {
+        "MAE": mean_absolute_error(y_test, prediction),
+        "RMSE": mean_squared_error(y_test, prediction) ** 0.5,
+        "R2": r2_score(y_test, prediction),
+    }
 
 pd.DataFrame({
-    "linear regression": housing.linear_metrics,
-    "random forest": housing.forest_metrics,
+    "linear regression": evaluate_regressor(linear),
+    "random forest": evaluate_regressor(forest),
 }).T""",
+        ),
+        (
+            "markdown",
+            """Both models see the same holdout rows. RMSE is retained next to MAE
+because it penalises large pricing errors more heavily. The random forest is a
+useful comparison, but its extra flexibility is not evidence of extra value.""",
         ),
         (
             "markdown",
@@ -289,14 +433,68 @@ information to leak into the training set.
         ),
         (
             "code",
-            """from tutorial.examples import run_demand_example
+            """from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error
+import numpy as np
 
-demand = run_demand_example()
+train = df.iloc[:-12].copy()
+test = df.iloc[-12:].copy()
+
+# Baseline: same month last year.
+seasonal_naive = train["demand"].iloc[-12:].to_numpy()
+y_test = test["demand"].to_numpy()
+
+train[["month", "demand"]].tail(2)""",
+        ),
+        (
+            "markdown",
+            """The seasonal naive forecast repeats the corresponding demand values
+from the previous year. It is a strong operational baseline because it preserves
+an annual pattern without estimating any parameters.""",
+        ),
+        (
+            "code",
+            """# A small trend-plus-seasonality regression.
+def design_matrix(t):
+    return np.column_stack([
+        t,
+        np.sin(2 * np.pi * t / 12),
+        np.cos(2 * np.pi * t / 12),
+        np.sin(2 * np.pi * t / 6),
+        np.cos(2 * np.pi * t / 6),
+    ])
+
+train_t = np.arange(len(train), dtype=float)
+future_t = np.arange(len(train), len(train) + len(test), dtype=float)
+seasonal_model = LinearRegression().fit(design_matrix(train_t), train["demand"])
+seasonal_linear = np.maximum(seasonal_model.predict(design_matrix(future_t)), 0)""",
+        ),
+        (
+            "markdown",
+            """The regression uses elapsed time plus two sine-cosine pairs. It can
+carry a slow trend and repeating seasonal effects, but it has no information from
+the final twelve months during fitting.""",
+        ),
+        (
+            "code",
+            """def forecast_metrics(prediction):
+    safe = np.where(np.abs(y_test) < 1e-9, np.nan, y_test)
+    return {
+        "MAE": mean_absolute_error(y_test, prediction),
+        "MAPE_pct": np.nanmean(np.abs((safe - prediction) / safe)) * 100,
+    }
 
 pd.DataFrame({
-    "seasonal naive": demand.seasonal_naive_metrics,
-    "seasonal linear": demand.seasonal_linear_metrics,
+    "seasonal naive": forecast_metrics(seasonal_naive),
+    "seasonal linear": forecast_metrics(seasonal_linear),
 }).T""",
+        ),
+        (
+            "markdown",
+            """The split is chronological: 48 months train the model and the final
+12 months remain untouched until evaluation. The seasonal-naive forecast uses
+the corresponding months from the previous year rather than copying the latest
+value.""",
         ),
         (
             "markdown",

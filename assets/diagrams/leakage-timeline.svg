@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="500" viewBox="0 0 1300 500" role="img" aria-labelledby="title desc">
+  <title id="title">Point-in-time data and leakage</title>
+  <desc id="desc">Historical features are admissible before the decision cutoff. Actions happen after the forecast, while outcome fields become available later and must never enter the training features.</desc>
+  <rect width="1300" height="500" fill="#fbfcf8"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="52" y="50" fill="#17324d" font-size="24" font-weight="700">Respect the decision clock</text>
+    <text x="52" y="74" fill="#5f6f83" font-size="13">A field is valid only if its value is genuinely available at the prediction time.</text>
+    <rect x="45" y="128" width="600" height="210" rx="12" fill="#edf4f2" stroke="#9fd4ca"/>
+    <rect x="645" y="128" width="610" height="210" rx="12" fill="#fbe9e6" stroke="#e4aaa2"/>
+    <text x="70" y="158" fill="#0b5f59" font-size="12" font-weight="800" letter-spacing="1">ALLOWED WINDOW</text>
+    <text x="670" y="158" fill="#8f2e26" font-size="12" font-weight="800" letter-spacing="1">FUTURE INFORMATION</text>
+    <line x1="65" y1="250" x2="1235" y2="250" stroke="#91a3b1" stroke-width="2"/>
+    <g fill="#fffef9" stroke="#17324d" stroke-width="2">
+      <circle cx="170" cy="250" r="11"/>
+      <circle cx="470" cy="250" r="11"/>
+      <circle cx="700" cy="250" r="11"/>
+      <circle cx="1030" cy="250" r="11"/>
+    </g>
+    <g fill="#17324d" font-size="14" font-weight="700">
+      <text x="100" y="220">Historical data</text>
+      <text x="397" y="220">Decision date</text>
+      <text x="635" y="220">Action occurs</text>
+      <text x="950" y="220">Outcome observed</text>
+    </g>
+    <g fill="#38556d" font-size="11">
+      <text x="101" y="286">Tenure · usage · support calls</text>
+      <text x="397" y="286">Build features and score</text>
+      <text x="635" y="286">Campaign or allocation</text>
+      <text x="950" y="286">Churn · price · demand</text>
+    </g>
+    <rect x="879" y="330" width="302" height="72" rx="8" fill="#fffef9" stroke="#d55e46"/>
+    <text x="900" y="355" fill="#8f2e26" font-size="12" font-weight="800">DO NOT USE AS AN INPUT</text>
+    <text x="900" y="376" fill="#38556d" font-size="12">The target or any field created after the</text>
+    <text x="900" y="392" fill="#38556d" font-size="12">decision date belongs outside the features.</text>
+    <line x1="470" y1="116" x2="470" y2="350" stroke="#0f766e" stroke-width="2" stroke-dasharray="5 6"/>
+    <line x1="700" y1="116" x2="700" y2="350" stroke="#b9c6cd" stroke-width="1.5" stroke-dasharray="4 6"/>
+    <text x="52" y="462" fill="#5f6f83" font-size="11">Original tutorial diagram. The underlying point-in-time principle is standard in rigorous predictive modelling.</text>
+  </g>
+</svg>

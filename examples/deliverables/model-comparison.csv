@@ -1,0 +1,3 @@
+model,role,random_seed,split,accuracy,precision,recall,f1,roc_auc,mae,rmse,notes
+logistic_regression,primary baseline,42,25% stratified holdout,0.7133,0.6282,0.7778,0.6950,0.7707,,,threshold 0.40
+decision_tree,simple nonlinear comparison,42,25% stratified holdout,0.6233,0.5414,0.6746,0.6007,0.6761,,,max depth 4 and min leaf 18

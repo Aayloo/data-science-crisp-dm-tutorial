@@ -9,8 +9,21 @@
   >
   <meta name="theme-color" content="#17324d">
   <title>Data Science Workflow · CRISP-DM Tutorial</title>
+  <link rel="canonical" href="https://aayloo.github.io/data-science-crisp-dm-tutorial/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Data Science Workflow · CRISP-DM Tutorial">
+  <meta property="og:description" content="A reproducible, hands-on guide from business question to evaluated data-science decision.">
+  <meta property="og:url" content="https://aayloo.github.io/data-science-crisp-dm-tutorial/">
+  <meta property="og:image" content="https://aayloo.github.io/data-science-crisp-dm-tutorial/assets/img/tutorial-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Preview of the Data Science Workflow tutorial and CRISP-DM course map.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Data Science Workflow · CRISP-DM Tutorial">
+  <meta name="twitter:description" content="A reproducible, hands-on guide from business question to evaluated data-science decision.">
+  <meta name="twitter:image" content="https://aayloo.github.io/data-science-crisp-dm-tutorial/assets/img/tutorial-share.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261028-2">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261028-5">
 </head>
 <body>
   <a class="skip-link" href="#course">Skip to course content</a>
@@ -33,7 +46,7 @@
     </button>
     <a class="topbar-title" href="#overview">Data Science Workflow</a>
     <div class="topbar-meta">
-      <span>4–6 hours</span>
+      <span>3–5 hours</span>
       <a href="https://github.com/Aayloo/data-science-crisp-dm-tutorial">GitHub</a>
     </div>
   </header>
@@ -169,9 +182,9 @@
           <p class="eyebrow"><span>START HERE</span> HOW TO USE THIS TUTORIAL</p>
           <h2 id="orientation-title">Data science is a decision process, not a model catalogue.</h2>
           <p>
-            Each phase pairs a short concept with a practical question, a code example,
-            and a deliverable. Read the tutorial first, then open a case-lab notebook
-            to inspect the complete implementation and its executed outputs.
+            Each phase combines a focused explanation, a failure mode, a worked
+            example, a checkpoint and a concrete project artifact. Read the theory
+            first, then use the notebook labs to inspect and modify the implementation.
           </p>
         </div>
 
@@ -192,6 +205,35 @@
             <p>Make the workflow reproducible, explain the limits, and separate evidence from opinion.</p>
           </article>
         </div>
+
+        <div class="course-plan" aria-label="Suggested course workload">
+          <article>
+            <span>Guided reading</span>
+            <strong>45–60 minutes</strong>
+            <p>Read the six phases and answer the checkpoint questions.</p>
+          </article>
+          <article>
+            <span>Notebook practice</span>
+            <strong>90–120 minutes</strong>
+            <p>Run all three cases, inspect outputs and complete the exercises.</p>
+          </article>
+          <article>
+            <span>Artifact pack</span>
+            <strong>60–90 minutes</strong>
+            <p>Use the six templates to produce a small evidence trail.</p>
+          </article>
+        </div>
+
+        <div class="artifact-progress" id="artifact-progress" aria-live="polite">
+          <span><strong>Project artifacts</strong> · complete the workflow, not just the reading</span>
+          <span id="artifact-progress-count">0 of 6 complete</span>
+        </div>
+        <p class="reading-note">
+          Each <strong>Project artifact</strong> is a real working file, not a quiz score.
+          The six artifacts connect into one audit trail: decision brief, data profile,
+          prepared-data workflow, model comparison, evaluation report and decision memo.
+          Blank templates and completed churn examples are linked from every artifact card.
+        </p>
 
         <aside class="callout callout-note">
           <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
@@ -300,6 +342,64 @@
 }</code></pre>
         </div>
 
+        <figure class="figure-panel compact-figure diagram-figure" tabindex="0" aria-label="Scrollable decision framing diagram">
+          <img
+            src="assets/diagrams/decision-canvas.svg"
+            alt="Five-part decision canvas connecting the decision owner, prediction target, evidence criteria, baseline and resulting action."
+            width="1200"
+            height="470"
+          >
+          <figcaption>
+            Figure 1 | A model earns its place by changing a decision under explicit
+            constraints. Original diagram informed by CRISP-DM business understanding.
+          </figcaption>
+        </figure>
+
+        <h3>Why a strong prediction can still be a weak decision</h3>
+        <p>
+          Consider a churn model with excellent ranking performance. If the retention
+          campaign only runs for one week and can contact 20 customers, the useful output
+          is not a general probability score; it is a ranked list that fits that capacity.
+          The decision also needs a stop rule: if the predicted benefit of the offer is
+          lower than its cost, contacting the next customer destroys value even when the
+          model is right about churn risk.
+        </p>
+        <p>
+          This distinction matters because a churn predictor estimates risk, not the
+          causal effect of a retention action. A high-risk customer may churn even after
+          receiving a discount, while a medium-risk customer may be highly responsive.
+          The simplified lab ranks churn risk because it is easier to teach and audit.
+          A real campaign evaluation would compare treatment and control groups and
+          estimate incremental uplift.
+        </p>
+        <p>
+          A good objective also separates the <strong>model metric</strong> from the
+          <strong>decision metric</strong>. ROC AUC measures ranking across all thresholds.
+          Recall measures how many relevant cases are found at one chosen threshold.
+          Campaign profit combines expected retained revenue, offer cost, and contact
+          capacity. All three can be useful, but they answer different questions and
+          should not be treated as interchangeable leaderboard scores.
+        </p>
+
+        <div class="two-column">
+          <div>
+            <h3>Baseline as a decision counterfactual</h3>
+            <p>
+              The baseline is not merely a weak model. It is the action the organisation
+              would take without the new system: contact nobody, contact everyone, use a
+              simple rule, or continue with an existing score. Comparing against that
+              operational alternative is more informative than comparing against zero.
+            </p>
+          </div>
+          <div class="small-note">
+            <p class="mini-label">Before modelling, ask</p>
+            <p>
+              Who will use the output? What can they change? When must it be ready?
+              What would make them reject it? What is the evidence threshold for adoption?
+            </p>
+          </div>
+        </div>
+
         <details class="checkpoint">
           <summary>Checkpoint · Is this objective actionable?</summary>
           <p>
@@ -309,9 +409,36 @@
           </p>
         </details>
 
+        <div class="exercise">
+          <p class="mini-label">Exercise · repair a vague objective</p>
+          <p>
+            A team proposes: “Predict house prices accurately to improve decision-making.”
+            Rewrite it as a testable research brief.
+          </p>
+          <details>
+            <summary>Show an expected answer</summary>
+            <p>
+              “At the time a shortlist is created, estimate the sale price in HKD millions
+              so the acquisition team can reject properties outside its budget. Compare
+              against a linear baseline using MAE; investigate whether RMSE is stable
+              enough for properties above HKD 8 million. Exclude features recorded after
+              the listing decision.”
+            </p>
+          </details>
+        </div>
+
         <div class="deliverable">
-          <span>Deliverable 01</span>
-          <p><code>research_brief.md</code>: decision owner, target, timing, baseline, metrics, constraints, and failure conditions.</p>
+          <span>Artifact 01</span>
+          <div class="deliverable-body">
+            <strong>Decision brief</strong>
+            <p>Defines who uses the result, what action changes, how success is measured, and what evidence would stop the project.</p>
+            <p class="done-when"><b>Done when</b> another person can explain the decision, deadline, baseline and cost of error without seeing the data.</p>
+            <div class="artifact-actions">
+              <a href="templates/research-brief.md" download>Blank template</a>
+              <a href="examples/deliverables/research-brief.md">Worked example</a>
+            </div>
+            <label class="artifact-check"><input type="checkbox" data-artifact="research-brief"> Mark this artifact complete</label>
+          </div>
         </div>
       </section>
 
@@ -401,6 +528,77 @@ df.describe(include="all").T</code></pre>
           </div>
         </aside>
 
+        <figure class="figure-panel compact-figure diagram-figure" tabindex="0" aria-label="Scrollable point-in-time diagram">
+          <img
+            src="assets/diagrams/leakage-timeline.svg"
+            alt="A timeline separating historical features from the prediction decision, action, and future outcome."
+            width="1300"
+            height="500"
+          >
+          <figcaption>
+            Figure 2 | Leakage is an information-timing failure, not only a coding error.
+            Original diagram using the point-in-time principle common to rigorous research workflows.
+          </figcaption>
+        </figure>
+
+        <h3>Three clocks must agree</h3>
+        <p>
+          Every predictive dataset contains at least three timelines: when an event
+          happened, when its value became available to the organisation, and when the
+          model must make a decision. These are not the same clock. An invoice may be
+          dated at month-end but loaded into the warehouse three days later. A reported
+          price may describe a completed transaction long after the property was listed.
+          A churn label may only become known after the prediction would have been used.
+          If the pipeline ignores availability dates, it can create a model that performs
+          well only because it sees the future.
+        </p>
+        <p>
+          A data dictionary should therefore include meaning, unit, data type, source,
+          update frequency, valid range, and availability time. “Monthly charge” is
+          incomplete documentation; “current recurring charge in billing currency at
+          month-end close” gives a reviewer enough information to challenge its timing.
+          For each model input, ask whether the exact value would have been available
+          before the prediction cutoff.
+        </p>
+
+        <h3>Profile before cleaning</h3>
+        <p>
+          Missing values, duplicate records and outliers are not automatically errors.
+          A missing support-call count may mean no calls occurred, data was not captured,
+          or the customer had no active service. An extreme value may be a legitimate
+          VIP customer or a unit-conversion mistake. Profiling comes first because the
+          correct preparation decision depends on the mechanism that created the value.
+          Cleaning immediately can erase the evidence needed to understand the problem.
+        </p>
+        <p>
+          Sample coverage matters as much as column quality. The synthetic churn data
+          contains four regions and a single historical snapshot; it cannot show whether
+          relationships change through time or whether one region is systematically
+          under-recorded. A table of clean columns can still represent the wrong people
+          or the wrong period. That limitation belongs in the data profile and in the
+          final memo, not in a hidden code comment.
+        </p>
+
+        <div class="two-column">
+          <div>
+            <h3>A useful data profile</h3>
+            <ul class="check-list">
+              <li>Defines the unit of one row and the population covered.</li>
+              <li>Records column meaning, unit, source and decision-time availability.</li>
+              <li>Quantifies missingness, duplicates, ranges and target balance.</li>
+              <li>Names sample limitations and possible forms of leakage.</li>
+            </ul>
+          </div>
+          <div class="small-note">
+            <p class="mini-label">Interpretation comes with the number</p>
+            <p>
+              “1.5% missing” is an observation. “Charge is missing more often for new
+              customers, so median imputation may hide a tenure-related mechanism” is a
+              useful finding. Always pair the summary statistic with a consequence.
+            </p>
+          </div>
+        </div>
+
         <details class="checkpoint">
           <summary>Checkpoint · Why inspect the target distribution first?</summary>
           <p>
@@ -410,9 +608,36 @@ df.describe(include="all").T</code></pre>
           </p>
         </details>
 
+        <div class="exercise">
+          <p class="mini-label">Exercise · identify leakage risk</p>
+          <p>
+            A churn dataset contains `days_since_last_login`, `contract_type`,
+            `cancellation_reason`, and `refund_issued_after_cancel`. Which fields need
+            special timing checks?
+          </p>
+          <details>
+            <summary>Show an expected answer</summary>
+            <p>
+              `cancellation_reason` and `refund_issued_after_cancel` are likely created
+              only after churn and cannot be inputs to a pre-churn prediction.
+              `days_since_last_login` and `contract_type` may be valid, but their exact
+              snapshot dates still need verification.
+            </p>
+          </details>
+        </div>
+
         <div class="deliverable">
-          <span>Deliverable 02</span>
-          <p><code>data_profile.md</code>: sources, data dictionary, coverage, missingness, and known limitations.</p>
+          <span>Artifact 02</span>
+          <div class="deliverable-body">
+            <strong>Data profile</strong>
+            <p>Documents sources, field meanings, coverage, target balance, missingness and leakage risks.</p>
+            <p class="done-when"><b>Done when</b> every model input has a documented availability time and at least one leakage hypothesis has been tested.</p>
+            <div class="artifact-actions">
+              <a href="templates/data-profile.md" download>Blank template</a>
+              <a href="examples/deliverables/data-profile.md">Worked example</a>
+            </div>
+            <label class="artifact-check"><input type="checkbox" data-artifact="data-profile"> Mark this artifact complete</label>
+          </div>
         </div>
       </section>
 
@@ -494,6 +719,64 @@ preprocess = ColumnTransformer([
           </div>
         </div>
 
+        <figure class="figure-panel compact-figure diagram-figure" tabindex="0" aria-label="Scrollable preprocessing comparison diagram">
+          <img
+            src="assets/diagrams/pipeline-split.svg"
+            alt="Comparison of a correct pipeline that fits preprocessing on training data and a leaky pipeline that transforms all data before splitting."
+            width="1300"
+            height="560"
+          >
+          <figcaption>
+            Figure 3 | Preprocessing must belong to the training boundary. Original
+            diagram aligned with scikit-learn Pipeline and ColumnTransformer concepts.
+          </figcaption>
+        </figure>
+
+        <h3>Leakage is about information, not just code order</h3>
+        <p>
+          Leakage occurs whenever training information would not be available when the
+          prediction is made. Target leakage is the most direct form: a cancellation
+          reason, refund note, or post-decision status predicts the target because the
+          field is created by the target event. Preprocessing leakage is subtler: a
+          scaler learns the mean and variance from the test set, a median imputer borrows
+          values from the test set, or a feature-selection step chooses columns using all
+          outcomes. The individual operation may be mathematically simple, but the
+          reported validation score no longer represents a genuine future decision.
+        </p>
+        <p>
+          A Pipeline helps because it attaches transformations to a model and forces
+          each transformation to be fitted inside every training fold. It does not block
+          direct leakage from target-derived columns. The engineer still has to document
+          field timing and decide whether a column could exist at prediction time.
+          Reproducibility and validity are therefore separate requirements: a leaky
+          workflow can run perfectly on every machine and still produce the wrong result.
+        </p>
+        <p>
+          Categorical encoding, missing-value imputation and outlier handling must use
+          training-only statistics. If category levels are rare, enable
+          `handle_unknown="ignore"` so unseen levels in test data do not crash the
+          pipeline. If a target encoding is introduced later, it needs an internal
+          cross-fitting scheme because the encoding otherwise carries information about
+          each row's outcome.
+        </p>
+
+        <h3>Validation must mimic the deployment environment</h3>
+        <p>
+          Random splitting is reasonable for exchangeable customer records when the goal
+          is to generalise to similar customers. Stratification preserves the target
+          balance. A time series needs a chronological split because a future month can
+          never train a model that is supposed to forecast the past. When the target is
+          measured over a horizon, add a gap between training and validation if future
+          label information overlaps the training period.
+        </p>
+        <p>
+          Preserve enough evidence to rebuild the prepared dataset: source version,
+          generation seed, row counts, schema, split dates and software versions. Store
+          transformation parameters inside the fitted pipeline rather than in ad hoc
+          variables. This is what makes the test set reusable once rather than silently
+          tuned across many experiments.
+        </p>
+
         <details class="checkpoint">
           <summary>Checkpoint · Why not randomly split a time series?</summary>
           <p>
@@ -503,9 +786,36 @@ preprocess = ColumnTransformer([
           </p>
         </details>
 
+        <div class="exercise">
+          <p class="mini-label">Exercise · repair the split</p>
+          <p>
+            A monthly demand team normalises all 60 months, creates lag features, and
+            then randomly selects 12 test months. Name the main problems and propose a
+            safer protocol.
+          </p>
+          <details>
+            <summary>Show an expected answer</summary>
+            <p>
+              Random selection destroys chronology, and scaling before splitting leaks
+              future distribution information. Split the first 48 months from the final
+              12, fit scaling and lag-generation rules on the training period, and apply
+              those frozen rules to the later months.
+            </p>
+          </details>
+        </div>
+
         <div class="deliverable">
-          <span>Deliverable 03</span>
-          <p><code>prepared_data.py</code>: repeatable splitting, preprocessing, and feature-generation logic.</p>
+          <span>Artifact 03</span>
+          <div class="deliverable-body">
+            <strong>Prepared-data workflow</strong>
+            <p>A reproducible split, preprocessing and feature-generation pipeline.</p>
+            <p class="done-when"><b>Done when</b> every learned transformation is fitted inside training only and a clean rerun produces the same row counts.</p>
+            <div class="artifact-actions">
+              <a href="templates/prepared-data.py" download>Starter code</a>
+              <a href="examples/deliverables/prepared-data.py">Worked example</a>
+            </div>
+            <label class="artifact-check"><input type="checkbox" data-artifact="prepared-data"> Mark this artifact complete</label>
+          </div>
         </div>
       </section>
 
@@ -610,6 +920,53 @@ probability = model.predict_proba(X_test)[:, 1]
 prediction = (probability &gt;= 0.40).astype(int)</code></pre>
         </div>
 
+        <h3>Use a model ladder, not a model zoo</h3>
+        <p>
+          Start with the weakest defensible rule, then add one capability at a time.
+          For churn, a reasonable ladder is: rank by a simple business rule, fit logistic
+          regression, then test a shallow tree for nonlinearities. For house prices,
+          compare a mean prediction, linear regression, and a limited random forest.
+          For demand, compare last month's value, the same month last year, and a simple
+          trend-plus-seasonality model. Each rung adds one explanation for why performance
+          might improve.
+        </p>
+        <p>
+          This structure protects the analysis from two failures. The first is
+          <strong>unearned complexity</strong>: a large model wins by a tiny amount on
+          one split, but nobody can explain why or maintain it. The second is
+          <strong>false simplicity</strong>: a linear model may be inadequate when
+          interactions or thresholds are central, but that should be demonstrated rather
+          than assumed. The comparison should be narrow and interpretable enough that a
+          reviewer can ask what changed.
+        </p>
+        <p>
+          Hyperparameters belong to a model family, while split rules, target definition
+          and evaluation metrics belong to the research protocol. Changing
+          `max_depth` is a tuning decision; changing the prediction horizon is a new
+          research question. Keep those changes separate. Otherwise a model-selection
+          history becomes a collection of incomparable experiments.
+        </p>
+        <p>
+          In the house-price case, the random forest does not beat the linear baseline.
+          That result is intentionally retained. The synthetic price process is mostly
+          additive, the sample is small, and the default tree uses a different inductive
+          bias. A portfolio that shows only successful model upgrades is less credible
+          than one that records a well-designed comparison and accepts the answer.
+        </p>
+
+        <aside class="callout callout-note">
+          <div>
+            <strong>What to preserve for every experiment</strong>
+            <ol>
+              <li>The exact target definition and row split.</li>
+              <li>Feature list and preprocessing parameters.</li>
+              <li>Model class, hyperparameters and random seed.</li>
+              <li>Metrics, threshold and error slices.</li>
+              <li>The reason this run differed from the previous run.</li>
+            </ol>
+          </div>
+        </aside>
+
         <details class="checkpoint">
           <summary>Checkpoint · Does a more complex model always improve performance?</summary>
           <p>
@@ -619,9 +976,35 @@ prediction = (probability &gt;= 0.40).astype(int)</code></pre>
           </p>
         </details>
 
+        <div class="exercise">
+          <p class="mini-label">Exercise · build a baseline ladder</p>
+          <p>
+            For a monthly demand forecast, propose three models in increasing complexity
+            and write the question each one is meant to answer.
+          </p>
+          <details>
+            <summary>Show an expected answer</summary>
+            <p>
+              A last-value forecast asks whether the simplest persistence rule is enough.
+              Seasonal naive asks whether the same month last year captures recurring
+              demand. A trend-plus-seasonal model asks whether adding a smooth trend and
+              explicit seasonality improves error without leaking future observations.
+            </p>
+          </details>
+        </div>
+
         <div class="deliverable">
-          <span>Deliverable 04</span>
-          <p><code>model_comparison.csv</code>: model, split, parameters, random seed, and decision metrics.</p>
+          <span>Artifact 04</span>
+          <div class="deliverable-body">
+            <strong>Model comparison</strong>
+            <p>A compact table of models evaluated under the same split, preprocessing and metric protocol.</p>
+            <p class="done-when"><b>Done when</b> the baseline, candidate, random seed, split and decision metric can be compared without opening the notebook.</p>
+            <div class="artifact-actions">
+              <a href="templates/model-comparison.csv" download>Blank template</a>
+              <a href="examples/deliverables/model-comparison.csv">Worked example</a>
+            </div>
+            <label class="artifact-check"><input type="checkbox" data-artifact="model-comparison"> Mark this artifact complete</label>
+          </div>
         </div>
       </section>
 
@@ -705,6 +1088,51 @@ prediction = (probability &gt;= 0.40).astype(int)</code></pre>
           </div>
         </aside>
 
+        <figure class="figure-panel compact-figure diagram-figure" tabindex="0" aria-label="Scrollable metric selection diagram">
+          <img
+            src="assets/diagrams/metric-selector.svg"
+            alt="A metric-selection guide branching from classification, regression, and forecasting tasks to their appropriate evaluation measures."
+            width="1300"
+            height="610"
+          >
+          <figcaption>
+            Figure 4 | Select metrics from the task and decision cost. Original diagram
+            using standard evaluation terminology from scikit-learn documentation.
+          </figcaption>
+        </figure>
+
+        <h3>A metric is an argument about what matters</h3>
+        <p>
+          Accuracy asks how often the model is correct. Precision asks what share of
+          positive predictions are correct. Recall asks what share of actual positives
+          were found. F1 balances those two. Each answers a different question, and none
+          contains the cost of a campaign, the value of a retained customer, or the
+          capacity of the operations team. A complete evaluation translates the model
+          metric into those decision consequences.
+        </p>
+        <p>
+          For regression, MAE is usually easier to explain because it remains in the
+          target's units. RMSE gives larger errors more weight, so it is useful when a
+          catastrophic miss is much worse than several small misses. For demand, MAPE
+          can become unstable near zero, so an MAE table and absolute forecast errors
+          should accompany it. For classification, ROC AUC can summarise ranking, but it
+          does not choose the operating threshold. Report the threshold explicitly.
+        </p>
+        <p>
+          A single holdout split is itself an estimate. It can be lucky or unlucky,
+          especially with a small sample. For exchangeable data, compare fold-to-fold
+          variation or repeat the split with several seeds. For time series, use rolling
+          or expanding origin evaluations. Do not repeatedly adjust the final holdout;
+          that converts a confirmation set back into a training signal.
+        </p>
+        <p>
+          Inspect where errors occur before accepting an aggregate score. A model can look
+          stable overall while failing on new customers, high-price properties, a
+          particular month, or the exact cases that trigger an expensive action. Report
+          the known gap between the teaching experiment and a real deployment, including
+          sample size, synthetic data, and the absence of a separate tuning period.
+        </p>
+
         <details class="checkpoint">
           <summary>Checkpoint · Is 95% accuracy necessarily a good model?</summary>
           <p>
@@ -714,9 +1142,36 @@ prediction = (probability &gt;= 0.40).astype(int)</code></pre>
           </p>
         </details>
 
+        <div class="exercise">
+          <p class="mini-label">Exercise · choose the operating metric</p>
+          <p>
+            A retention team can contact only 150 customers. Missing a likely churner is
+            expensive, but repeated contact also annoys customers. Which metrics and
+            artefact should it inspect before deployment?
+          </p>
+          <details>
+            <summary>Show an expected answer</summary>
+            <p>
+              Start with recall at the available contact capacity, then inspect precision,
+              the confusion matrix and the score distribution. Compare contact volume,
+              expected retained revenue and false-alert cost. A threshold curve and
+              capacity-based table matter more than accuracy alone.
+            </p>
+          </details>
+        </div>
+
         <div class="deliverable">
-          <span>Deliverable 05</span>
-          <p><code>evaluation.md</code>: primary metric, baseline, error analysis, limitations, and recommendation.</p>
+          <span>Artifact 05</span>
+          <div class="deliverable-body">
+            <strong>Evaluation report</strong>
+            <p>Records the confirmation protocol, metric trade-offs, error patterns, uncertainty and recommendation.</p>
+            <p class="done-when"><b>Done when</b> the result includes a baseline, a threshold, an error slice and a statement of what cannot be claimed.</p>
+            <div class="artifact-actions">
+              <a href="templates/evaluation.md" download>Blank template</a>
+              <a href="examples/deliverables/evaluation.md">Worked example</a>
+            </div>
+            <label class="artifact-check"><input type="checkbox" data-artifact="evaluation"> Mark this artifact complete</label>
+          </div>
         </div>
       </section>
 
@@ -786,6 +1241,78 @@ python -m http.server 8000
           </div>
         </div>
 
+        <figure class="figure-panel compact-figure diagram-figure" tabindex="0" aria-label="Scrollable monitoring loop diagram">
+          <img
+            src="assets/diagrams/monitoring-loop.svg"
+            alt="A six-stage deployment loop connecting new data, prediction, decision, outcomes, comparison and keep-or-retrain actions."
+            width="1200"
+            height="640"
+          >
+          <figcaption>
+            Figure 5 | Deployment continues through measurement and review. Original
+            diagram informed by CRISP-DM deployment and production-governance principles.
+          </figcaption>
+        </figure>
+
+        <h3>Define what “deployed” means for this project</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>Table 3 | Three valid delivery levels</caption>
+            <thead>
+              <tr>
+                <th scope="col">Mode</th>
+                <th scope="col">What exists</th>
+                <th scope="col">What must be monitored</th>
+                <th scope="col">Appropriate when</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Reproducible notebook</th>
+                <td>Code, data rules, outputs and explanation</td>
+                <td>Dependency changes and stale inputs</td>
+                <td>Teaching or one-off analysis</td>
+              </tr>
+              <tr>
+                <th scope="row">Scheduled report</th>
+                <td>Automated refresh with reviewed outputs</td>
+                <td>Data freshness, failures and metric drift</td>
+                <td>Recurring decision support</td>
+              </tr>
+              <tr>
+                <th scope="row">Decision service</th>
+                <td>Versioned model, interface and ownership</td>
+                <td>Latency, errors, input drift and outcomes</td>
+                <td>The action occurs frequently and at scale</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Monitoring is not a dashboard of decorative lines</h3>
+        <p>
+          A monitoring plan starts with the decision the model supports. Track the
+          population and features used at scoring time, prediction volume, missing rates,
+          score distribution and realised outcomes when they become observable. Compare
+          those values with a documented reference period. An alert should trigger a
+          specific action—investigate, recalculate, retrain, pause or retire—and have an
+          owner. A chart without a trigger is only latent evidence.
+        </p>
+        <p>
+          A concise model card should state intended use, prohibited use, target,
+          training period, important features, evaluation data, headline metrics,
+          limitations and maintenance owner. It should also identify dependencies:
+          upstream data contracts, libraries and assumptions that could break. This
+          prevents a notebook from becoming an undocumented institutional memory.
+        </p>
+        <p>
+          Communication follows the same evidence chain. Start with the decision and
+          result, then show the baseline, the uncertainty, and the conditions under which
+          the recommendation changes. Put technical detail in an appendix. A useful memo
+          does not narrate every cell; it helps a decision-maker distinguish evidence,
+          assumption and recommendation.
+        </p>
+
         <details class="checkpoint">
           <summary>Checkpoint · When should a model be re-evaluated?</summary>
           <p>
@@ -795,9 +1322,36 @@ python -m http.server 8000
           </p>
         </details>
 
+        <div class="exercise">
+          <p class="mini-label">Exercise · define a monitoring trigger</p>
+          <p>
+            The churn model’s training period has 42% churn and 1.5% missing charge
+            values. Write one input-monitoring trigger and one outcome-monitoring trigger.
+          </p>
+          <details>
+            <summary>Show an expected answer</summary>
+            <p>
+              Input trigger example: investigate if the score population’s churn rate or
+              missing-charge share moves materially outside the reference range for two
+              consecutive campaign cycles. Outcome trigger example: pause and review if
+              recall or campaign profit falls below the agreed threshold once realised
+              churn is observed.
+            </p>
+          </details>
+        </div>
+
         <div class="deliverable">
-          <span>Deliverable 06</span>
-          <p><code>memo.md</code>: question, evidence, limitations, recommendation, and reproduction entry point.</p>
+          <span>Artifact 06</span>
+          <div class="deliverable-body">
+            <strong>Decision memo</strong>
+            <p>A one-page stakeholder summary connecting the question, evidence, recommendation, limitations and monitoring plan.</p>
+            <p class="done-when"><b>Done when</b> a non-technical reader can take the recommended action and know what would trigger a review.</p>
+            <div class="artifact-actions">
+              <a href="templates/memo.md" download>Blank template</a>
+              <a href="examples/deliverables/memo.md">Worked example</a>
+            </div>
+            <label class="artifact-check"><input type="checkbox" data-artifact="memo"> Mark this artifact complete</label>
+          </div>
         </div>
       </section>
 
@@ -860,6 +1414,19 @@ python -m http.server 8000
             </div>
           </a>
         </div>
+
+        <aside class="callout callout-note">
+          <div>
+            <strong>Optional extension: move from synthetic to public data</strong>
+            <p>
+              Keep the synthetic cases as the reproducible core. For a second pass,
+              replace one case with a clearly licensed public dataset, document the
+              source and retrieval date, and compare the result with the synthetic
+              baseline. A tutorial becomes more realistic without turning into a
+              marketplace for unverified datasets.
+            </p>
+          </div>
+        </aside>
       </section>
 
       <section class="chapter lesson" id="checklist" aria-labelledby="checklist-title">
@@ -943,7 +1510,7 @@ python -m http.server 8000
     </main>
   </div>
 
-  <script src="assets/data/results.js?v=20261028-2"></script>
-  <script src="assets/js/site.js?v=20261028-2"></script>
+  <script src="assets/data/results.js?v=20261028-5"></script>
+  <script src="assets/js/site.js?v=20261028-5"></script>
 </body>
 </html>
