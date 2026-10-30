@@ -46,9 +46,10 @@ def test_html_ids_and_local_resources_are_valid():
     pages = [
         ROOT / "index.html",
         ROOT / "references" / "index.html",
+        ROOT / "guides" / "index.html",
         *sorted((ROOT / "cases").glob("*/index.html")),
     ]
-    assert len(pages) == 5
+    assert len(pages) == 6
     for page in pages:
         source = page.read_text(encoding="utf-8")
         inside_style = re.sub(r"<style>.*?</style>", "", source, flags=re.DOTALL)

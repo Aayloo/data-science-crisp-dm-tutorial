@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Instructor guide and assessment rubric for the Data Science Workflow tutorial.">
+  <title>Instructor Guide · Data Science Workflow</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/notebook.css">
+  <style>
+    .guide-shell {
+      width: min(1040px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 46px 0 80px;
+    }
+    .guide-header {
+      margin-bottom: 30px;
+      padding: clamp(28px, 5vw, 52px);
+      color: white;
+      background: var(--ink);
+    }
+    .guide-header .eyebrow {
+      margin: 0;
+      color: #8fd4cc;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+    }
+    .guide-header h1 {
+      max-width: 720px;
+      margin: 14px 0 12px;
+      color: white;
+      font-family: var(--serif);
+      font-size: clamp(2.25rem, 5vw, 4rem);
+      font-weight: 500;
+      letter-spacing: -.04em;
+      line-height: 1.05;
+    }
+    .guide-header p {
+      max-width: 700px;
+      margin: 0;
+      color: #c7d4de;
+    }
+    .guide-content {
+      padding: clamp(22px, 4vw, 50px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .guide-content h2 {
+      margin: 2em 0 .7em;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+      font-weight: 500;
+    }
+    .guide-content h2:first-child { margin-top: 0; }
+    .guide-content h3 { margin-top: 1.5em; color: var(--ink); }
+    .guide-content p, .guide-content li { color: var(--ink-soft); }
+    .guide-content table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .guide-content th, .guide-content td {
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+    .guide-content th {
+      color: var(--muted);
+      background: #f4f6f4;
+      font-size: .68rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .guide-callout {
+      margin: 24px 0;
+      padding: 18px 20px;
+      color: #174c47;
+      background: var(--teal-pale);
+      border-left: 4px solid var(--teal);
+    }
+    .back-link {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: .84rem;
+      font-weight: 750;
+      text-decoration: none;
+    }
+    @media (max-width: 680px) {
+      .guide-content { padding: 20px 16px; }
+      .guide-content table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="guide-shell">
+    <a class="back-link" href="../index.html">← Back to tutorial</a>
+    <header class="guide-header">
+      <p class="eyebrow">INSTRUCTOR GUIDE / ASSESSMENT RUBRIC</p>
+      <h1>Teaching the workflow without teaching a model zoo.</h1>
+      <p>
+        This guide supports a short university workshop, tutorial session, or
+        self-directed project review. The objective is disciplined evidence, not
+        algorithm coverage.
+      </p>
+    </header>
+
+    <article class="guide-content">
+      <h2>Intended use</h2>
+      <p>
+        The material is designed for learners with basic Python and pandas
+        experience. A complete pass takes approximately 3–5 hours: 45–60 minutes of
+        guided reading, 90–120 minutes of notebook practice, and 60–90 minutes
+        completing the six project artifacts.
+      </p>
+      <p>
+        It can be taught as one half-day workshop, three shorter sessions, or a
+        self-paced assignment. It is a compact module rather than a replacement for
+        a full-semester data-science curriculum.
+      </p>
+
+      <h2>Session plan</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Segment</th>
+            <th scope="col">Time</th>
+            <th scope="col">Instructor action</th>
+            <th scope="col">Learner output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Course map</td><td>10 min</td><td>Explain why modelling starts after decision framing.</td><td>Workflow sketch</td></tr>
+          <tr><td>Business and data</td><td>35 min</td><td>Review target timing, baseline and leakage.</td><td>Decision brief and data profile</td></tr>
+          <tr><td>Preparation and modelling</td><td>40 min</td><td>Demonstrate a pipeline and a leaky alternative.</td><td>Prepared-data workflow and comparison table</td></tr>
+          <tr><td>Evaluation and communication</td><td>35 min</td><td>Discuss threshold, error slices and uncertainty.</td><td>Evaluation report and decision memo</td></tr>
+          <tr><td>Notebook labs</td><td>60–90 min</td><td>Let learners alter one assumption and compare results.</td><td>Modified notebook or short result note</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Common misconceptions</h2>
+      <ul>
+        <li><strong>“More advanced model means stronger project.”</strong> The house-price example shows the opposite: the simple baseline wins.</li>
+        <li><strong>“Accuracy is the default target.”</strong> Ask what error costs and select a metric that reflects the action.</li>
+        <li><strong>“Preprocessing is separate from modelling.”</strong> Transformations must be fitted inside the training boundary.</li>
+        <li><strong>“A notebook that runs is deployable.”</strong> Delivery requires documented inputs, ownership, monitoring and review triggers.</li>
+        <li><strong>“A good chart proves the conclusion.”</strong> A chart explains evidence; it does not replace the research protocol.</li>
+      </ul>
+
+      <h2>Assessment rubric</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Criterion</th>
+            <th scope="col">Developing</th>
+            <th scope="col">Proficient</th>
+            <th scope="col">Strong</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Decision framing</th>
+            <td>Names a model and target only</td>
+            <td>Identifies user, action, baseline and metric</td>
+            <td>Includes capacity, error cost and rejection conditions</td>
+          </tr>
+          <tr>
+            <th scope="row">Data validity</th>
+            <td>Describes columns after cleaning</td>
+            <td>Profiles coverage, missingness and target balance</td>
+            <td>Documents availability time and tests leakage risk</td>
+          </tr>
+          <tr>
+            <th scope="row">Reproducibility</th>
+            <td>Notebook runs once on one machine</td>
+            <td>Uses a deterministic split and saved parameters</td>
+            <td>Rebuilds from a clean environment and preserves evidence</td>
+          </tr>
+          <tr>
+            <th scope="row">Evaluation</th>
+            <td>Reports one headline score</td>
+            <td>Compares with a baseline and explains the threshold</td>
+            <td>Shows stability, error slices and decision consequences</td>
+          </tr>
+          <tr>
+            <th scope="row">Communication</th>
+            <td>Presents notebook cells sequentially</td>
+            <td>Provides a clear result and limitation</td>
+            <td>Gives a decision-ready recommendation and review trigger</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="guide-callout">
+        <strong>Evidence note</strong>
+        <p>
+          The project has automated evidence that the code, links and responsive
+          layouts work. It has not yet been validated through a controlled study of
+          learner outcomes. A useful next test is to ask 3–5 target learners to
+          complete one case without assistance and observe where they become blocked.
+        </p>
+      </div>
+
+      <h2>Review questions</h2>
+      <ol>
+        <li>Can the learner state what decision the model changes?</li>
+        <li>Can the learner identify a field that would leak the future?</li>
+        <li>Can the learner explain why a baseline is necessary?</li>
+        <li>Does the evaluation recommend an action rather than just report a score?</li>
+        <li>Could a second analyst rebuild the result from the repository?</li>
+      </ol>
+    </article>
+  </main>
+</body>
+</html>

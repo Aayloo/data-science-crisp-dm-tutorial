@@ -216,6 +216,30 @@ with equal weight; that weighting is a reporting choice, not a universal
 business objective.""",
         ),
         (
+            "markdown",
+            """## Check split sensitivity with cross-validation
+
+A single holdout result can be lucky. The following cells refit the full
+Pipeline in five stratified folds and report the mean and standard deviation of
+ROC AUC. This is a stability check, not a replacement for keeping one untouched
+confirmation set.""",
+        ),
+        (
+            "code",
+            """from sklearn.model_selection import StratifiedKFold, cross_validate
+
+fold_protocol = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+def cv_auc(model):
+    score = cross_validate(model, X, y, cv=fold_protocol, scoring="roc_auc")["test_score"]
+    return pd.Series({"mean_auc": score.mean(), "std_auc": score.std(), "folds": len(score)})
+
+pd.DataFrame({
+    "logistic regression": cv_auc(logistic),
+    "decision tree": cv_auc(tree),
+}).T""",
+        ),
+        (
             "code",
             """confusion = confusion_matrix(y_test, logistic_prediction, labels=[0, 1])
 pd.DataFrame(
@@ -364,6 +388,38 @@ useful comparison, but its extra flexibility is not evidence of extra value.""",
         ),
         (
             "markdown",
+            """## Check fold-to-fold stability
+
+Five-fold cross-validation on the training-plus-holdout rows shows how much the
+result depends on one particular holdout. Each fold refits its own preprocessing
+pipeline.""",
+        ),
+        (
+            "code",
+            """from sklearn.model_selection import KFold, cross_validate
+
+folds = KFold(n_splits=5, shuffle=True, random_state=42)
+scoring = {
+    "mae": "neg_mean_absolute_error",
+    "rmse": "neg_root_mean_squared_error",
+}
+
+def cv_regression(model):
+    scores = cross_validate(model, X, y, cv=folds, scoring=scoring)
+    return {
+        "MAE mean": -scores["test_mae"].mean(),
+        "MAE sd": scores["test_mae"].std(),
+        "RMSE mean": -scores["test_rmse"].mean(),
+        "RMSE sd": scores["test_rmse"].std(),
+    }
+
+pd.DataFrame({
+    "linear regression": cv_regression(linear),
+    "random forest": cv_regression(forest),
+}).T""",
+        ),
+        (
+            "markdown",
             """**Figure B2 | Actual versus predicted prices.** Source: tutorial
 calculations on the 20% holdout set. Points close to the reference line indicate
 lower prediction error.""",
@@ -495,6 +551,39 @@ pd.DataFrame({
 12 months remain untouched until evaluation. The seasonal-naive forecast uses
 the corresponding months from the previous year rather than copying the latest
 value.""",
+        ),
+        (
+            "markdown",
+            """## Repeat the forecast across rolling origins
+
+One twelve-month holdout is a narrow test. The next cell moves the forecast
+origin forward and evaluates three separate twelve-month windows. This remains a
+small teaching sample, but it shows how to inspect forecast stability over time.""",
+        ),
+        (
+            "code",
+            """def rolling_forecasts(cutoff):
+    train_window = df.iloc[:cutoff].copy()
+    test_window = df.iloc[cutoff:cutoff + 12].copy()
+    horizon = len(test_window)
+    naive = train_window["demand"].iloc[-12:].to_numpy()
+
+    train_t = np.arange(len(train_window), dtype=float)
+    future_t = np.arange(len(train_window), len(train_window) + horizon, dtype=float)
+    model = LinearRegression().fit(
+        design_matrix(train_t),
+        train_window["demand"],
+    )
+    linear_forecast = np.maximum(model.predict(design_matrix(future_t)), 0)
+    actual = test_window["demand"].to_numpy()
+    return {
+        "naive_MAE": mean_absolute_error(actual, naive),
+        "linear_MAE": mean_absolute_error(actual, linear_forecast),
+    }
+
+pd.DataFrame(
+    {f"origin_{cutoff}": rolling_forecasts(cutoff) for cutoff in [24, 36, 48]}
+).T""",
         ),
         (
             "markdown",

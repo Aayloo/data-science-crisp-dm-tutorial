@@ -150,6 +150,7 @@ try {
     { name: "customer-churn", pathname: "cases/customer-churn/", kind: "notebook" },
     { name: "house-price", pathname: "cases/house-price/", kind: "notebook" },
     { name: "demand-forecast", pathname: "cases/demand-forecast/", kind: "notebook" },
+    { name: "instructor-guide", pathname: "guides/", kind: "guide" },
   ];
   const viewports = [
     { name: "desktop", width: 1440, height: 1000, mobile: false },

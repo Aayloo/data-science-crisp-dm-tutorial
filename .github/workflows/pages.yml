@@ -57,6 +57,7 @@ jobs:
           cp -R notebooks _site/notebooks
           cp -R templates _site/templates
           cp -R examples _site/examples
+          cp -R guides _site/guides
           cp references/index.html _site/references/index.html
           cp robots.txt sitemap.xml _site/
           touch _site/.nojekyll

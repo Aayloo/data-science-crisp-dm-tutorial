@@ -106,7 +106,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </section>
 
     <article class="notebook-document" aria-label="Executed notebook">
-      <div class="cell border-box-sizing text_cell rendered" id="cell-id=df26a04a"><div class="prompt input_prompt">
+      <div class="cell border-box-sizing text_cell rendered" id="cell-id=0b58a5f5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="CRISP-DM-question">CRISP-DM question<a class="anchor-link" href="#CRISP-DM-question">¶</a></h2><p>Which customers should receive a limited retention offer?</p>
@@ -117,7 +117,7 @@ and explain why the decision threshold changes the result.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8628f7f1">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b277fd10">
 <div class="input">
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
@@ -170,7 +170,7 @@ and explain why the decision threshold changes the result.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=5bb74cb7">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=db45afad">
 <div class="input">
 <div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
@@ -276,7 +276,7 @@ and explain why the decision threshold changes the result.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1f5328b2">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b3bc1771">
 <div class="input">
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
@@ -334,7 +334,7 @@ Name: share, dtype: float64
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=b4b14a75"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=e206219a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Figure A0 | Missing values by field.</strong> Source: synthetic tutorial
@@ -343,7 +343,7 @@ visible before any model is fitted.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8955a23f">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=34cd30b3">
 <div class="input">
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
@@ -364,7 +364,7 @@ visible before any model is fitted.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=a11d566a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=9cd32b87"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Build-the-model-comparison-directly">Build the model comparison directly<a class="anchor-link" href="#Build-the-model-comparison-directly">¶</a></h2><p>The cells below expose the full learning path: split, preprocessing, fit,
@@ -373,7 +373,7 @@ imputation and scaling are learned from the training data only.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=25f31f1e">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=45994862">
 <div class="input">
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
@@ -415,7 +415,7 @@ imputation and scaling are learned from the training data only.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=8050f0ee"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=adeb794f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The split happens before any transformation. <code>preprocess</code> is then
@@ -425,7 +425,7 @@ share the same information boundary.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=fd3cc53d">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=6917f06a">
 <div class="input">
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
@@ -451,7 +451,7 @@ share the same information boundary.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=07ce8af4">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d4d9449d">
 <div class="input">
 <div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
@@ -537,7 +537,7 @@ share the same information boundary.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=b148390a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=b0e64c2e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>At the selected threshold, the model with higher recall finds more
@@ -547,9 +547,87 @@ business objective.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d2a38501">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=fd52b535"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-split-sensitivity-with-cross-validation">Check split sensitivity with cross-validation<a class="anchor-link" href="#Check-split-sensitivity-with-cross-validation">¶</a></h2><p>A single holdout result can be lucky. The following cells refit the full
+Pipeline in five stratified folds and report the mean and standard deviation of
+ROC AUC. This is a stability check, not a replacement for keeping one untouched
+confirmation set.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c5ef6832">
 <div class="input">
 <div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedKFold</span><span class="p">,</span> <span class="n">cross_validate</span>
+
+<span class="n">fold_protocol</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cv_auc</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">fold_protocol</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">)[</span><span class="s2">"test_score"</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s2">"mean_auc"</span><span class="p">:</span> <span class="n">score</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">"std_auc"</span><span class="p">:</span> <span class="n">score</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="s2">"folds"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">score</span><span class="p">)})</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"logistic regression"</span><span class="p">:</span> <span class="n">cv_auc</span><span class="p">(</span><span class="n">logistic</span><span class="p">),</span>
+    <span class="s2">"decision tree"</span><span class="p">:</span> <span class="n">cv_auc</span><span class="p">(</span><span class="n">tree</span><span class="p">),</span>
+<span class="p">})</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[8]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>mean_auc</th>
+<th>std_auc</th>
+<th>folds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>logistic regression</th>
+<td>0.734288</td>
+<td>0.029795</td>
+<td>5.0</td>
+</tr>
+<tr>
+<th>decision tree</th>
+<td>0.705703</td>
+<td>0.042458</td>
+<td>5.0</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7a1dd997">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">confusion</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">logistic_prediction</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
@@ -565,7 +643,7 @@ business objective.</p>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[8]:</div>
+<div class="prompt output_prompt">Out[9]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -606,7 +684,7 @@ business objective.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=4c0fa7d7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=8fc73a31"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Figure A1 | Confusion matrix at the selected threshold.</strong> Source:
@@ -614,9 +692,9 @@ tutorial calculations on the synthetic churn holdout set.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=cc567813">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=10e78429">
 <div class="input">
-<div class="prompt input_prompt">In [9]:</div>
+<div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">ROOT</span> <span class="o">/</span> <span class="s2">"assets"</span> <span class="o">/</span> <span class="s2">"img"</span> <span class="o">/</span> <span class="s2">"churn-confusion.png"</span><span class="p">)))</span>
@@ -635,7 +713,7 @@ tutorial calculations on the synthetic churn holdout set.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=a5ce0809"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=11a59a4a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Figure A2 | Precision, recall, and F1 as the threshold changes.</strong>
@@ -644,9 +722,9 @@ decision rule, not a universal constant.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=327fd157">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=49b9cdf9">
 <div class="input">
-<div class="prompt input_prompt">In [10]:</div>
+<div class="prompt input_prompt">In [11]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">ROOT</span> <span class="o">/</span> <span class="s2">"assets"</span> <span class="o">/</span> <span class="s2">"img"</span> <span class="o">/</span> <span class="s2">"churn-thresholds.png"</span><span class="p">)))</span>
@@ -665,7 +743,7 @@ decision rule, not a universal constant.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=6cb7f56d"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=ad0648b9"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Figure A3 | Baseline and tree model compared on one holdout split.</strong>
@@ -674,9 +752,9 @@ the same split, preprocessing protocol, and threshold.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4c3a2be4">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9ff6885f">
 <div class="input">
-<div class="prompt input_prompt">In [11]:</div>
+<div class="prompt input_prompt">In [12]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">ROOT</span> <span class="o">/</span> <span class="s2">"assets"</span> <span class="o">/</span> <span class="s2">"img"</span> <span class="o">/</span> <span class="s2">"model-comparison.png"</span><span class="p">)))</span>
@@ -695,7 +773,7 @@ the same split, preprocessing protocol, and threshold.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=de7a367c"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=ff009cc7"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Interpretation-and-exercise">Interpretation and exercise<a class="anchor-link" href="#Interpretation-and-exercise">¶</a></h2><ol>

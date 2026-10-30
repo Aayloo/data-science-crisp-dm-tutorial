@@ -106,7 +106,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </section>
 
     <article class="notebook-document" aria-label="Executed notebook">
-      <div class="cell border-box-sizing text_cell rendered" id="cell-id=c75c3386"><div class="prompt input_prompt">
+      <div class="cell border-box-sizing text_cell rendered" id="cell-id=1484bf42"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="CRISP-DM-question">CRISP-DM question<a class="anchor-link" href="#CRISP-DM-question">¶</a></h2><p>Can a model estimate residential prices closely enough to support a first-pass
@@ -117,7 +117,7 @@ out-of-sample error.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6496bda4">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=31738567">
 <div class="input">
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
@@ -170,7 +170,7 @@ out-of-sample error.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e5b8dff8">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=63994c6b">
 <div class="input">
 <div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
@@ -270,7 +270,7 @@ out-of-sample error.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=15361bc0">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=dbba4812">
 <div class="input">
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
@@ -375,7 +375,7 @@ out-of-sample error.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=920a93a6">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=329783ae">
 <div class="input">
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
@@ -406,7 +406,7 @@ out-of-sample error.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=501dc44f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=5b243f3b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The linear model is the interpretable baseline. The forest receives
@@ -414,7 +414,7 @@ the identical transformed features and split; only the estimator changes.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=f0892a16">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b4242217">
 <div class="input">
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
@@ -437,7 +437,7 @@ the identical transformed features and split; only the estimator changes.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=866e073d">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8b54d7ce">
 <div class="input">
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
@@ -505,7 +505,7 @@ the identical transformed features and split; only the estimator changes.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=439720b9"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=79801f30"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Both models see the same holdout rows. RMSE is retained next to MAE
@@ -514,7 +514,96 @@ useful comparison, but its extra flexibility is not evidence of extra value.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=356ad4d0"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=11d6e381"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-fold-to-fold-stability">Check fold-to-fold stability<a class="anchor-link" href="#Check-fold-to-fold-stability">¶</a></h2><p>Five-fold cross-validation on the training-plus-holdout rows shows how much the
+result depends on one particular holdout. Each fold refits its own preprocessing
+pipeline.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9c66ba2c">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">cross_validate</span>
+
+<span class="n">folds</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">scoring</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"mae"</span><span class="p">:</span> <span class="s2">"neg_mean_absolute_error"</span><span class="p">,</span>
+    <span class="s2">"rmse"</span><span class="p">:</span> <span class="s2">"neg_root_mean_squared_error"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cv_regression</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"MAE mean"</span><span class="p">:</span> <span class="o">-</span><span class="n">scores</span><span class="p">[</span><span class="s2">"test_mae"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s2">"MAE sd"</span><span class="p">:</span> <span class="n">scores</span><span class="p">[</span><span class="s2">"test_mae"</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span>
+        <span class="s2">"RMSE mean"</span><span class="p">:</span> <span class="o">-</span><span class="n">scores</span><span class="p">[</span><span class="s2">"test_rmse"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s2">"RMSE sd"</span><span class="p">:</span> <span class="n">scores</span><span class="p">[</span><span class="s2">"test_rmse"</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span>
+    <span class="p">}</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"linear regression"</span><span class="p">:</span> <span class="n">cv_regression</span><span class="p">(</span><span class="n">linear</span><span class="p">),</span>
+    <span class="s2">"random forest"</span><span class="p">:</span> <span class="n">cv_regression</span><span class="p">(</span><span class="n">forest</span><span class="p">),</span>
+<span class="p">})</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[7]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>MAE mean</th>
+<th>MAE sd</th>
+<th>RMSE mean</th>
+<th>RMSE sd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>linear regression</th>
+<td>0.320344</td>
+<td>0.011014</td>
+<td>0.401627</td>
+<td>0.009181</td>
+</tr>
+<tr>
+<th>random forest</th>
+<td>0.491742</td>
+<td>0.022590</td>
+<td>0.634282</td>
+<td>0.020862</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=9615375d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Figure B2 | Actual versus predicted prices.</strong> Source: tutorial
@@ -523,9 +612,9 @@ lower prediction error.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=926285c2">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b4902406">
 <div class="input">
-<div class="prompt input_prompt">In [7]:</div>
+<div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">ROOT</span> <span class="o">/</span> <span class="s2">"assets"</span> <span class="o">/</span> <span class="s2">"img"</span> <span class="o">/</span> <span class="s2">"housing-predictions.png"</span><span class="p">)))</span>
@@ -544,7 +633,7 @@ lower prediction error.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=a12df1c0"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=b1b2c3aa"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Interpretation-and-exercise">Interpretation and exercise<a class="anchor-link" href="#Interpretation-and-exercise">¶</a></h2><p>The linear baseline has lower MAE and RMSE in this controlled synthetic case.

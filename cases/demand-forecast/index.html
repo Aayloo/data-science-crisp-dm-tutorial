@@ -106,7 +106,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </section>
 
     <article class="notebook-document" aria-label="Executed notebook">
-      <div class="cell border-box-sizing text_cell rendered" id="cell-id=d95c22fd"><div class="prompt input_prompt">
+      <div class="cell border-box-sizing text_cell rendered" id="cell-id=d5dfc965"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="CRISP-DM-question">CRISP-DM question<a class="anchor-link" href="#CRISP-DM-question">¶</a></h2><p>Can a simple seasonal model improve a one-year operational plan over last
@@ -116,7 +116,7 @@ information only, and compare models with MAE and MAPE.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=bef6b0fa">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e3a57a0e">
 <div class="input">
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
@@ -169,7 +169,7 @@ information only, and compare models with MAE and MAPE.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=f92435b8">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=780f6998">
 <div class="input">
 <div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
@@ -239,7 +239,7 @@ information only, and compare models with MAE and MAPE.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=78016c32">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3419abbd">
 <div class="input">
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
@@ -272,7 +272,7 @@ information only, and compare models with MAE and MAPE.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=7d7013ef"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=10dfba0e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Chronological-validation">Chronological validation<a class="anchor-link" href="#Chronological-validation">¶</a></h2><p>The final 12 months are the test period. A random split would allow future
@@ -280,7 +280,7 @@ information to leak into the training set.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e40dbfe1">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=284f5fb3">
 <div class="input">
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
@@ -345,7 +345,7 @@ information to leak into the training set.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=c22d7c68"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=638aa883"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The seasonal naive forecast repeats the corresponding demand values
@@ -354,7 +354,7 @@ an annual pattern without estimating any parameters.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=173f157b">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=eb3fa940">
 <div class="input">
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
@@ -378,7 +378,7 @@ an annual pattern without estimating any parameters.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=4d49f44c"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=27b6c00a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The regression uses elapsed time plus two sine-cosine pairs. It can
@@ -387,7 +387,7 @@ the final twelve months during fitting.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8fbe580e">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2992951c">
 <div class="input">
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
@@ -451,7 +451,7 @@ the final twelve months during fitting.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=8040dff1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=48ece8b7"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The split is chronological: 48 months train the model and the final
@@ -461,7 +461,96 @@ value.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=5e2d3df5"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=33078d55"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Repeat-the-forecast-across-rolling-origins">Repeat the forecast across rolling origins<a class="anchor-link" href="#Repeat-the-forecast-across-rolling-origins">¶</a></h2><p>One twelve-month holdout is a narrow test. The next cell moves the forecast
+origin forward and evaluates three separate twelve-month windows. This remains a
+small teaching sample, but it shows how to inspect forecast stability over time.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=fba551a8">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rolling_forecasts</span><span class="p">(</span><span class="n">cutoff</span><span class="p">):</span>
+    <span class="n">train_window</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">cutoff</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">test_window</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">cutoff</span><span class="p">:</span><span class="n">cutoff</span> <span class="o">+</span> <span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">horizon</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_window</span><span class="p">)</span>
+    <span class="n">naive</span> <span class="o">=</span> <span class="n">train_window</span><span class="p">[</span><span class="s2">"demand"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">12</span><span class="p">:]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+    <span class="n">train_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_window</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">future_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_window</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_window</span><span class="p">)</span> <span class="o">+</span> <span class="n">horizon</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+        <span class="n">design_matrix</span><span class="p">(</span><span class="n">train_t</span><span class="p">),</span>
+        <span class="n">train_window</span><span class="p">[</span><span class="s2">"demand"</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">linear_forecast</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">design_matrix</span><span class="p">(</span><span class="n">future_t</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">test_window</span><span class="p">[</span><span class="s2">"demand"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"naive_MAE"</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">naive</span><span class="p">),</span>
+        <span class="s2">"linear_MAE"</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">linear_forecast</span><span class="p">),</span>
+    <span class="p">}</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="sa">f</span><span class="s2">"origin_</span><span class="si">{</span><span class="n">cutoff</span><span class="si">}</span><span class="s2">"</span><span class="p">:</span> <span class="n">rolling_forecasts</span><span class="p">(</span><span class="n">cutoff</span><span class="p">)</span> <span class="k">for</span> <span class="n">cutoff</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">48</span><span class="p">]}</span>
+<span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[7]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>naive_MAE</th>
+<th>linear_MAE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>origin_24</th>
+<td>20.975000</td>
+<td>10.984586</td>
+</tr>
+<tr>
+<th>origin_36</th>
+<td>8.516667</td>
+<td>6.788108</td>
+</tr>
+<tr>
+<th>origin_48</th>
+<td>19.650000</td>
+<td>5.326359</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=70f5534b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Figure C1 | Actual demand versus two forecasts.</strong> Source: tutorial
@@ -469,9 +558,9 @@ calculations. The final 12 months are held out in chronological order.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=042f8d86">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0cd1873a">
 <div class="input">
-<div class="prompt input_prompt">In [7]:</div>
+<div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">ROOT</span> <span class="o">/</span> <span class="s2">"assets"</span> <span class="o">/</span> <span class="s2">"img"</span> <span class="o">/</span> <span class="s2">"demand-forecast.png"</span><span class="p">)))</span>
@@ -490,7 +579,7 @@ calculations. The final 12 months are held out in chronological order.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=da1c1e26"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=de7f7475"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Interpretation-and-exercise">Interpretation and exercise<a class="anchor-link" href="#Interpretation-and-exercise">¶</a></h2><p>MAPE becomes unstable when actual demand approaches zero. For real operational

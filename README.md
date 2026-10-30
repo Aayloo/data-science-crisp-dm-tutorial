@@ -40,6 +40,8 @@ Every core lesson now includes:
 - a checkpoint;
 - an exercise with a hidden expected answer;
 - one project artifact with a blank template and completed example.
+- a stability check using repeated folds or rolling forecast origins where the
+  task permits it.
 
 The six artifacts form an evidence chain:
 
@@ -119,6 +121,7 @@ make them reproducible.
 ├── index.html                  # complete tutorial website
 ├── cases/                      # rendered in-site notebook pages
 ├── examples/deliverables/      # completed artifact examples
+├── guides/                     # instructor guide and assessment rubric
 ├── templates/                  # downloadable blank artifact templates
 ├── assets/
 │   ├── css/style.css           # visual system and responsive layout
