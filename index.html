@@ -23,7 +23,7 @@
   <meta name="twitter:description" content="A reproducible, hands-on guide from business question to evaluated data-science decision.">
   <meta name="twitter:image" content="https://aayloo.github.io/data-science-crisp-dm-tutorial/assets/img/tutorial-share.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261030-1">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261124-lab">
 </head>
 <body>
   <a class="skip-link" href="#course">Skip to course content</a>
@@ -77,6 +77,7 @@
       <nav class="course-links" aria-label="Tutorial sections">
         <p class="nav-label">Course</p>
         <a class="nav-link is-active" href="#overview"><span>00</span> Course map</a>
+        <a class="nav-link" href="#workflow-lab"><span>LAB</span> Workflow lab</a>
         <a class="nav-link" href="#business"><span>01</span> Business understanding</a>
         <a class="nav-link" href="#data"><span>02</span> Data understanding</a>
         <a class="nav-link" href="#preparation"><span>03</span> Data preparation</a>
@@ -252,6 +253,181 @@
             </p>
           </div>
         </aside>
+      </section>
+
+      <section class="chapter workflow-lab" id="workflow-lab" aria-labelledby="workflow-lab-title">
+        <div class="chapter-heading lab-heading">
+          <div>
+            <p class="eyebrow"><span>INTERACTIVE LAB</span> TRY THE WORKFLOW</p>
+            <h2 id="workflow-lab-title">Make a decision. Break the pipeline. See what happens next.</h2>
+          </div>
+          <p class="chapter-lede">
+            This studio turns each CRISP-DM phase into a small working experiment.
+            Switch case, choose a phase and change the inputs. The lesson below
+            still contains the full explanation, evidence and downloadable artifacts.
+          </p>
+        </div>
+
+        <div class="lab-case-switcher" aria-label="Choose a case">
+          <span>Case</span>
+          <button class="lab-case-button is-active" type="button" data-case-id="churn" aria-pressed="true">
+            Customer churn
+          </button>
+          <button class="lab-case-button" type="button" data-case-id="house" aria-pressed="false">
+            House prices
+          </button>
+          <button class="lab-case-button" type="button" data-case-id="demand" aria-pressed="false">
+            Demand forecast
+          </button>
+        </div>
+
+        <div class="lab-workspace">
+          <aside class="lab-stage" aria-label="Workflow phase selector">
+            <div class="workflow-object" aria-hidden="true">
+              <div class="workflow-core">
+                <span>CRISP-DM</span>
+                <strong id="workflow-core-label">Decision</strong>
+              </div>
+              <span class="workflow-node" style="--angle: 0deg"><b>01</b><em>Decision</em></span>
+              <span class="workflow-node" style="--angle: 60deg"><b>02</b><em>Data</em></span>
+              <span class="workflow-node" style="--angle: 120deg"><b>03</b><em>Prepare</em></span>
+              <span class="workflow-node" style="--angle: 180deg"><b>04</b><em>Model</em></span>
+              <span class="workflow-node" style="--angle: 240deg"><b>05</b><em>Evaluate</em></span>
+              <span class="workflow-node" style="--angle: 300deg"><b>06</b><em>Monitor</em></span>
+            </div>
+            <div class="lab-phase-list" role="tablist" aria-label="Interactive workflow phases">
+              <button class="lab-phase is-active" type="button" role="tab" aria-selected="true" aria-controls="lab-decision" data-lab-target="decision">
+                <span>01</span><strong>Decision canvas</strong><small>Frame the action</small>
+              </button>
+              <button class="lab-phase" type="button" role="tab" aria-selected="false" aria-controls="lab-leakage" data-lab-target="leakage">
+                <span>02</span><strong>Leakage timeline</strong><small>Find future data</small>
+              </button>
+              <button class="lab-phase" type="button" role="tab" aria-selected="false" aria-controls="lab-pipeline" data-lab-target="pipeline">
+                <span>03</span><strong>Pipeline builder</strong><small>Protect the split</small>
+              </button>
+              <button class="lab-phase" type="button" role="tab" aria-selected="false" aria-controls="lab-model" data-lab-target="model">
+                <span>04</span><strong>Model ladder</strong><small>Earn complexity</small>
+              </button>
+              <button class="lab-phase" type="button" role="tab" aria-selected="false" aria-controls="lab-threshold" data-lab-target="threshold">
+                <span>05</span><strong>Decision threshold</strong><small>Translate error</small>
+              </button>
+              <button class="lab-phase" type="button" role="tab" aria-selected="false" aria-controls="lab-monitoring" data-lab-target="monitoring">
+                <span>06</span><strong>Monitoring loop</strong><small>Detect drift</small>
+              </button>
+            </div>
+          </aside>
+
+          <div class="lab-workbench">
+            <div class="lab-kicker">
+              <span id="lab-case-label">Customer churn</span>
+              <span class="lab-status" id="lab-status" role="status" aria-live="polite">Experiment ready</span>
+            </div>
+
+            <div class="lab-panel is-active" id="lab-decision" role="tabpanel" data-lab-panel="decision">
+              <div class="lab-panel-copy">
+                <p class="lab-step">01 / Business understanding</p>
+                <h3>Build a decision brief that can survive review.</h3>
+                <p>Change the metric or baseline. The generated brief and warning update immediately.</p>
+              </div>
+              <div class="lab-control-grid">
+                <label>
+                  <span>Primary metric</span>
+                  <select id="decision-metric">
+                    <option value="profit">Expected campaign profit</option>
+                    <option value="recall">Recall at contact capacity</option>
+                    <option value="accuracy">Overall accuracy</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Operational baseline</span>
+                  <select id="decision-baseline">
+                    <option value="capacity">Contact top 20% by tenure</option>
+                    <option value="all">Contact everyone</option>
+                    <option value="none">No campaign</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Most expensive error</span>
+                  <select id="decision-error">
+                    <option value="miss">Missing a likely churner</option>
+                    <option value="false">An unnecessary campaign offer</option>
+                    <option value="balanced">Both errors are comparable</option>
+                  </select>
+                </label>
+              </div>
+              <div class="lab-output" id="decision-output" aria-live="polite"></div>
+              <p class="lab-insight" id="decision-insight"></p>
+            </div>
+
+            <div class="lab-panel" id="lab-leakage" role="tabpanel" data-lab-panel="leakage" hidden>
+              <div class="lab-panel-copy">
+                <p class="lab-step">02 / Data understanding</p>
+                <h3>Place fields on the decision timeline.</h3>
+                <p>Fields created after the decision are unavailable. Put them into the feature set and the model starts seeing the future.</p>
+              </div>
+              <div class="leakage-timeline" aria-label="Prediction decision timeline">
+                <div><span>Event</span><strong>Customer cancels</strong></div>
+                <div class="timeline-line"><i></i><i></i><i></i></div>
+                <div><span>Decision</span><strong>Campaign starts</strong></div>
+                <div><span>Evidence</span><strong>Outcome observed</strong></div>
+              </div>
+              <div class="feature-list" id="feature-list"></div>
+              <div class="lab-output" id="leakage-output" aria-live="polite"></div>
+            </div>
+
+            <div class="lab-panel" id="lab-pipeline" role="tabpanel" data-lab-panel="pipeline" hidden>
+              <div class="lab-panel-copy">
+                <p class="lab-step">03 / Data preparation</p>
+                <h3>Move one boundary. Invalidate the score.</h3>
+                <p>A correct pipeline learns transformations from training data only. The leaky version fits them before the split.</p>
+              </div>
+              <div class="pipeline-switch" role="group" aria-label="Pipeline mode">
+                <button type="button" class="is-active" data-pipeline-mode="safe" aria-pressed="true">Correct boundary</button>
+                <button type="button" data-pipeline-mode="leaky" aria-pressed="false">Fit before split</button>
+              </div>
+              <div class="pipeline-track" id="pipeline-track"></div>
+              <div class="lab-output" id="pipeline-output" aria-live="polite"></div>
+            </div>
+
+            <div class="lab-panel" id="lab-model" role="tabpanel" data-lab-panel="model" hidden>
+              <div class="lab-panel-copy">
+                <p class="lab-step">04 / Modeling</p>
+                <h3>Climb a model ladder, not a model zoo.</h3>
+                <p>Compare one added capability at a time under the same split and metric.</p>
+              </div>
+              <div class="model-ladder" id="model-ladder"></div>
+              <div class="model-readout" id="model-readout" aria-live="polite"></div>
+            </div>
+
+            <div class="lab-panel" id="lab-threshold" role="tabpanel" data-lab-panel="threshold" hidden>
+              <div class="lab-panel-copy">
+                <p class="lab-step">05 / Evaluation</p>
+                <h3>Choose an operating point, not a leaderboard score.</h3>
+                <p>Move the threshold. Watch how a model metric becomes a business consequence.</p>
+              </div>
+              <label class="threshold-control">
+                <span>Classification threshold <strong id="threshold-value">0.40</strong></span>
+                <input id="threshold-range" type="range" min="0.1" max="0.9" value="0.4" step="0.05">
+              </label>
+              <div class="threshold-metrics" id="threshold-metrics"></div>
+              <div class="lab-output" id="threshold-output" aria-live="polite"></div>
+            </div>
+
+            <div class="lab-panel" id="lab-monitoring" role="tabpanel" data-lab-panel="monitoring" hidden>
+              <div class="lab-panel-copy">
+                <p class="lab-step">06 / Deployment</p>
+                <h3>Advance time until the model stops matching the world.</h3>
+                <p>Monitoring is useful only when a threshold triggers a named action and an owner.</p>
+              </div>
+              <label class="threshold-control">
+                <span>Months after launch <strong id="monitor-month">0</strong></span>
+                <input id="monitor-range" type="range" min="0" max="8" value="0" step="1">
+              </label>
+              <div class="monitor-grid" id="monitor-grid"></div>
+              <div class="lab-output" id="monitor-output" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="chapter lesson" id="business" aria-labelledby="business-title">
@@ -1523,7 +1699,7 @@ python -m http.server 8000
     </main>
   </div>
 
-  <script src="assets/data/results.js?v=20261030-1"></script>
-  <script src="assets/js/site.js?v=20261030-1"></script>
+  <script src="assets/data/results.js?v=20261124-lab"></script>
+  <script src="assets/js/site.js?v=20261124-lab"></script>
 </body>
 </html>

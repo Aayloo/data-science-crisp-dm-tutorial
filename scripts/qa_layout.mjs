@@ -248,8 +248,8 @@ try {
       if (metrics.h1Count !== 1) {
         throw new Error(`${label}: expected exactly one h1, found ${metrics.h1Count}`);
       }
-      if (page.kind === "tutorial" && metrics.sectionCount !== 9) {
-        throw new Error(`${label}: expected 9 tutorial sections, found ${metrics.sectionCount}`);
+      if (page.kind === "tutorial" && metrics.sectionCount !== 10) {
+        throw new Error(`${label}: expected 10 tutorial sections, found ${metrics.sectionCount}`);
       }
       if (
         page.kind === "tutorial" &&

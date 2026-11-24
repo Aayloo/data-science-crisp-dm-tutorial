@@ -27,6 +27,11 @@ demonstrate the process from question to evidence.
 - how to evaluate classification, regression, and time-series results;
 - how to package notebooks, tests, figures, and communication together.
 
+The **Workflow Lab** adds a hands-on layer to the course: frame a decision,
+place fields on a leakage timeline, compare safe and leaky preprocessing, climb
+a model ladder, choose a threshold and advance monitoring until drift triggers a
+named action. It augments the full teaching sections rather than replacing them.
+
 This is a teaching project. The synthetic datasets make the examples fast,
 portable, and reproducible; they are not evidence about real customers,
 property prices, or demand.
@@ -36,6 +41,7 @@ property prices, or demand.
 Every core lesson now includes:
 
 - a substantive explanation and an original concept diagram where useful;
+- a dependency-free interactive workflow lab with six manipulable experiments;
 - a worked code example;
 - a checkpoint;
 - an exercise with a hidden expected answer;
