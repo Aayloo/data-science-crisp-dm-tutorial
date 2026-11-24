@@ -2259,6 +2259,17 @@ code {
   transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
 }
 
+.workflow-node.is-active {
+  color: #102b31;
+  background: #b9eee8;
+  border-color: #e5fffb;
+  box-shadow: 0 0 0 5px rgba(158, 223, 215, 0.14), 0 16px 34px rgba(0, 0, 0, 0.25);
+}
+
+.workflow-node.is-active b {
+  color: #0b5f59;
+}
+
 .lab-phase:hover,
 .lab-phase.is-active {
   color: white;

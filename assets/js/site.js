@@ -326,6 +326,9 @@
         panel.hidden = !active;
         panel.classList.toggle("is-active", active);
       });
+      document.querySelectorAll("[data-workflow-node]").forEach((node) => {
+        node.classList.toggle("is-active", node.dataset.workflowNode === target);
+      });
       coreLabel.textContent = phaseNames[target];
       announce(`${phaseNames[target]} experiment ready`);
     }

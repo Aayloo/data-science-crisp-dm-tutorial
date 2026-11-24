@@ -23,7 +23,7 @@
   <meta name="twitter:description" content="A reproducible, hands-on guide from business question to evaluated data-science decision.">
   <meta name="twitter:image" content="https://aayloo.github.io/data-science-crisp-dm-tutorial/assets/img/tutorial-share.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261124-lab">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261124-lab2">
 </head>
 <body>
   <a class="skip-link" href="#course">Skip to course content</a>
@@ -109,8 +109,8 @@
             does not—support.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#business">Start the tutorial</a>
-            <a class="button button-secondary" href="#case-labs">Open case labs</a>
+            <a class="button button-primary" href="#workflow-lab">Open the workflow lab</a>
+            <a class="button button-secondary" href="#business">Read the six phases</a>
           </div>
           <div class="course-facts" aria-label="Course facts">
             <div><strong>6</strong><span>CRISP-DM phases</span></div>
@@ -288,12 +288,12 @@
                 <span>CRISP-DM</span>
                 <strong id="workflow-core-label">Decision</strong>
               </div>
-              <span class="workflow-node" style="--angle: 0deg"><b>01</b><em>Decision</em></span>
-              <span class="workflow-node" style="--angle: 60deg"><b>02</b><em>Data</em></span>
-              <span class="workflow-node" style="--angle: 120deg"><b>03</b><em>Prepare</em></span>
-              <span class="workflow-node" style="--angle: 180deg"><b>04</b><em>Model</em></span>
-              <span class="workflow-node" style="--angle: 240deg"><b>05</b><em>Evaluate</em></span>
-              <span class="workflow-node" style="--angle: 300deg"><b>06</b><em>Monitor</em></span>
+              <span class="workflow-node is-active" style="--angle: 0deg" data-workflow-node="decision"><b>01</b><em>Decision</em></span>
+              <span class="workflow-node" style="--angle: 60deg" data-workflow-node="leakage"><b>02</b><em>Data</em></span>
+              <span class="workflow-node" style="--angle: 120deg" data-workflow-node="pipeline"><b>03</b><em>Prepare</em></span>
+              <span class="workflow-node" style="--angle: 180deg" data-workflow-node="model"><b>04</b><em>Model</em></span>
+              <span class="workflow-node" style="--angle: 240deg" data-workflow-node="threshold"><b>05</b><em>Evaluate</em></span>
+              <span class="workflow-node" style="--angle: 300deg" data-workflow-node="monitoring"><b>06</b><em>Monitor</em></span>
             </div>
             <div class="lab-phase-list" role="tablist" aria-label="Interactive workflow phases">
               <button class="lab-phase is-active" type="button" role="tab" aria-selected="true" aria-controls="lab-decision" data-lab-target="decision">
@@ -1699,7 +1699,7 @@ python -m http.server 8000
     </main>
   </div>
 
-  <script src="assets/data/results.js?v=20261124-lab"></script>
-  <script src="assets/js/site.js?v=20261124-lab"></script>
+  <script src="assets/data/results.js?v=20261124-lab2"></script>
+  <script src="assets/js/site.js?v=20261124-lab2"></script>
 </body>
 </html>
